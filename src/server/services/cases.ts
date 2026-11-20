@@ -164,6 +164,18 @@ export async function addDocument(db: DB, ctx: AccessContext, caseId: string, in
     uploadedBy: ctx.actor.id,
   });
   await audit(db, { actor: ctx.actor, action: "document.uploaded", targetType: "case", targetId: caseId, detail: { documentId: id, kind: input.kind, sha256: sha, sizeBytes: buf.length }, tenantId: c.tenantId, requestId: ctx.requestId });
+  // Incomplete records: a VERIFIED signed QR may fill gaps (never overwrite) in the citizen profile.
+  if (check.qr.valid && !checks.reusedByAnotherApplicant) {
+    const [cz] = await db.select().from(citizens).where(eq(citizens.id, c.citizenId));
+    const fill: Record<string, string> = {};
+    if (cz && !cz.cnic && check.extracted.cnic) fill.cnic = check.extracted.cnic;
+    if (cz && !cz.dob && check.extracted.dob) fill.dob = check.extracted.dob;
+    if (cz && !cz.fatherName && check.extracted.fatherName) fill.fatherName = check.extracted.fatherName;
+    if (Object.keys(fill).length) {
+      await db.update(citizens).set(fill).where(eq(citizens.id, c.citizenId));
+      await audit(db, { actor: AI_ACTOR(c.tenantId), action: "citizen.gaps_filled_from_signed_document", targetType: "citizen", targetId: c.citizenId, detail: { fields: Object.keys(fill), documentId: id }, tenantId: c.tenantId });
+    }
+  }
   await audit(db, {
     actor: AI_ACTOR(c.tenantId),
     action: "document.checked",
@@ -563,12 +575,13 @@ export async function addPayoutApproval(db: DB, actor: Actor, payoutId: string) 
 
 /** Moves (mock) money. Humans only — any AI/agent attempt is refused and logged. */
 export async function releasePayout(db: DB, actor: Actor, payoutId: string) {
-  const [p] = await db.select().from(payouts).where(eq(payouts.id, payoutId));
-  if (!p) throw notFound("Payout");
+  // Guardrail first: no AI, agent, API key or citizen can move money — checked before anything else.
   if (actor.type !== "user" || !["officer", "admin"].includes(actor.role)) {
-    await audit(db, { actor, action: "payout.release", targetType: "payout", targetId: payoutId, outcome: "denied", detail: { code: "AI_CANNOT_INITIATE_PAYMENT" }, tenantId: p.tenantId });
+    await audit(db, { actor, action: "payout.release", targetType: "payout", targetId: payoutId, outcome: "denied", detail: { code: "AI_CANNOT_INITIATE_PAYMENT" }, tenantId: actor.tenantId });
     throw forbidden("AI_CANNOT_INITIATE_PAYMENT", "Only a human officer can release money. This attempt has been logged.");
   }
+  const [p] = await db.select().from(payouts).where(eq(payouts.id, payoutId));
+  if (!p) throw notFound("Payout");
   if (p.status === "released") return { payoutId, raastRef: p.raastRef, alreadyReleased: true };
   if (p.status !== "approved") throw conflict("NOT_APPROVED", `Payout needs ${p.requiredApprovals} approval(s); has ${p.approvals.length}.`);
   const tx = await raastTransfer(db, { payoutId, caseId: p.caseId, alias: p.alias, amount: p.amount, actorId: actor.id, tenantId: p.tenantId });
