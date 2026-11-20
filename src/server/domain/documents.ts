@@ -17,7 +17,7 @@ import { normalizeCnic, nameSimilarity } from "./names";
 import type { DocumentReading } from "../ai/claude";
 
 export type ImageQuality = { width: number; height: number; blurVariance: number; brightness: number; blurry: boolean; tooDark: boolean };
-export type QrCheck = { found: boolean; valid: boolean | null; payload: Record<string, unknown> | null; reason?: string };
+export type QrCheck = { found: boolean; valid: boolean | null; payload: Record<string, unknown> | null; reason?: string; rawText?: string };
 
 export type DocumentCheckResult = {
   quality: ImageQuality | null;
@@ -72,6 +72,30 @@ export async function imageQuality(buf: Buffer): Promise<ImageQuality | null> {
   }
 }
 
+/** 64-bit difference hash: 9×8 greyscale, compare horizontal neighbours. Robust to resize/recompress. */
+export async function dhash(buf: Buffer): Promise<string | null> {
+  try {
+    const px = await sharp(buf).rotate().greyscale().resize(9, 8, { fit: "fill" }).raw().toBuffer();
+    let bitsStr = "";
+    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) bitsStr += px[y * 9 + x]! > px[y * 9 + x + 1]! ? "1" : "0";
+    return BigInt("0b" + bitsStr).toString(16).padStart(16, "0");
+  } catch {
+    return null;
+  }
+}
+
+export function hamming(a: string, b: string): number {
+  let x = BigInt("0x" + a) ^ BigInt("0x" + b);
+  let n = 0;
+  while (x) {
+    n += Number(x & 1n);
+    x >>= 1n;
+  }
+  return n;
+}
+
+export const DHASH_REUSE_BITS = 6;
+
 export async function decodeQr(buf: Buffer): Promise<string | null> {
   try {
     const { data, info } = await sharp(buf).rotate().resize({ width: 1000, withoutEnlargement: true }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -85,6 +109,9 @@ export async function decodeQr(buf: Buffer): Promise<string | null> {
 export async function checkQr(db: DB, buf: Buffer): Promise<QrCheck> {
   const raw = await decodeQr(buf);
   if (!raw) return { found: false, valid: null, payload: null };
+  // A QR that is not an Asli-signed token (e.g. a bank or council QR) is "not checkable", not a forgery.
+  // Its text is still returned so the prompt-injection scan (S9) can read it.
+  if (!raw.startsWith("ASLI1.")) return { found: true, valid: null, payload: null, reason: "NOT_AN_ASLI_QR", rawText: raw.slice(0, 2000) };
   const v = await verifyToken(db, raw);
   if (!v.ok) return { found: true, valid: false, payload: v.payload ?? null, reason: v.reason };
   if (v.payload.typ !== "mock_cnic") return { found: true, valid: false, payload: v.payload, reason: "WRONG_TYPE" };

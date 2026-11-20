@@ -11,6 +11,10 @@ const fill = (s: string, v: Vars = {}) => s.replace(/\{(\w+)\}/g, (_, k) => Stri
 
 const M = {
   // ── decision lanes ──
+  "lane.auto": {
+    en: "Good news: your claim is provisionally approved for Rs {amount}. The money is reserved for you and will be sent after an officer's final check, after {coolHours} hours. If anything looks wrong, say so and we will stop it.",
+    ur: "خوشخبری: آپ کا دعویٰ {amount} روپے کے لیے عارضی طور پر منظور ہو گیا ہے۔ رقم آپ کے لیے محفوظ کر دی گئی ہے اور {coolHours} گھنٹے بعد افسر کی آخری جانچ کے بعد بھیجی جائے گی۔ اگر کچھ غلط لگے تو بتائیں، ہم اسے روک دیں گے۔",
+  },
   "lane.fast": {
     en: "Your papers look complete. An officer will confirm your payment soon. Nothing has been paid yet.",
     ur: "آپ کے کاغذات مکمل لگتے ہیں۔ ایک افسر جلد آپ کی ادائیگی کی تصدیق کرے گا۔ ابھی کوئی رقم ادا نہیں ہوئی۔",

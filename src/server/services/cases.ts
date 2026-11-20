@@ -15,6 +15,7 @@ import {
   consents,
   users,
   auditLog,
+  payoutAliasChanges,
   type CaseStatus,
 } from "../db/schema";
 import { newId } from "../lib/ids";
@@ -29,7 +30,8 @@ import { activeRuleSet } from "./rules";
 import { issueNotice, notifyUser, caseRef } from "./notices";
 import { emit, enqueueJob, registerJob } from "./events";
 import { grantConsent } from "./consent";
-import { checkDocument } from "../domain/documents";
+import { checkDocument, dhash } from "../domain/documents";
+import { runDecision } from "./decisionPipeline";
 import { readDocumentImage, type AiMeta } from "../ai/claude";
 import { caseSignals, urgencyAndKind } from "../ai/signals";
 import { matchIdentity, findDuplicateCandidates, normalizeCnic, normalizeName } from "../domain/names";
@@ -158,6 +160,7 @@ export async function addDocument(db: DB, ctx: AccessContext, caseId: string, in
     mime: input.mime,
     sizeBytes: buf.length,
     sha256: sha,
+    dhash: /^image\//.test(input.mime) ? await dhash(buf) : null,
     contentBase64: input.contentBase64,
     extracted: check.extracted,
     checks: checks as unknown as Record<string, unknown>,
@@ -227,235 +230,7 @@ export async function submitCase(db: DB, ctx: AccessContext, caseId: string) {
   return { caseId, consentReceipt, notice: notice ? { code: notice.code, spokenCode: notice.spokenCode, message: notice.message } : null, decision };
 }
 
-// ─────────────────────────── the decision run ───────────────────────────
-
-async function recentPaymentDays(db: DB, citizenId: string, excludeCaseId: string): Promise<number> {
-  const rows = await db
-    .select({ releasedAt: payouts.releasedAt })
-    .from(payouts)
-    .where(and(eq(payouts.citizenId, citizenId), eq(payouts.status, "released"), ne(payouts.caseId, excludeCaseId)))
-    .orderBy(desc(payouts.releasedAt))
-    .limit(1);
-  if (!rows[0]?.releasedAt) return 99999;
-  return Math.floor((Date.now() - rows[0].releasedAt.getTime()) / 864e5);
-}
-
-function ageFrom(dob: string | null | undefined): number | null {
-  if (!dob || !/^\d{4}-\d{2}-\d{2}$/.test(dob)) return null;
-  const d = new Date(dob + "T00:00:00Z");
-  const now = new Date();
-  let age = now.getUTCFullYear() - d.getUTCFullYear();
-  if (now.getUTCMonth() < d.getUTCMonth() || (now.getUTCMonth() === d.getUTCMonth() && now.getUTCDate() < d.getUTCDate())) age--;
-  return age;
-}
-
-export async function runDecision(db: DB, caseId: string, opts: { trigger: string; requestId?: string }) {
-  const c = await getCaseOr404(db, caseId);
-  const ai = AI_ACTOR(c.tenantId);
-  const ctx: AccessContext = { actor: ai, requestId: opts.requestId };
-  const [citizen] = await db.select().from(citizens).where(eq(citizens.id, c.citizenId));
-  const claim = c.claim as ClaimInput;
-  const docs = await db.select().from(documents).where(eq(documents.caseId, caseId));
-
-  // Evidence from mock DPI, via consent. A 403 here means consent is missing/withdrawn → hard stop.
-  let consentOk = true;
-  const missingScopes: string[] = [];
-  const guarded = async <T>(scope: string, fn: () => Promise<T>): Promise<T | null> => {
-    try {
-      return await fn();
-    } catch (e) {
-      if (e instanceof AppError && e.status === 403) {
-        consentOk = false;
-        missingScopes.push(scope);
-        return null;
-      }
-      throw e;
-    }
-  };
-  const registry = await guarded("identity.read", () => nadraLookup(db, ctx, c.citizenId));
-  const income = await guarded("income.read", () => incomeLookup(db, ctx, c.citizenId));
-
-  const docQr = docs.map((d) => (d.extracted ?? {}) as Record<string, unknown>).find((x) => x.cnic);
-  const identityClaim = {
-    fullName: claim.fullName ?? citizen!.fullName,
-    fatherName: claim.fatherName ?? citizen!.fatherName ?? (docQr?.fatherName as string | undefined) ?? null,
-    cnic: claim.cnic ?? citizen!.cnic ?? (docQr?.cnic as string | undefined) ?? null,
-    dob: claim.dob ?? citizen!.dob ?? (docQr?.dob as string | undefined) ?? null,
-  };
-  const identity = matchIdentity(identityClaim, registry ? { fullName: registry.fullName, fatherName: registry.fatherName, cnic: registry.cnic, dob: registry.dob } : null);
-
-  const documentEvidence: DocumentEvidence[] = docs.map((d) => {
-    const ch = (d.checks ?? {}) as { readable?: boolean; blurry?: boolean; qr?: { valid: boolean | null }; tamperScore?: number };
-    const ex = (d.extracted ?? {}) as { cnic?: string | null; fullName?: string | null };
-    const cnicMismatch = ex.cnic && identityClaim.cnic ? normalizeCnic(ex.cnic) !== normalizeCnic(identityClaim.cnic) : false;
-    return {
-      kind: d.kind,
-      readable: !!ch.readable,
-      blurry: !!ch.blurry,
-      qrValid: ch.qr?.valid ?? null,
-      tamperScore: ch.tamperScore ?? 0,
-      fieldsMatchClaim: cnicMismatch ? false : null,
-    };
-  });
-
-  const others = await db
-    .select()
-    .from(citizens)
-    .where(and(eq(citizens.tenantId, c.tenantId), ne(citizens.id, c.citizenId), or(eq(citizens.nameKey, citizen!.nameKey), identityClaim.cnic ? eq(citizens.cnic, identityClaim.cnic) : sql`false`)));
-  const nameish = await db.select().from(citizens).where(and(eq(citizens.tenantId, c.tenantId), ne(citizens.id, c.citizenId))).limit(2000);
-  const duplicates = findDuplicateCandidates({ id: citizen!.id, fullName: citizen!.fullName, fatherName: identityClaim.fatherName, cnic: identityClaim.cnic, dob: identityClaim.dob }, [...others, ...nameish.filter((o) => !others.some((x) => x.id === o.id))]);
-
-  const docIncome = docs.map((d) => (d.extracted as { monthlyIncome?: number | null } | null)?.monthlyIncome).find((x) => typeof x === "number") ?? null;
-  const facts: Facts = {
-    monthly_income: income?.monthlyIncome ?? docIncome ?? null,
-    household_size: income?.householdSize ?? claim.householdSize ?? null,
-    age: ageFrom(registry?.dob ?? identityClaim.dob),
-    marital_status: registry?.maritalStatus ?? claim.maritalStatus ?? null,
-    gender: registry?.gender ?? citizen!.gender ?? null,
-    district: registry?.district ?? citizen!.district ?? null,
-    alive: registry ? registry.alive : null,
-    has_valid_cnic: !!normalizeCnic(identityClaim.cnic),
-    recent_payment_days: await recentPaymentDays(db, c.citizenId, caseId),
-  };
-  const factSources: Record<string, string> = {
-    monthly_income: income ? "mock_income_registry" : docIncome !== null ? "document" : "missing",
-    household_size: income ? "mock_income_registry" : claim.householdSize ? "applicant_statement" : "missing",
-    age: registry ? "mock_nadra" : identityClaim.dob ? "applicant_statement" : "missing",
-    marital_status: registry ? "mock_nadra" : claim.maritalStatus ? "applicant_statement" : "missing",
-    alive: registry ? "mock_nadra" : "missing",
-    recent_payment_days: "payout_ledger",
-  };
-
-  const sig = await caseSignals({
-    documentsPresent: documentEvidence.some((d) => d.kind === "cnic" && d.readable) && documentEvidence.some((d) => d.kind === "income_proof" && d.readable),
-    incomeStated: claim.monthlyIncome ?? null,
-    incomeOnRecord: income?.monthlyIncome ?? null,
-    incomeOnDocument: docIncome,
-    nameVariants: [identityClaim.fullName, registry?.fullName, ...docs.map((d) => (d.extracted as { fullName?: string } | null)?.fullName)].filter((x): x is string => !!x),
-    dobValues: [identityClaim.dob, registry?.dob].filter((x): x is string => !!x),
-    householdSizes: [claim.householdSize, income?.householdSize].filter((x): x is number => typeof x === "number"),
-  });
-
-  const ruleSet = await activeRuleSet(db, c.tenantId);
-  const input: DecisionInput = {
-    ruleSet: { id: ruleSet.id, version: ruleSet.version, definition: ruleSet.definition },
-    facts,
-    factSources,
-    identity,
-    documents: documentEvidence,
-    duplicates,
-    consent: { ok: consentOk, missingScopes },
-    signals: sig.signals,
-    amountRequested: c.amountRequested,
-  };
-  const out = decide(input);
-  const urg = await urgencyAndKind([claim.statement ?? "", out.lane === "human" ? "needs human review" : ""].join(" "));
-  const priority = Math.round(
-    Math.min(100, (out.lane === "human" ? 40 : out.lane === "ask_proof" ? 20 : 10) + urg.urgency * 40 + (out.hardStops.length ? 15 : 0) + (1 - out.score) * 10),
-  );
-
-  const { ruleSet: _rs, ...inputWithoutRules } = input;
-  void _rs;
-  const trace = {
-    trigger: opts.trigger,
-    input: inputWithoutRules,
-    output: { ...out, userReason: undefined },
-    weights: { identity: 0.4, documents: 0.35, eligibilityEvidence: 0.25 },
-    thresholds: ruleSet.definition.thresholds,
-    fastLaneEnabled: ruleSet.definition.fastLaneEnabled,
-  };
-  const modelInfo = {
-    caseSignals: sig.meta,
-    urgency: urg.meta,
-    documentVision: docs.map((d) => (d.checks as { visionMeta?: unknown } | null)?.visionMeta ?? null),
-    decisionEngine: "asli-decision@1 (deterministic)",
-    identityMatcher: "asli-names@1 (deterministic)",
-  };
-  const decisionId = newId("dcs");
-  await db.insert(decisions).values({
-    id: decisionId,
-    caseId,
-    tenantId: c.tenantId,
-    ruleSetId: ruleSet.id,
-    ruleVersion: ruleSet.version,
-    lane: out.lane,
-    eligible: out.eligible,
-    score: out.score,
-    reasonCodes: out.reasonCodes,
-    hardStops: out.hardStops,
-    userReason: { en: out.userReason.en, ur: out.userReason.ur },
-    counterfactuals: out.counterfactuals,
-    trace,
-    modelInfo,
-    inputHash: sha256Hex(canonicalJson(inputWithoutRules)),
-  });
-
-  const th = ruleSet.definition.thresholds;
-  let status: CaseStatus = "in_review";
-  let proofDeadline: Date | null = null;
-  if (out.lane === "ask_proof") {
-    status = "needs_proof";
-    proofDeadline = new Date(Date.now() + th.proofDeadlineHours * 3600_000);
-  }
-  await db
-    .update(cases)
-    .set({ status, lane: out.lane, confidence: out.score, priority, proofRequested: out.lane === "ask_proof" ? out.proofItems : null, proofDeadline, updatedAt: new Date() })
-    .where(eq(cases.id, caseId));
-
-  if (out.lane === "human") {
-    await db.insert(caseNotes).values({
-      id: newId("nte"),
-      caseId,
-      authorType: "ai",
-      authorId: ai.id,
-      kind: "handoff",
-      body: `I am not sure — handing to a human. Reasons: ${[...out.hardStops, ...out.reasonCodes].join(", ")}. Evidence score ${out.score} (identity ${out.components.identity}, documents ${out.components.documents}, eligibility facts ${out.components.eligibilityEvidence}). Identity: ${identity.verdict}. ${duplicates.length ? `Possible duplicates: ${duplicates.map((d) => `${d.id} (${d.reason})`).join("; ")}.` : ""} ${out.eligible === false ? "Rule failed: " + out.ruleResults.filter((r) => r.result === "fail").map((r) => r.ruleId).join(", ") : ""}`.trim(),
-      data: { decisionId, hardStops: out.hardStops, reasonCodes: out.reasonCodes, identity, duplicates, missingScopes },
-    });
-  }
-  if (out.lane === "ask_proof") {
-    await db.insert(caseNotes).values({ id: newId("nte"), caseId, authorType: "ai", authorId: ai.id, kind: "proof_request", body: `Asked for: ${out.proofItems.join(", ")}. Deadline ${proofDeadline!.toISOString()}; escalates to a human if not supplied.`, data: { decisionId } });
-    await enqueueJob(db, "case.proof_deadline", { caseId, decisionId }, proofDeadline!);
-  }
-  const notice = await issueNotice(db, { tenantId: c.tenantId, caseId, citizenId: c.citizenId, type: out.lane === "ask_proof" ? "proof_requested" : "decision" });
-  await audit(db, {
-    actor: ai,
-    action: "decision.made",
-    targetType: "case",
-    targetId: caseId,
-    detail: { decisionId, lane: out.lane, score: out.score, eligible: out.eligible, ruleVersion: ruleSet.version, hardStops: out.hardStops, reasonCodes: out.reasonCodes, signalsSource: sig.meta.source },
-    tenantId: c.tenantId,
-    requestId: opts.requestId,
-  });
-  await emit(db, c.tenantId, out.lane === "ask_proof" ? "case.needs_proof" : "case.decided", { caseId, decisionId, lane: out.lane, ruleVersion: ruleSet.version });
-
-  return {
-    id: decisionId,
-    lane: out.lane,
-    status,
-    eligible: out.eligible,
-    score: out.score,
-    ruleVersion: ruleSet.version,
-    proofItems: out.proofItems,
-    proofDeadline,
-    userReason: out.userReason,
-    counterfactuals: out.counterfactuals,
-    reasonCodes: out.reasonCodes,
-    hardStops: out.hardStops,
-    benefitAmount: out.benefitAmount,
-    notice: { code: notice.code, spokenCode: notice.spokenCode },
-  };
-}
-
-registerJob("case.proof_deadline", async (db, payload) => {
-  const c = (await db.select().from(cases).where(eq(cases.id, String(payload.caseId))))[0];
-  if (!c || c.status !== "needs_proof") return; // proof arrived in time
-  const system: Actor = { type: "system", id: "deadline-timer", tenantId: c.tenantId, role: "system" };
-  await db.update(cases).set({ status: "in_review", lane: "human", priority: Math.max(c.priority, 60), updatedAt: new Date() }).where(eq(cases.id, c.id));
-  await db.insert(caseNotes).values({ id: newId("nte"), caseId: c.id, authorType: "system", authorId: system.id, kind: "handoff", body: "Proof deadline passed without the requested items. Escalated to a human — never auto-rejected.", data: { requested: c.proofRequested } });
-  await audit(db, { actor: system, action: "case.escalated", targetType: "case", targetId: c.id, detail: { reason: "PROOF_DEADLINE_PASSED" }, tenantId: c.tenantId });
-  await emit(db, c.tenantId, "case.escalated", { caseId: c.id, reason: "PROOF_DEADLINE_PASSED" });
-});
+export { runDecision } from "./decisionPipeline";
 
 // ─────────────────────────── officer actions ───────────────────────────
 
@@ -514,11 +289,17 @@ async function latestDecision(db: DB, caseId: string) {
   return d ?? null;
 }
 
-/** Officer approves the CLAIM. This creates a payout that still needs its approval count before any money moves. */
+/**
+ * Officer approves the CLAIM. Creates (or, for a provisionally approved case, joins) the payout.
+ * Money moves only when the approval count is met, the cooling-off window (if any) is over, and
+ * no payout-account change is pending.
+ */
 export async function approveCase(db: DB, actor: Actor, caseId: string, args: { amount?: number; note?: string }) {
   const c = await getCaseOr404(db, caseId);
   assertOfficer(actor, c.tenantId);
-  if (!["in_review", "submitted"].includes(c.status)) throw conflict("NOT_REVIEWABLE", `Case is ${c.status}`);
+  const [existing] = await db.select().from(payouts).where(eq(payouts.caseId, caseId));
+  const provisional = !!existing && ["reserved", "pending_approval"].includes(existing.status) && existing.provisional;
+  if (!provisional && !["in_review", "submitted"].includes(c.status)) throw conflict("NOT_REVIEWABLE", `Case is ${c.status}`);
   const d = await latestDecision(db, caseId);
   if (!d) throw conflict("NO_DECISION", "Run a decision first");
   if (c.type === "appeal" && c.parentCaseId) {
@@ -527,14 +308,25 @@ export async function approveCase(db: DB, actor: Actor, caseId: string, args: { 
   }
   const [citizen] = await db.select().from(citizens).where(eq(citizens.id, c.citizenId));
   if (!citizen?.payoutAlias) throw unprocessablePayout();
+  if (provisional && existing) {
+    // Join the provisional reservation made by the auto lane: add this officer's approval.
+    if (existing.approvals.some((ap) => ap.userId === actor.id)) throw forbidden("SAME_APPROVER", "You have already approved this payout.");
+    const approvals = [...existing.approvals, { userId: actor.id, at: new Date().toISOString() }];
+    const coolingOver = !existing.coolingOffUntil || existing.coolingOffUntil <= new Date();
+    const status = approvals.length >= existing.requiredApprovals && coolingOver ? "approved" : existing.status;
+    await db.update(payouts).set({ approvals, status, alias: citizen.payoutAlias }).where(eq(payouts.id, existing.id));
+    await audit(db, { actor, action: "case.approved", targetType: "case", targetId: caseId, detail: { payoutId: existing.id, provisional: true, approvals: approvals.length, required: existing.requiredApprovals, coolingOffUntil: existing.coolingOffUntil } });
+    const release = status === "approved" ? await releasePayout(db, actor, existing.id) : null;
+    const until = existing.coolingOffUntil ? existing.coolingOffUntil.toISOString() : "";
+    return { caseId, payoutId: existing.id, amount: existing.amount, requiredApprovals: existing.requiredApprovals, approvals: approvals.length, released: !!release, release, waitingFor: release ? null : !coolingOver ? `cooling-off until ${until}` : "second approver" };
+  }
   const rs = await activeRuleSet(db, c.tenantId);
   const benefit = (d.trace as { output?: { benefitAmount?: number } }).output?.benefitAmount ?? rs.definition.program.benefit.base;
   const amount = args.amount ?? benefit;
   if (amount <= 0 || amount > rs.definition.program.benefit.max) throw badRequest("INVALID_AMOUNT", `Amount must be between 1 and ${rs.definition.program.benefit.max}`);
   const required = amount > rs.definition.thresholds.secondApproverAbovePKR ? 2 : 1;
-  const payoutId = newId("pay");
-  await db.insert(payouts).values({
-    id: payoutId,
+  const payoutId = existing?.id ?? newId("pay");
+  const values = {
     tenantId: c.tenantId,
     caseId,
     citizenId: c.citizenId,
@@ -542,9 +334,16 @@ export async function approveCase(db: DB, actor: Actor, caseId: string, args: { 
     alias: citizen.payoutAlias,
     requiredApprovals: required,
     approvals: [{ userId: actor.id, at: new Date().toISOString() }],
-    status: required === 1 ? "approved" : "pending_approval",
+    status: (required === 1 ? "approved" : "pending_approval") as "approved" | "pending_approval",
+    provisional: false,
+    coolingOffUntil: null,
+    cancelledReason: null,
     createdBy: actor.id,
-  });
+  };
+  if (existing) {
+    if (existing.status === "released") throw conflict("ALREADY_PAID", "This case is already paid");
+    await db.update(payouts).set(values).where(eq(payouts.id, payoutId));
+  } else await db.insert(payouts).values({ id: payoutId, ...values });
   await db.update(cases).set({ status: "approved", updatedAt: new Date() }).where(eq(cases.id, caseId));
   if (args.note) await db.insert(caseNotes).values({ id: newId("nte"), caseId, authorType: "user", authorId: actor.id, kind: "note", body: args.note });
   await audit(db, { actor, action: "case.approved", targetType: "case", targetId: caseId, detail: { payoutId, amount, requiredApprovals: required, decisionId: d.id, aiLane: d.lane, overrideOfAi: d.lane === "human" ? "human-lane case approved by officer" : null }, tenantId: c.tenantId });
@@ -562,15 +361,17 @@ export async function addPayoutApproval(db: DB, actor: Actor, payoutId: string) 
   const [p] = await db.select().from(payouts).where(eq(payouts.id, payoutId));
   if (!p) throw notFound("Payout");
   assertOfficer(actor, p.tenantId);
-  if (p.status !== "pending_approval") throw conflict("NOT_PENDING", `Payout is ${p.status}`);
+  if (!["pending_approval", "reserved"].includes(p.status)) throw conflict("NOT_PENDING", `Payout is ${p.status}`);
   if (p.approvals.some((a) => a.userId === actor.id)) throw forbidden("SAME_APPROVER", "The second approval must come from a different officer.");
-  if (actor.type === "user" && !actor.canSecondApprove) throw forbidden("NOT_SECOND_APPROVER", "Your account is not allowed to give second approvals.");
+  if (p.approvals.length >= 1 && actor.type === "user" && !actor.canSecondApprove) throw forbidden("NOT_SECOND_APPROVER", "Your account is not allowed to give second approvals.");
   const approvals = [...p.approvals, { userId: actor.id, at: new Date().toISOString() }];
-  const status = approvals.length >= p.requiredApprovals ? "approved" : "pending_approval";
+  const coolingOver = !p.coolingOffUntil || p.coolingOffUntil <= new Date();
+  const status = approvals.length >= p.requiredApprovals && coolingOver ? "approved" : p.status;
   await db.update(payouts).set({ approvals, status }).where(eq(payouts.id, payoutId));
-  await audit(db, { actor, action: "payout.approved", targetType: "payout", targetId: payoutId, detail: { approvals: approvals.length, required: p.requiredApprovals }, tenantId: p.tenantId });
+  await audit(db, { actor, action: "payout.approved", targetType: "payout", targetId: payoutId, detail: { approvals: approvals.length, required: p.requiredApprovals, coolingOver }, tenantId: p.tenantId });
   if (status === "approved") return { payoutId, status: "released" as const, release: await releasePayout(db, actor, payoutId) };
-  return { payoutId, status, release: null };
+  const until = p.coolingOffUntil ? p.coolingOffUntil.toISOString() : "";
+  return { payoutId, status, release: null, waitingFor: !coolingOver ? `cooling-off until ${until}` : "more approvals" };
 }
 
 /** Moves (mock) money. Humans only — any AI/agent attempt is refused and logged. */
@@ -581,16 +382,37 @@ export async function releasePayout(db: DB, actor: Actor, payoutId: string) {
     throw forbidden("AI_CANNOT_INITIATE_PAYMENT", "Only a human officer can release money. This attempt has been logged.");
   }
   const [p] = await db.select().from(payouts).where(eq(payouts.id, payoutId));
-  if (!p) throw notFound("Payout");
+  if (!p || p.tenantId !== actor.tenantId) throw notFound("Payout");
   if (p.status === "released") return { payoutId, raastRef: p.raastRef, alreadyReleased: true };
+  if (p.coolingOffUntil && p.coolingOffUntil > new Date()) throw conflict("PAYOUT_IN_COOLING_OFF", `Provisional approval: money stays reserved until ${p.coolingOffUntil.toISOString()}.`);
   if (p.status !== "approved") throw conflict("NOT_APPROVED", `Payout needs ${p.requiredApprovals} approval(s); has ${p.approvals.length}.`);
+  // S10 at the last metre: never pay into an account that is being changed.
+  const pending = await db.select({ id: payoutAliasChanges.id }).from(payoutAliasChanges).where(and(eq(payoutAliasChanges.citizenId, p.citizenId), inArray(payoutAliasChanges.status, ["pending_officer", "cooling_off", "frozen"])));
+  if (pending.length) throw conflict("PAYOUT_ACCOUNT_CHANGE_PENDING", "A change to this person's payment account is pending or frozen. Resolve it before paying.");
+  const [cz] = await db.select({ alias: citizens.payoutAlias }).from(citizens).where(eq(citizens.id, p.citizenId));
+  if (cz?.alias && cz.alias !== p.alias) throw conflict("PAYOUT_ACCOUNT_CHANGED", "The payment account changed after approval. Re-approve.");
   const tx = await raastTransfer(db, { payoutId, caseId: p.caseId, alias: p.alias, amount: p.amount, actorId: actor.id, tenantId: p.tenantId });
   await db.update(payouts).set({ status: "released", raastRef: tx.ref, releasedAt: new Date() }).where(eq(payouts.id, payoutId));
   await db.update(cases).set({ status: "paid", updatedAt: new Date() }).where(eq(cases.id, p.caseId));
   const notice = await issueNotice(db, { tenantId: p.tenantId, caseId: p.caseId, citizenId: p.citizenId, type: "payment_released", amount: p.amount });
-  await audit(db, { actor, action: "payout.released", targetType: "payout", targetId: payoutId, detail: { amount: p.amount, raastRef: tx.ref, simulated: true, noticeId: notice.id }, tenantId: p.tenantId });
+  await audit(db, { actor, action: "payout.released", targetType: "payout", targetId: payoutId, detail: { amount: p.amount, raastRef: tx.ref, simulated: true, noticeId: notice.id, provisionalFirst: p.provisional }, tenantId: p.tenantId });
   await emit(db, p.tenantId, "payout.released", { payoutId, caseId: p.caseId, amount: p.amount });
   return { payoutId, raastRef: tx.ref, notice: { id: notice.id, code: notice.code, spokenCode: notice.spokenCode, token: notice.token, verifyUrl: notice.verifyUrl, message: notice.message } };
+}
+
+/** Citizen (own case) or officer cancels a provisional/pending payout before any money moves. */
+export async function cancelPayout(db: DB, actor: Actor, payoutId: string, reason: string) {
+  const [p] = await db.select().from(payouts).where(eq(payouts.id, payoutId));
+  if (!p) throw notFound("Payout");
+  const isOwner = actor.type === "user" && actor.role === "citizen" && actor.citizenId === p.citizenId;
+  const isOfficer = actor.type === "user" && ["officer", "admin"].includes(actor.role) && actor.tenantId === p.tenantId;
+  if (!isOwner && !isOfficer) throw notFound("Payout");
+  if (!["reserved", "pending_approval", "approved"].includes(p.status)) throw conflict("CANNOT_CANCEL", `Payout is ${p.status}`);
+  await db.update(payouts).set({ status: "cancelled", cancelledReason: reason }).where(eq(payouts.id, payoutId));
+  await db.update(cases).set({ status: "in_review", lane: "human", priority: 70, updatedAt: new Date() }).where(eq(cases.id, p.caseId));
+  await db.insert(caseNotes).values({ id: newId("nte"), caseId: p.caseId, authorType: "user", authorId: actor.id, kind: "handoff", body: `Payout cancelled before release by ${isOwner ? "the citizen" : "an officer"}: ${reason}` });
+  await audit(db, { actor, action: "payout.cancelled", targetType: "payout", targetId: payoutId, detail: { reason, wasProvisional: p.provisional, movedMoney: false }, tenantId: p.tenantId });
+  return { payoutId, status: "cancelled" as const, spoken: t("handoff.created") };
 }
 
 export async function rejectCase(db: DB, actor: Actor, caseId: string, reason: string) {

@@ -158,6 +158,13 @@ export function matchIdentity(claim: IdentityClaim, record: IdentityClaim | null
     evidence.push({ check: "cnic", result: "fail", detail: "CNIC not found in identity registry" });
     return { verdict: "no_record", score: 0, evidence };
   }
+  const recordCnic = normalizeCnic(record.cnic);
+  if (recordCnic && recordCnic !== cnic) {
+    // The record we are comparing against carries a DIFFERENT CNIC (e.g. a one-digit typo, or a
+    // record found by name search). Never "verified" on that basis — ask for proof instead.
+    evidence.push({ check: "cnic", result: "fail", detail: "CNIC on the claim differs from the registry record (possible typo)" });
+    return { verdict: "candidate", score: 0.3, evidence };
+  }
   evidence.push({ check: "cnic", result: "pass", detail: "CNIC found in identity registry" });
 
   const nameSim = claim.fullName ? nameSimilarity(claim.fullName, record.fullName ?? "") : null;
@@ -202,6 +209,67 @@ export function matchIdentity(claim: IdentityClaim, record: IdentityClaim | null
   // Name in the grey zone (e.g. a spelling variant we don't know): needs one more proof.
   if (supports >= 1) return { verdict: "probable", score: 0.6, evidence };
   return { verdict: "candidate", score: 0.4, evidence };
+}
+
+// ───────────── Fellegi–Sunter style record linkage (S3) ─────────────
+//
+// Each field contributes log2(m/u) bits when it agrees and log2((1−m)/(1−u)) when it disagrees,
+// where m = P(agree | same person) and u = P(agree | different people). Missing fields add 0.
+// Totals above UPPER are matches, below LOWER are non-matches, in between → human review.
+// If the top two candidates are within AMBIGUITY_BITS of each other → ambiguity stop (S3).
+// m/u values are prototype assumptions for Pakistani records (documented in docs/LIMITS.md).
+
+export const FS_FIELDS = {
+  cnic: { m: 0.98, u: 0.0001 },
+  name: { m: 0.9, u: 0.01, partialM: 0.08, partialU: 0.05 },
+  father: { m: 0.85, u: 0.02, partialM: 0.1, partialU: 0.05 },
+  dob: { m: 0.95, u: 0.003 },
+  gender: { m: 0.99, u: 0.5 },
+  district: { m: 0.9, u: 0.1 },
+} as const;
+export const FS_UPPER = 18;
+export const FS_LOWER = 6;
+export const AMBIGUITY_BITS = 2;
+
+const bits = (m: number, u: number) => Math.log2(m / u);
+
+export type FsRecord = { id: string; fullName?: string | null; fatherName?: string | null; cnic?: string | null; dob?: string | null; gender?: string | null; district?: string | null };
+export type FsScore = { id: string; bits: number; zone: "match" | "review" | "non_match"; fields: { field: string; agreement: "agree" | "partial" | "disagree" | "missing"; bits: number }[] };
+
+export function fsScore(a: FsRecord, b: FsRecord): FsScore {
+  const fields: FsScore["fields"] = [];
+  const add = (field: string, agreement: FsScore["fields"][number]["agreement"], w: number) => fields.push({ field, agreement, bits: Math.round(w * 100) / 100 });
+  const exact = (field: "cnic" | "dob" | "gender" | "district", x?: string | null, y?: string | null, norm: (s: string) => string = (s) => s.trim().toLowerCase()) => {
+    const p = FS_FIELDS[field];
+    if (!x || !y) return add(field, "missing", 0);
+    if (norm(x) === norm(y)) add(field, "agree", bits(p.m, p.u));
+    else add(field, "disagree", bits(1 - p.m, 1 - p.u));
+  };
+  const fuzzy = (field: "name" | "father", x?: string | null, y?: string | null) => {
+    const p = FS_FIELDS[field];
+    if (!x || !y) return add(field, "missing", 0);
+    const sim = nameSimilarity(x, y);
+    if (sim >= NAME_STRONG) add(field, "agree", bits(p.m, p.u));
+    else if (sim >= NAME_WEAK) add(field, "partial", bits(p.partialM, p.partialU));
+    else add(field, "disagree", bits(1 - p.m - p.partialM, 1 - p.u - p.partialU));
+  };
+  exact("cnic", normalizeCnic(a.cnic), normalizeCnic(b.cnic));
+  fuzzy("name", a.fullName, b.fullName);
+  fuzzy("father", a.fatherName, b.fatherName);
+  exact("dob", a.dob, b.dob);
+  exact("gender", a.gender, b.gender);
+  exact("district", a.district, b.district);
+  const total = Math.round(fields.reduce((s, f) => s + f.bits, 0) * 100) / 100;
+  return { id: b.id, bits: total, zone: total >= FS_UPPER ? "match" : total < FS_LOWER ? "non_match" : "review", fields };
+}
+
+/** Rank registry candidates for a claim. `ambiguous` = top two within AMBIGUITY_BITS and both above LOWER. */
+export function fsCandidates(claim: FsRecord, records: FsRecord[], limit = 5) {
+  const ranked = records.map((r) => fsScore(claim, r)).sort((x, y) => y.bits - x.bits);
+  const top = ranked[0];
+  const second = ranked[1];
+  const ambiguous = !!top && !!second && top.bits >= FS_LOWER && second.bits >= FS_LOWER && top.bits - second.bits < AMBIGUITY_BITS;
+  return { candidates: ranked.slice(0, limit), best: top ?? null, ambiguous, thresholds: { upper: FS_UPPER, lower: FS_LOWER, ambiguityBits: AMBIGUITY_BITS } };
 }
 
 export type DuplicateCandidate = { id: string; reason: string; nameSimilarity: number };

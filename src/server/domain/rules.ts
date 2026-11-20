@@ -61,13 +61,51 @@ export const ruleSetDefinitionSchema = z.object({
   }),
   hardStops: z
     .object({
-      identityConflict: z.boolean().default(true),
-      forgerySignal: z.boolean().default(true),
-      duplicateSuspected: z.boolean().default(true),
-      deceasedInRegistry: z.boolean().default(true),
-      consentMissing: z.boolean().default(true),
+      identityConflict: z.boolean().default(true), // S1 + S2
+      identityAmbiguous: z.boolean().default(true), // S3
+      duplicateSuspected: z.boolean().default(true), // S4
+      deceasedInRegistry: z.boolean().default(true), // S5
+      consentMissing: z.boolean().default(true), // S6
+      forgerySignal: z.boolean().default(true), // S7
+      documentReused: z.boolean().default(true), // S8
+      promptInjection: z.boolean().default(true), // S9
+      payoutAccountChanged: z.boolean().default(true), // S10
+      payoutAccountShared: z.boolean().default(true), // S11
+      registryUnavailable: z.boolean().default(true), // S12
     })
-    .default({ identityConflict: true, forgerySignal: true, duplicateSuspected: true, deceasedInRegistry: true, consentMissing: true }),
+    .default({
+      identityConflict: true,
+      identityAmbiguous: true,
+      duplicateSuspected: true,
+      deceasedInRegistry: true,
+      consentMissing: true,
+      forgerySignal: true,
+      documentReused: true,
+      promptInjection: true,
+      payoutAccountChanged: true,
+      payoutAccountShared: true,
+      registryUnavailable: true,
+    }),
+  /** Prototype cost assumptions used to DERIVE the auto-approve threshold (labelled as assumptions). */
+  costs: z
+    .object({ wrongApprovalPKR: z.number().positive(), officerReviewPKR: z.number().nonnegative(), delayPKR: z.number().nonnegative() })
+    .default({ wrongApprovalPKR: 50_000, officerReviewPKR: 500, delayPKR: 2_000 }),
+  /**
+   * Provisional auto-approval: the AI may APPROVE a claim alone, but money is only RESERVED.
+   * During the cooling-off window the citizen is told, and the citizen or an officer can cancel.
+   * Release still needs a human. Threshold = max(floor, (W − R) / (W + D)) on the CALIBRATED score.
+   */
+  autoApprove: z
+    .object({
+      enabled: z.boolean().default(true),
+      floor: z.number().min(0.5).max(1).default(0.9),
+      minCalibratedP: z.number().min(0).max(1).optional().describe("Override; otherwise derived from costs"),
+      maxAmountPKR: z.number().int().positive().default(15_000),
+      coolingOffHours: z.number().int().min(1).max(168).default(24),
+    })
+    .default({ enabled: true, floor: 0.9, maxAmountPKR: 15_000, coolingOffHours: 24 }),
+  /** Calibrated score below which even a high evidence score cannot enter the fast lane. */
+  fastLaneMinCalibratedP: z.number().min(0).max(1).default(0.8),
   /** Kill switch: when false every case goes to a human (also flipped automatically by the drift guard). */
   fastLaneEnabled: z.boolean().default(true),
 });
@@ -195,3 +233,13 @@ export const DEFAULT_RULESET: RuleSetDefinition = ruleSetDefinitionSchema.parse(
   thresholds: { fastLaneMinScore: 0.85, askProofMinScore: 0.55, secondApproverAbovePKR: 10000, proofDeadlineHours: 72, uncertainBand: [0.35, 0.65] },
   fastLaneEnabled: true,
 });
+
+/** Threshold for provisional auto-approval derived from the cost assumptions:
+ *  approve alone when (1 − p)·W < R + p·D  ⇔  p > (W − R) / (W + D); never below the floor. */
+export function autoApproveThreshold(def: RuleSetDefinition): { threshold: number; derived: number; floor: number; formula: string } {
+  const { wrongApprovalPKR: W, officerReviewPKR: R, delayPKR: D } = def.costs;
+  const derived = Math.round(((W - R) / (W + D)) * 1000) / 1000;
+  const floor = def.autoApprove.floor;
+  const threshold = def.autoApprove.minCalibratedP ?? Math.max(floor, derived);
+  return { threshold, derived, floor, formula: `(W − R) / (W + D) = (${W} − ${R}) / (${W} + ${D}) = ${derived}` };
+}

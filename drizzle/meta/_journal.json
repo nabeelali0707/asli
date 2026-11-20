@@ -8,6 +8,27 @@
       "when": 1795209898830,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795212702646,
+      "tag": "0001_round3",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795212711039,
+      "tag": "0002_audit_trigger",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795213168974,
+      "tag": "0003_payouts_provisional",
+      "breakpoints": true
     }
   ]
 }

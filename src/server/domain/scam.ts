@@ -21,12 +21,20 @@ export type ScamFeatures = {
   matchedPatterns: string[];
 };
 
+// A fee REQUEST (pay / send / deposit money) — not merely the word "fee" (a school-fee reminder is benign).
 const FEE = [
-  /processing\s*fee/i, /registration\s*fee/i, /\bfee\b/i, /\bfees\b/i, /service\s*charge/i, /\bcharges?\b/i,
-  /jama\s*kar/i, /jama\s*karwa/i, /bhej\s*(do|dein|den|dain)/i, /send\s+rs/i, /pay\s+rs/i, /easypaisa/i, /jazz\s*cash/i,
-  /فیس/, /جمع\s*کر/, /رقم\s*بھیج/, /چارجز/,
+  /processing\s*fee/i, /registration\s*fee/i, /activation\s*fee/i, /service\s*charges?/i, /sms\s*charges/i,
+  /(pay|send|deposit|transfer)\b[^.]{0,30}\b(fee|charges?)\b/i, /\b(fee|charges?)\b[^.]{0,30}\b(bhej|jama|transfer)/i,
+  /jama\s*kar/i, /(fee|fees|charges?|rupay)[^.]{0,20}bhej(ein|en|o|do|dein)/i,
+  /فیس[^۔]{0,30}(کریں|بھیج|جمع|دیں)/, /جمع\s*کر/, /رقم\s*بھیج/, /چارجز/,
 ];
-const OTP = [/\botp\b/i, /\bpin\b/i, /verification\s*code/i, /code\s*(bata|batayen|bhej|share)/i, /password/i, /کوڈ\s*بتا/, /پن\s*کوڈ/, /او\s*ٹی\s*پی/];
+// Asking someone to SHARE a secret — not an OTP delivered with "do not share it".
+const OTP = [
+  /(share|send|tell|give|confirm|provide)\b[^.]{0,40}\b(otp|pin|password|verification\s*code|code)\b/i,
+  /\b(otp|pin|code)\b[^.]{0,20}\b(bata|batayen|bhej|share|dein|den)\b/i,
+  /کوڈ\s*بتا/, /پن\s*کوڈ/, /او\s*ٹی\s*پی/,
+];
+const NEGATED_SECRET = /(do\s*not|don'?t|never)\s+share/i;
 const CALL = [/whatsapp/i, /call\s+(us|now|this)/i, /contact\s+(us|on)/i, /rabta/i, /رابطہ/, /واٹس\s*ایپ/];
 const URGENT = [/today\s+only/i, /within\s+\d+\s*(hours?|hrs?)/i, /urgent/i, /last\s+chance/i, /foran/i, /jaldi/i, /فوری/, /آج\s*ہی/, /expire/i, /band\s+ho\s+jaye/i];
 const GOV = [/\bbisp\b/i, /benazir/i, /ehsaas/i, /government/i, /hukumat/i, /\bgovt\b/i, /pm\s+relief/i, /relief/i, /rahat/i, /بینظیر/, /احساس/, /حکومت/, /امداد/, /راحت/];
@@ -61,7 +69,7 @@ export function extractScamFeatures(text: string, sender?: string | null): ScamF
     links,
     phoneNumbers,
     asksForFee: test(FEE, normalized, "fee", hits),
-    asksForOtpOrPin: test(OTP, normalized, "otp", hits),
+    asksForOtpOrPin: test(OTP, normalized, "otp", hits) && !NEGATED_SECRET.test(normalized),
     asksToCallOrWhatsapp: test(CALL, normalized, "call", hits) || phoneNumbers.length > 0,
     urgency: test(URGENT, normalized, "urgency", hits),
     claimsGovernment: test(GOV, normalized, "gov", hits),
@@ -87,13 +95,20 @@ export function heuristicScamClassify(f: ScamFeatures): { probabilities: Record<
     phishing_link: 0.02,
     unrelated: 0.2,
   };
-  if (f.claimsPayment || f.claimsGovernment) {
+  if (f.claimsGovernment) {
+    // Only a message that invokes a government / relief programme can be a RELIEF scam.
     score.relief_scam += 0.35;
     score.genuine_notice += 0.25;
     score.unrelated = 0.05;
+  } else if (f.claimsPayment) {
+    // Bills, fees, family transfers: mentions money, but no relief context → mostly unrelated.
+    score.unrelated += 0.2;
+    score.relief_scam += 0.05;
   }
-  if (f.asksForFee) score.fee_request += 1.2;
-  if (f.asksForOtpOrPin) score.fee_request += 0.9;
+  // A fee/OTP request is near-certain fraud only in a relief / government / payment-claim context.
+  const reliefContext = f.claimsGovernment || f.amounts.some((a) => a >= 5000) || f.matchedPatterns.some((m) => m.startsWith("gov"));
+  if (f.asksForFee) score.fee_request += reliefContext ? 1.2 : 0.15;
+  if (f.asksForOtpOrPin) score.fee_request += reliefContext ? 0.9 : 0.3;
   if (f.shortLink || (f.links.length && !f.links.every((l) => /asli/i.test(l)))) score.phishing_link += 0.6;
   if (f.asksToCallOrWhatsapp) score.relief_scam += 0.3;
   if (f.urgency) score.relief_scam += 0.25;

@@ -90,7 +90,9 @@ describe("decision engine: three lanes, never a payout", () => {
   it("classifier probability in the uncertainty band blocks the fast lane", () => {
     const d = decide(baseInput({ signals: [{ question: "income_matches_claim", probability: 0.5, source: "jev" }] }));
     expect(d.lane).toBe("human");
-    expect(d.reasonCodes).toContain("CLASSIFIER_UNCERTAIN");
+    expect(d.policyLane).toBe("fast");
+    expect(d.reasonCodes).toContain("ADVISORY_ESCALATION");
+    expect(d.modelAdjustments[0]!.to).toBe("human");
   });
   it("kill switch sends would-be fast cases to humans", () => {
     const d = decide({ ...baseInput(), ruleSet: { id: "t", version: 2, definition: { ...DEFAULT_RULESET, fastLaneEnabled: false } } });

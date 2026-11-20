@@ -71,7 +71,7 @@ export async function classifyMessage(text: string, sender?: string | null): Pro
   return {
     category: h.category,
     probabilities: h.probabilities,
-    asksForFeeOrCode: features.asksForFee || features.asksForOtpOrPin ? 0.95 : 0.05,
+    asksForFeeOrCode: features.asksForFee || features.asksForOtpOrPin ? (features.claimsGovernment || features.amounts.some((a) => a >= 5000) ? 0.95 : 0.5) : 0.05,
     impersonatesGovernment: features.claimsGovernment ? 0.8 : 0.1,
     confidence: h.confidence,
     features,

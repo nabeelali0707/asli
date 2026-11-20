@@ -38,7 +38,7 @@ export const CASE_STATUSES = [
 ] as const;
 export type CaseStatus = (typeof CASE_STATUSES)[number];
 
-export const LANES = ["fast", "ask_proof", "human"] as const;
+export const LANES = ["auto", "fast", "ask_proof", "human"] as const;
 export type Lane = (typeof LANES)[number];
 
 // ───────────────────────── tenancy & users ─────────────────────────
@@ -214,6 +214,7 @@ export const documents = pgTable(
     mime: text("mime").notNull(),
     sizeBytes: integer("size_bytes").notNull(),
     sha256: text("sha256").notNull(),
+    dhash: text("dhash"), // 64-bit perceptual difference hash (hex) for near-duplicate image detection
     contentBase64: text("content_base64").notNull(),
     extracted: jsonb("extracted").$type<Record<string, unknown>>(),
     checks: jsonb("checks").$type<Record<string, unknown>>(),
@@ -260,12 +261,16 @@ export const payouts = pgTable(
     amount: integer("amount").notNull(),
     alias: text("alias").notNull(),
     status: text("status")
-      .$type<"pending_approval" | "approved" | "released" | "failed" | "rejected">()
+      .$type<"reserved" | "pending_approval" | "approved" | "released" | "failed" | "rejected" | "cancelled">()
       .notNull()
       .default("pending_approval"),
     requiredApprovals: integer("required_approvals").notNull(),
     approvals: jsonb("approvals").$type<{ userId: string; at: string }[]>().notNull().default([]),
     raastRef: text("raast_ref"),
+    /** Provisional auto-approval: money is only reserved until this time; citizen/officer can cancel. */
+    provisional: boolean("provisional").notNull().default(false),
+    coolingOffUntil: timestamp("cooling_off_until", { withTimezone: true, mode: "date" }),
+    cancelledReason: text("cancelled_reason"),
     createdBy: text("created_by").notNull(),
     createdAt: createdAt(),
     releasedAt: ts("released_at"),
@@ -340,6 +345,7 @@ export const auditLog = pgTable(
   "audit_log",
   {
     seq: bigserial("seq", { mode: "number" }).primaryKey(),
+    chainIndex: integer("chain_index").notNull().default(0), // contiguous 1..N, set by the DB trigger
     tenantId: text("tenant_id"),
     at: ts("at").notNull().defaultNow(),
     actorType: text("actor_type").$type<"user" | "ai" | "agent" | "system" | "api_key">().notNull(),
@@ -516,3 +522,99 @@ export const mockRaastLedger = pgTable(
   },
   (t) => [uniqueIndex("mock_raast_payout_uq").on(t.payoutId)],
 );
+
+// ───────────────────────── round 3 additions ─────────────────────────
+
+/** Time-boxed officer access to full identity fields, with a reason the citizen can see. */
+export const breakGlassGrants = pgTable("break_glass_grants", {
+  id: text("id").primaryKey(),
+  tenantId: text("tenant_id").notNull(),
+  officerId: text("officer_id").notNull(),
+  citizenId: text("citizen_id").notNull(),
+  reason: text("reason").notNull(),
+  expiresAt: ts("expires_at").notNull(),
+  createdAt: createdAt(),
+});
+
+/** Every AI judgement (scam verdicts, routing, triage, policy answers, extraction, case decisions):
+ *  stored input + output, a citizen view and an auditor view, so it can be explained and replayed. */
+export const aiDecisions = pgTable(
+  "ai_decisions",
+  {
+    id: text("id").primaryKey(),
+    tenantId: text("tenant_id"),
+    kind: text("kind").notNull(),
+    subjectType: text("subject_type"),
+    subjectId: text("subject_id"),
+    citizenId: text("citizen_id"),
+    input: jsonb("input").notNull(),
+    output: jsonb("output").notNull(),
+    citizenView: jsonb("citizen_view").notNull(),
+    auditorView: jsonb("auditor_view").notNull(),
+    model: jsonb("model").notNull(),
+    inputHash: text("input_hash").notNull(),
+    replayOf: text("replay_of"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("ai_decisions_subject_idx").on(t.subjectType, t.subjectId), index("ai_decisions_kind_idx").on(t.kind)],
+);
+
+/** Durable, resumable pipeline runs (decision pipeline): each step persisted with attempts and timing. */
+export const pipelineRuns = pgTable(
+  "pipeline_runs",
+  {
+    id: text("id").primaryKey(),
+    tenantId: text("tenant_id").notNull(),
+    caseId: text("case_id").notNull(),
+    kind: text("kind").notNull(),
+    status: text("status").$type<"running" | "done" | "failed" | "halted">().notNull(),
+    trigger: text("trigger").notNull(),
+    steps: jsonb("steps").$type<{ name: string; status: string; attempts: number; ms: number; error?: string; at: string }[]>().notNull().default([]),
+    state: jsonb("state").$type<Record<string, unknown>>().notNull().default({}),
+    error: text("error"),
+    createdAt: createdAt(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [index("pipeline_runs_case_idx").on(t.caseId), index("pipeline_runs_status_idx").on(t.status)],
+);
+
+/** Payout-account (Raast alias) changes: PIN + officer approval + cooling-off + notice to the old number. */
+export const payoutAliasChanges = pgTable("payout_alias_changes", {
+  id: text("id").primaryKey(),
+  tenantId: text("tenant_id").notNull(),
+  citizenId: text("citizen_id").notNull(),
+  oldAlias: text("old_alias"),
+  newAlias: text("new_alias").notNull(),
+  requestedBy: text("requested_by").notNull(),
+  status: text("status").$type<"pending_officer" | "cooling_off" | "applied" | "rejected" | "frozen">().notNull(),
+  approvedBy: text("approved_by"),
+  effectiveAt: ts("effective_at"),
+  frozenAt: ts("frozen_at"),
+  frozenVia: text("frozen_via"),
+  createdAt: createdAt(),
+});
+
+/** Citizen confirms the exact amount that arrived ("received less" opens a complaint). */
+export const payoutReceipts = pgTable("payout_receipts", {
+  id: text("id").primaryKey(),
+  tenantId: text("tenant_id").notNull(),
+  payoutId: text("payout_id").notNull(),
+  citizenId: text("citizen_id").notNull(),
+  expectedAmount: integer("expected_amount").notNull(),
+  confirmedAmount: integer("confirmed_amount"),
+  status: text("status").$type<"received_full" | "received_less" | "not_received">().notNull(),
+  via: text("via").notNull(),
+  complaintCaseId: text("complaint_case_id"),
+  createdAt: createdAt(),
+});
+
+/** Versioned calibrated evidence model (logistic regression + isotonic), trained on frozen synthetic data. */
+export const scoringModels = pgTable("scoring_models", {
+  id: text("id").primaryKey(),
+  version: integer("version").notNull(),
+  model: jsonb("model").notNull(),
+  metrics: jsonb("metrics").notNull(),
+  datasetHash: text("dataset_hash").notNull(),
+  active: boolean("active").notNull().default(false),
+  createdAt: createdAt(),
+});
