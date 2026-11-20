@@ -88,8 +88,14 @@ export const ruleSetDefinitionSchema = z.object({
     }),
   /** Prototype cost assumptions used to DERIVE the auto-approve threshold (labelled as assumptions). */
   costs: z
-    .object({ wrongApprovalPKR: z.number().positive(), officerReviewPKR: z.number().nonnegative(), delayPKR: z.number().nonnegative() })
-    .default({ wrongApprovalPKR: 50_000, officerReviewPKR: 500, delayPKR: 2_000 }),
+    .object({
+      wrongApprovalPKR: z.number().positive(),
+      officerReviewPKR: z.number().nonnegative(),
+      delayPKR: z.number().nonnegative(),
+      /** Share of wrong PROVISIONAL approvals NOT caught during cooling-off + human release (assumption). */
+      provisionalMissRate: z.number().min(0).max(1).default(0.25),
+    })
+    .default({ wrongApprovalPKR: 50_000, officerReviewPKR: 500, delayPKR: 2_000, provisionalMissRate: 0.25 }),
   /**
    * Provisional auto-approval: the AI may APPROVE a claim alone, but money is only RESERVED.
    * During the cooling-off window the citizen is told, and the citizen or an officer can cancel.
@@ -234,12 +240,16 @@ export const DEFAULT_RULESET: RuleSetDefinition = ruleSetDefinitionSchema.parse(
   fastLaneEnabled: true,
 });
 
-/** Threshold for provisional auto-approval derived from the cost assumptions:
- *  approve alone when (1 − p)·W < R + p·D  ⇔  p > (W − R) / (W + D); never below the floor. */
+/** Threshold for provisional auto-approval derived from the cost assumptions.
+ *  A wrong PROVISIONAL approval only becomes a loss if the cooling-off and the human release both miss it:
+ *  expected loss = W·m (m = provisionalMissRate). Approve alone when (1 − p)·W·m < R + p·D
+ *  ⇔ p > (W·m − R) / (W·m + D); never below the floor. */
 export function autoApproveThreshold(def: RuleSetDefinition): { threshold: number; derived: number; floor: number; formula: string } {
   const { wrongApprovalPKR: W, officerReviewPKR: R, delayPKR: D } = def.costs;
-  const derived = Math.round(((W - R) / (W + D)) * 1000) / 1000;
+  const m = def.costs.provisionalMissRate ?? 0.25;
+  const Wm = W * m;
+  const derived = Math.max(0, Math.round(((Wm - R) / (Wm + D)) * 1000) / 1000);
   const floor = def.autoApprove.floor;
   const threshold = def.autoApprove.minCalibratedP ?? Math.max(floor, derived);
-  return { threshold, derived, floor, formula: `(W − R) / (W + D) = (${W} − ${R}) / (${W} + ${D}) = ${derived}` };
+  return { threshold, derived, floor, formula: `max(floor ${floor}, (W·m − R)/(W·m + D) = (${W}·${m} − ${R})/(${W}·${m} + ${D}) = ${derived})` };
 }

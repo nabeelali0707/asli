@@ -5,9 +5,10 @@
  * Callers are identified by phone number only for READ-ONLY status; nothing is changed by IVR
  * except opening a callback request.
  */
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import type { DB } from "../db/client";
-import { ivrSessions, citizens, cases, notices, caseNotes } from "../db/schema";
+import { ivrSessions, citizens, cases, notices, caseNotes, payouts } from "../db/schema";
+import { freezePayoutAccountChange, confirmReceipt } from "./lastmile";
 import { newId } from "../lib/ids";
 import { t, STATUS_WORDS, type Spoken } from "../lib/i18n";
 import { audit } from "../lib/audit";
@@ -25,8 +26,9 @@ function normPhone(p: string) {
 export async function ivrStart(db: DB, phone: string): Promise<IvrReply> {
   const id = newId("ivr");
   const p = normPhone(phone);
-  const all = await db.select({ id: citizens.id, phone: citizens.phone, tenantId: citizens.tenantId }).from(citizens);
-  const match = all.find((c) => c.phone && normPhone(c.phone) === p);
+  const all = await db.select({ id: citizens.id, phone: citizens.phone, alias: citizens.payoutAlias, tenantId: citizens.tenantId }).from(citizens);
+  // Match the caller's number to the person's phone OR their (old) payout wallet number.
+  const match = all.find((c) => (c.phone && normPhone(c.phone) === p) || (c.alias && normPhone(c.alias) === p));
   await db.insert(ivrSessions).values({ id, phone: p, citizenId: match?.id ?? null, state: "menu" });
   await audit(db, { actor: { type: "system", id: "ivr", tenantId: match?.tenantId ?? null, role: "system" }, action: "ivr.call_started", targetType: "citizen", targetId: match?.id, detail: { known: !!match } });
   return { sessionId: id, state: "menu", prompt: t("ivr.welcome"), expect: "digit", ended: false };
@@ -40,6 +42,23 @@ export async function ivrInput(db: DB, sessionId: string, digits: string): Promi
   const sys = { type: "system" as const, id: "ivr", tenantId: null, role: "system" as const };
 
   if (s.state === "menu") {
+    if (digits === "9") {
+      await set("ended");
+      if (!s.citizenId) return reply("ended", t("ivr.callback"), "none", true);
+      try {
+        const r = await freezePayoutAccountChange(db, { type: "system", id: "ivr", tenantId: null, role: "system" }, { citizenId: s.citizenId, via: "ivr" });
+        return reply("ended", r.spoken, "none", true);
+      } catch {
+        return reply("ended", t("ivr.callback"), "none", true);
+      }
+    }
+    if (digits === "4") {
+      if (!s.citizenId) return reply("menu", t("ivr.no_case"), "digit");
+      const [p] = await db.select().from(payouts).where(and(eq(payouts.citizenId, s.citizenId), eq(payouts.status, "released"))).orderBy(desc(payouts.releasedAt)).limit(1);
+      if (!p) return reply("menu", t("ivr.no_case"), "digit");
+      await set("receipt", { payoutId: p.id });
+      return reply("receipt", t("receipt.ask", { amount: p.amount }), "digit");
+    }
     if (digits === "1") {
       if (!s.citizenId) return reply("menu", t("ivr.no_case"), "digit");
       const [c] = await db.select().from(cases).where(eq(cases.citizenId, s.citizenId)).orderBy(desc(cases.createdAt)).limit(1);
@@ -74,6 +93,24 @@ export async function ivrInput(db: DB, sessionId: string, digits: string): Promi
     return reply("menu", t("ivr.welcome"), "digit");
   }
 
+  if (s.state === "receipt") {
+    const payoutId = String((s.data as { payoutId?: string }).payoutId ?? "");
+    const status = digits === "1" ? "received_full" : digits === "3" ? "not_received" : digits === "2" ? "received_less" : null;
+    if (!status) return reply("receipt", t("receipt.ask", { amount: "" }), "digit");
+    if (status === "received_less") {
+      await set("receipt_amount", { payoutId });
+      return reply("receipt_amount", { en: "Please type the amount you received, then press hash.", ur: "براہ کرم ملنے والی رقم درج کریں، پھر ہیش دبائیں۔", audioKey: "ivr.enter_amount" }, "digits");
+    }
+    await set("ended");
+    const r = await confirmReceipt(db, null, payoutId, { status, via: "ivr", ivrCitizenId: s.citizenId ?? undefined });
+    return reply("ended", r.spoken, "none", true);
+  }
+  if (s.state === "receipt_amount") {
+    const payoutId = String((s.data as { payoutId?: string }).payoutId ?? "");
+    await set("ended");
+    const r = await confirmReceipt(db, null, payoutId, { status: "received_less", amount: Number(digits.replace(/\D/g, "")), via: "ivr", ivrCitizenId: s.citizenId ?? undefined });
+    return reply("ended", r.spoken, "none", true);
+  }
   if (s.state === "enter_code") {
     const code = digits.replace(/\D/g, "");
     await set("ended", { code });

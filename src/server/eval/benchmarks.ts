@@ -95,7 +95,20 @@ export function autoThresholdCurve(model: ScoringModel, def: RuleSetDefinition =
     curve.push({ threshold: t, costPerCasePKR: Math.round(cost / test.length), autoApproved: auto, wrongAuto: wrong, humanShare: r4(human / test.length) });
   }
   const min = curve.reduce((a, b) => (b.costPerCasePKR < a.costPerCasePKR || (b.costPerCasePKR === a.costPerCasePKR && b.threshold > a.threshold) ? b : a), curve[0]!);
-  const atFormula = curve.reduce((a, b) => (Math.abs(b.threshold - formula.threshold) < Math.abs(a.threshold - formula.threshold) ? b : a), curve[0]!);
+  // Evaluate the EXACT formula threshold (not the nearest grid point).
+  const evalAt = (thr: number) => {
+    const d: RuleSetDefinition = { ...def, autoApprove: { ...def.autoApprove, minCalibratedP: thr } };
+    let cost = 0, auto = 0, wrong = 0, human = 0;
+    for (const c of test) {
+      const raw = rawScore(model, featurize(asInput(c, d)));
+      const out = decide({ ...asInput(c, d), calibrated: { p: applyIsotonic(model.isotonic, raw), raw, modelVersion: model.version } });
+      cost += laneCost(out.lane, c.truth, costs);
+      if (out.lane === "auto") { auto++; if (c.truth !== "should_pay") wrong++; }
+      if (out.lane === "human") human++;
+    }
+    return { threshold: thr, costPerCasePKR: Math.round(cost / test.length), autoApproved: auto, wrongAuto: wrong, humanShare: r4(human / test.length) };
+  };
+  const atFormula = evalAt(formula.threshold);
   const autoN = atFormula.autoApproved;
   return {
     denominators: { testCases: test.length },

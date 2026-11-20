@@ -111,10 +111,37 @@ const M = {
     ur: "ہمیں آپ کی اپیل مل گئی ہے۔ ایک دوسرا افسر آپ کے کیس کو دوبارہ دیکھے گا۔",
   },
 
+  // ── payout account protection ──
+  "payout.change_requested": {
+    en: "We received a request to change where your money is sent. An officer will check it, and it only takes effect after 48 hours.",
+    ur: "آپ کی رقم بھیجنے کا اکاؤنٹ بدلنے کی درخواست ملی ہے۔ ایک افسر اس کی جانچ کرے گا، اور یہ 48 گھنٹے بعد ہی نافذ ہو گی۔",
+  },
+  "payout.change_requested_old_number": {
+    en: "Asli: someone asked to change the account where your relief money is sent. If this was NOT you, call Asli and press 9 to stop it.",
+    ur: "اصلی: کسی نے آپ کی امدادی رقم کا اکاؤنٹ بدلنے کی درخواست کی ہے۔ اگر یہ آپ نے نہیں کی تو اصلی کو کال کر کے 9 دبائیں تاکہ اسے روکا جا سکے۔",
+  },
+  "payout.change_frozen": {
+    en: "Stopped. The account change is frozen and an officer will call you. Your money will not go to the new account.",
+    ur: "روک دیا گیا۔ اکاؤنٹ کی تبدیلی منجمد کر دی گئی ہے اور ایک افسر آپ کو کال کرے گا۔ آپ کی رقم نئے اکاؤنٹ میں نہیں جائے گی۔",
+  },
+  "payout.change_applied": {
+    en: "Asli: your payment account has been changed. If this was not you, call Asli and press 3 right away.",
+    ur: "اصلی: آپ کا ادائیگی کا اکاؤنٹ بدل دیا گیا ہے۔ اگر یہ آپ نے نہیں کیا تو فوراً اصلی کو کال کر کے 3 دبائیں۔",
+  },
+  "receipt.ask": {
+    en: "Did you receive exactly Rs {amount}? Press 1 for yes. Press 2 if you received less. Press 3 if you received nothing.",
+    ur: "کیا آپ کو پورے {amount} روپے ملے؟ ہاں کے لیے 1 دبائیں۔ کم ملے ہوں تو 2 دبائیں۔ کچھ نہیں ملا تو 3 دبائیں۔",
+  },
+  "receipt.thanks": { en: "Thank you. We have recorded that you received the full amount.", ur: "شکریہ۔ ہم نے درج کر لیا ہے کہ آپ کو پوری رقم مل گئی۔" },
+  "receipt.complaint_opened": {
+    en: "We are sorry. A complaint has been opened and an officer will call you. Nobody is allowed to keep any part of your money.",
+    ur: "ہمیں افسوس ہے۔ شکایت درج کر لی گئی ہے اور ایک افسر آپ کو کال کرے گا۔ کسی کو آپ کی رقم کا کوئی حصہ رکھنے کی اجازت نہیں۔",
+  },
+
   // ── IVR ──
   "ivr.welcome": {
-    en: "Assalam o Alaikum. This is Asli. Press 1 to hear your case status. Press 2 to check a message you received. Press 3 to talk to a person.",
-    ur: "السلام علیکم۔ یہ اصلی ہے۔ اپنے کیس کی صورتحال سننے کے لیے 1 دبائیں۔ کسی موصول شدہ پیغام کی تصدیق کے لیے 2 دبائیں۔ کسی انسان سے بات کرنے کے لیے 3 دبائیں۔",
+    en: "Assalam o Alaikum. This is Asli. Press 1 to hear your case status. Press 2 to check a message you received. Press 3 to talk to a person. Press 4 to tell us how much money you received. Press 9 if someone is changing your payment account without your permission.",
+    ur: "السلام علیکم۔ یہ اصلی ہے۔ اپنے کیس کی صورتحال سننے کے لیے 1 دبائیں۔ کسی موصول شدہ پیغام کی تصدیق کے لیے 2 دبائیں۔ کسی انسان سے بات کرنے کے لیے 3 دبائیں۔ ملنے والی رقم بتانے کے لیے 4 دبائیں۔ اگر کوئی آپ کی اجازت کے بغیر آپ کا ادائیگی اکاؤنٹ بدل رہا ہے تو 9 دبائیں۔",
   },
   "ivr.status": {
     en: "Your case {caseRef} is {status}. {detail}",

@@ -237,7 +237,7 @@ export { runDecision } from "./decisionPipeline";
 function assertOfficer(actor: Actor, tenantId: string) {
   if (actor.type === "ai" || actor.type === "agent") throw forbidden("AI_CANNOT_DECIDE", "Only a human officer can take this action.");
   if (actor.type !== "user" || !["officer", "admin"].includes(actor.role)) throw forbidden("OFFICER_ONLY", "Only an officer can take this action.");
-  if (actor.tenantId !== tenantId) throw forbidden("CROSS_TENANT", "Case belongs to another department.");
+  if (actor.tenantId !== tenantId) throw notFound("Case"); // existence must not leak across departments
 }
 
 export async function addNote(db: DB, actor: Actor, caseId: string, body: string) {

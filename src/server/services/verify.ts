@@ -21,6 +21,7 @@ import { audit } from "../lib/audit";
 import type { Actor } from "../lib/actor";
 import { emit } from "./events";
 import { canonicalJson } from "../lib/crypto";
+import { recordAiDecision } from "./aidecisions";
 
 export type Verdict = "genuine" | "tampered" | "scam" | "not_linked" | "code_mismatch" | "expired" | "suspicious" | "unrelated";
 export type Check = { name: string; result: "pass" | "fail" | "skip" | "info"; detail: string };
@@ -32,6 +33,9 @@ export type VerifyInput = {
   citizenId?: string | null;
   district?: string | null;
   tenantId?: string | null;
+  /** Whose message is this? A shopkeeper checking a customer's SMS sets "someone_else":
+   *  the checker's own case/ledger is then NOT used as evidence (that would be a false alarm). */
+  about?: "me" | "someone_else";
 };
 
 export type VerifyOutcome = {
@@ -54,9 +58,15 @@ const MESSAGE: Record<Verdict, MessageKey> = {
   unrelated: "verify.unrelated",
 };
 
-export async function verifyMessage(db: DB, actor: Actor, input: VerifyInput, requestId?: string): Promise<VerifyOutcome> {
+export async function verifyMessage(db: DB, actor: Actor, inputArg: VerifyInput, requestId?: string): Promise<VerifyOutcome> {
+  let input = inputArg;
   const checks: Check[] = [];
   const text = input.text ?? "";
+  const aboutOther = input.about === "someone_else";
+  if (aboutOther) {
+    checks.push({ name: "scope", result: "info", detail: "Checking a message about someone else: the checker's own case is not used as evidence" });
+    input = { ...input, citizenId: null };
+  }
   const token = input.token ?? (text ? extractToken(text) : null);
   let verdict: Verdict | null = null;
   let noticeRow: typeof notices.$inferSelect | null = null;
@@ -179,6 +189,7 @@ export async function verifyMessage(db: DB, actor: Actor, input: VerifyInput, re
       else if (classification.category === "relief_scam" && (classification.probabilities.relief_scam ?? 0) >= 0.6) verdict = "scam";
       else if (classification.category === "phishing_link") verdict = "scam";
       else verdict = "suspicious"; // "I am not sure" — no ledger link, no proof either way
+      if (aboutOther && verdict === "suspicious") checks.push({ name: "advice", result: "info", detail: "Ask the person it is addressed to (or their helper) to forward it to Asli, so it can be checked against THEIR case." });
     }
   }
   if (verdict === null) verdict = token ? "genuine" : "suspicious";
@@ -222,9 +233,21 @@ export async function verifyMessage(db: DB, actor: Actor, input: VerifyInput, re
   });
 
   const amount = noticeRow?.amount ?? "";
+  const spoken = t(MESSAGE[verdict], { amount });
+  await recordAiDecision(db, {
+    tenantId,
+    kind: "scam_verdict",
+    subjectType: noticeRow ? "notice" : "message",
+    subjectId: noticeRow?.id ?? reportId ?? undefined,
+    citizenId: input.citizenId ?? null,
+    input: { text: text.slice(0, 2000), sender: input.sender ?? null, hasToken: !!token, about: input.about ?? "me" },
+    output: { verdict, category: classification?.category ?? null, asksForFeeOrCode: classification?.asksForFeeOrCode ?? null, source: classification?.meta.source ?? "none", checks },
+    citizenView: spoken,
+    model: { classifier: classification?.meta ?? null, verifier: "asli-signed-truth@2 (ledger first)" },
+  });
   return {
     verdict,
-    spoken: t(MESSAGE[verdict], { amount }),
+    spoken,
     checks,
     notice: noticeRow
       ? { id: noticeRow.id, type: noticeRow.type, amount: noticeRow.amount, caseId: noticeRow.caseId, issuedAt: noticeRow.issuedAt, expiresAt: noticeRow.expiresAt }

@@ -3,7 +3,7 @@ import { router, route, z, body, param, need, IdParam, JsonAny } from "../http/r
 import { activeRuleSet, listRuleSets, createDraft, publishRuleSet, simulate, setFastLane } from "../services/rules";
 import { createStaffUser, setUserActive } from "../services/auth";
 import { createApiKey, listApiKeys, revokeApiKey, createWebhook, listWebhooks, deleteWebhook, testWebhook, listUsers, tenantInfo, setPlan, setMockLatency, API_SCOPES } from "../services/admin";
-import { ATTACKS, runAttack, runAllAttacks, type AttackId } from "../services/redteam";
+import { BREAK_IT, runBreakIt } from "../services/breakit";
 import { EVENT_TYPES } from "../services/events";
 import { ruleSets } from "../db/schema";
 import { notFound } from "../lib/errors";
@@ -142,21 +142,21 @@ adminRoutes.openapi(route({ method: "post", path: "/admin/mock-latency", tags: [
   return c.json(await setMockLatency(c.get("db"), a, body(c, Latency).ms), 200);
 });
 
-// ───────── red team ─────────
+// ───────── Break It (red team) ─────────
 
-adminRoutes.openapi(route({ method: "get", path: "/redteam/attacks", tags: ["Try to fool Asli"], summary: "List of one-tap attacks" }), async (c) => {
+adminRoutes.openapi(route({ method: "get", path: "/redteam/attacks", tags: ["Try to fool Asli"], summary: "Break It: 18 attacks + 8 legitimate controls" }), async (c) => {
   await need(c, ["admin", "officer", "auditor"]);
-  return c.json({ attacks: ATTACKS }, 200);
+  return c.json({ items: BREAK_IT }, 200);
 });
 
-adminRoutes.openapi(route({ method: "post", path: "/redteam/attacks/{id}", tags: ["Try to fool Asli"], summary: "Run one attack through the real code paths", params: z.object({ id: z.enum(ATTACKS.map((a) => a.id) as [AttackId, ...AttackId[]]).openapi({ param: { name: "id", in: "path" } }) }) }), async (c) => {
+adminRoutes.openapi(route({ method: "post", path: "/redteam/attacks/{id}", tags: ["Try to fool Asli"], summary: "Run one attack or control (A01–A18, C01–C08)", params: z.object({ id: z.string().regex(/^[AC]\d{2}$/).openapi({ param: { name: "id", in: "path" } }) }) }), async (c) => {
   const a = await need(c, ["admin", "officer", "auditor"]);
-  return c.json(await runAttack(c.get("db"), a, c.req.param("id") as AttackId), 200);
+  return c.json(await runBreakIt(c.get("db"), a, [c.req.param("id") ?? ""]), 200);
 });
 
-adminRoutes.openapi(route({ method: "post", path: "/redteam/run-all", tags: ["Try to fool Asli"], summary: "Run every attack and report what was caught" }), async (c) => {
+adminRoutes.openapi(route({ method: "post", path: "/redteam/run-all", tags: ["Try to fool Asli"], summary: "Run all 18 attacks and 8 controls; misses are listed" }), async (c) => {
   const a = await need(c, ["admin", "officer", "auditor"]);
-  return c.json(await runAllAttacks(c.get("db"), a), 200);
+  return c.json(await runBreakIt(c.get("db"), a), 200);
 });
 
 export { desc };

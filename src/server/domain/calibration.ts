@@ -68,21 +68,38 @@ export function trainLogistic(X: number[][], y: number[], opts = { lr: 0.5, iter
 }
 
 /** Pool-adjacent-violators: monotone non-decreasing map from raw score to observed frequency. */
-export function fitIsotonic(scores: number[], labels: number[]): IsotonicMap {
+export function fitIsotonic(scores: number[], labels: number[], minBlock = 8): IsotonicMap {
+  type Block = { sum: number; n: number; lo: number; hi: number };
   const pts = scores.map((s, i) => ({ s, y: labels[i]! })).sort((a, b) => a.s - b.s);
-  const blocks: { sum: number; n: number; lo: number; hi: number }[] = [];
-  for (const p of pts) {
-    blocks.push({ sum: p.y, n: 1, lo: p.s, hi: p.s });
-    while (blocks.length > 1 && blocks.at(-2)!.sum / blocks.at(-2)!.n > blocks.at(-1)!.sum / blocks.at(-1)!.n) {
-      const b = blocks.pop()!;
-      const a = blocks.pop()!;
-      blocks.push({ sum: a.sum + b.sum, n: a.n + b.n, lo: a.lo, hi: b.hi });
+  let blocks: Block[] = pts.map((p) => ({ sum: p.y, n: 1, lo: p.s, hi: p.s }));
+  const join = (a: Block, b: Block): Block => ({ sum: a.sum + b.sum, n: a.n + b.n, lo: a.lo, hi: b.hi });
+  // Pool-adjacent-violators, then merge blocks smaller than `minBlock` (tiny blocks over-fit a ~100-case
+  // calibration set), and repeat until the map is monotone AND every block has enough support.
+  for (let changed = true; changed; ) {
+    changed = false;
+    const pooled: Block[] = [];
+    for (const b of blocks) {
+      pooled.push(b);
+      while (pooled.length > 1 && pooled.at(-2)!.sum / pooled.at(-2)!.n > pooled.at(-1)!.sum / pooled.at(-1)!.n) {
+        const y = pooled.pop()!;
+        pooled.push(join(pooled.pop()!, y));
+        changed = true;
+      }
+    }
+    blocks = pooled;
+    const i = blocks.findIndex((b) => b.n < minBlock);
+    if (i >= 0 && blocks.length > 1) {
+      const j = i === 0 ? 1 : i === blocks.length - 1 ? i - 1 : blocks[i - 1]!.n <= blocks[i + 1]!.n ? i - 1 : i + 1;
+      const lo = Math.min(i, j);
+      blocks.splice(lo, 2, join(blocks[lo]!, blocks[lo + 1]!));
+      changed = true;
     }
   }
-  return {
-    x: blocks.map((b) => Math.round(((b.lo + b.hi) / 2) * 1e4) / 1e4),
-    y: blocks.map((b) => Math.round((b.sum / b.n) * 1e4) / 1e4),
-  };
+  // Smoothed block rates (Jeffreys prior): n positives out of n → (n+0.5)/(n+1), so a model calibrated
+  // on ~100 cases never claims certainty (p = 1.0 or 0.0).
+  const y: number[] = [];
+  for (const b of blocks) y.push(Math.max(y.at(-1) ?? 0, Math.round(((b.sum + 0.5) / (b.n + 1)) * 1e4) / 1e4)); // smoothing must not break monotonicity
+  return { x: blocks.map((b) => Math.round(((b.lo + b.hi) / 2) * 1e4) / 1e4), y };
 }
 
 export function applyIsotonic(m: IsotonicMap, s: number): number {

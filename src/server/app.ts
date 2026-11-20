@@ -11,13 +11,14 @@ import { cors } from "hono/cors";
 import { sql } from "drizzle-orm";
 import type { AppEnv } from "./http/context";
 import { base, authenticate } from "./http/middleware";
-import { AppError } from "./lib/errors";
+import { AppError, problem } from "./lib/errors";
 import { authRoutes } from "./routes/auth";
 import { caseRoutes } from "./routes/cases";
 import { trustRoutes } from "./routes/trust";
 import { voiceRoutes } from "./routes/voice";
 import { adminRoutes } from "./routes/admin";
 import { insightRoutes } from "./routes/insights";
+import { safetyRoutes } from "./routes/safety";
 import { runDueJobs } from "./services/events";
 import { env } from "./env";
 import { claudeAvailable } from "./ai/claude";
@@ -30,22 +31,31 @@ export function createApp() {
   const app = new OpenAPIHono<AppEnv>({
     defaultHook: (result, c) => {
       if (!result.success) {
-        return c.json({ error: { code: "VALIDATION_ERROR", message: "Request is invalid", details: result.error.issues }, requestId: c.get("requestId") }, 400);
+        c.header("content-type", "application/problem+json");
+        return c.body(JSON.stringify(problem(400, "VALIDATION_ERROR", "Request is invalid", c.req.path, c.get("requestId"), result.error.issues)), 400);
       }
     },
   }).basePath("/api");
 
-  app.use("*", cors({ origin: (o) => o ?? "*", allowHeaders: ["authorization", "content-type", "x-api-key", "idempotency-key", "x-request-id"], exposeHeaders: ["x-request-id", "x-ratelimit-remaining", "retry-after"] }));
+  app.use("*", cors({ origin: (o) => o ?? "*", allowHeaders: ["authorization", "content-type", "x-api-key", "idempotency-key", "x-request-id"], exposeHeaders: ["x-request-id", "ratelimit-limit", "ratelimit-remaining", "ratelimit-reset", "ratelimit-policy", "retry-after"] }));
   app.use("*", base);
   app.use("/v1/*", authenticate);
 
+  // RFC 9457 problem+json for every error.
   app.onError((err, c) => {
     const requestId = c.get("requestId");
-    if (err instanceof AppError) return c.json({ error: { code: err.code, message: err.message, details: err.details }, requestId }, err.status);
+    const send = (status: number, code: string, message: string, details?: unknown) => {
+      c.header("content-type", "application/problem+json");
+      return c.body(JSON.stringify(problem(status, code, message, c.req.path, requestId, details)), status as 400);
+    };
+    if (err instanceof AppError) return send(err.status, err.code, err.message, err.details);
     console.error(`[asli] ${requestId}`, err);
-    return c.json({ error: { code: "INTERNAL", message: "Something went wrong. Your data is safe; please try again." }, requestId }, 500);
+    return send(500, "INTERNAL", "Something went wrong. Your data is safe; please try again.");
   });
-  app.notFound((c) => c.json({ error: { code: "NOT_FOUND", message: `No route ${c.req.method} ${c.req.path}` } }, 404));
+  app.notFound((c) => {
+    c.header("content-type", "application/problem+json");
+    return c.body(JSON.stringify(problem(404, "NOT_FOUND", `No route ${c.req.method} ${c.req.path}`, c.req.path, c.get("requestId"))), 404);
+  });
 
   // Best-effort background work after each request (webhooks, mock SMS, deadlines). Cron covers the rest.
   app.use("/v1/*", async (c, next) => {
@@ -53,7 +63,7 @@ export function createApp() {
     if (c.req.method !== "GET") void runDueJobs(c.get("db"), 10).catch((e) => console.warn("[jobs]", e));
   });
 
-  for (const r of [authRoutes, caseRoutes, trustRoutes, voiceRoutes, adminRoutes, insightRoutes]) app.route("/v1", r);
+  for (const r of [authRoutes, caseRoutes, trustRoutes, voiceRoutes, adminRoutes, insightRoutes, safetyRoutes]) app.route("/v1", r);
 
   app.get("/health", async (c) => {
     const db = await getDb();
@@ -110,7 +120,12 @@ export function createApp() {
       { name: "AI" },
       { name: "Audit" },
       { name: "Admin" },
-      { name: "Try to fool Asli" },
+      { name: "Try to fool Asli", description: "Break It: 18 attacks + 8 legitimate controls through the real code paths" },
+      { name: "Decisions", description: "Hard stops, AI decisions (two views + replay), durable pipeline runs" },
+      { name: "Chaos panel" },
+      { name: "Payment account protection" },
+      { name: "Money received" },
+      { name: "Demo" },
       { name: "Offline sync" },
       { name: "Mock DPI", description: "SIMULATED government services" },
     ],

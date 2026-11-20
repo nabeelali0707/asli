@@ -11,9 +11,9 @@
  * - AI/agent → acts for the department; needs an active department consent with the scope.
  * - api_key  → tenant + scope.
  */
-import { and, eq, or } from "drizzle-orm";
+import { and, eq, gt, or } from "drizzle-orm";
 import type { DbOrTx } from "../db/client";
-import { citizens, consents } from "../db/schema";
+import { citizens, consents, breakGlassGrants } from "../db/schema";
 import type { Actor } from "../lib/actor";
 import { forbidden, notFound } from "../lib/errors";
 import { audit } from "../lib/audit";
@@ -65,7 +65,11 @@ export async function assertCitizenAccess(
     return forbidden(code, message);
   };
 
-  if (actor.tenantId && citizen.tenantId !== actor.tenantId) throw await deny("CROSS_TENANT", "This record belongs to another department.");
+  if (actor.tenantId && citizen.tenantId !== actor.tenantId) {
+    // 404, not 403: another department must not even learn that this record exists. Still audited.
+    await deny("CROSS_TENANT", "This record belongs to another department.");
+    throw notFound("Citizen");
+  }
 
   if (actor.type === "user") {
     switch (actor.role) {
@@ -80,8 +84,15 @@ export async function assertCitizenAccess(
         return { view: "full", consentId: consent.id };
       }
       case "officer":
-      case "admin":
-        return { view: "masked", consentId: null };
+      case "admin": {
+        // Break-glass: a time-boxed (15 min), reasoned, logged grant gives the full view.
+        const [grant] = await db
+          .select()
+          .from(breakGlassGrants)
+          .where(and(eq(breakGlassGrants.officerId, actor.id), eq(breakGlassGrants.citizenId, citizenId), gt(breakGlassGrants.expiresAt, new Date())))
+          .limit(1);
+        return { view: grant ? "full" : "masked", consentId: null };
+      }
       case "auditor":
         if (opts.write) throw await deny("READ_ONLY", "Auditors have read-only access.");
         return { view: "masked", consentId: null };

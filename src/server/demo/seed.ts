@@ -5,7 +5,9 @@
  */
 import { eq } from "drizzle-orm";
 import type { DB } from "../db/client";
-import { tenants, users, citizens, mockNadra, mockIncome } from "../db/schema";
+import { tenants, users, citizens, mockNadra, mockIncome, payouts } from "../db/schema";
+import { trainScorer } from "../eval/benchmarks";
+import { audit } from "../lib/audit";
 import { hashPassword } from "../auth/tokens";
 import { normalizeName } from "../domain/names";
 import { renderMockCnic } from "../domain/documents";
@@ -97,6 +99,8 @@ export async function seedDemo(db: DB, opts: { log?: (s: string) => void } = {})
   await activeRuleSet(db, T1);
   await activeRuleSet(db, T2);
   log("Departments, users, mock registries, rules v1 ✓");
+  const scorer = await trainScorer(db);
+  log(`Calibrated scorer v${scorer.version} trained on frozen synthetic D1 (ECE ${scorer.metrics.ece.uncalibratedLogistic} → ${scorer.metrics.ece.calibrated}) ✓`);
 
   const actorOf = (u: U): Actor => ({ type: "user", id: u.id, role: u.role, tenantId: T1, citizenId: u.citizenId ?? null, displayName: u.name, canSecondApprove: !!u.second });
   const [admin, officer1, officer2, helper, , fatimaUser, imranUser] = staff.map(actorOf) as Actor[];
@@ -121,11 +125,17 @@ export async function seedDemo(db: DB, opts: { log?: (s: string) => void } = {})
     await addDocument(db, ctx, c.id, { kind: "cnic", mime: "image/png", contentBase64: await cnicPng("ctz_fatima") });
     await addDocument(db, ctx, c.id, { kind: "income_proof", mime: "image/png", contentBase64: await incomeProofPng("Fatima Bibi", 18000) });
     const s = await submitCase(db, ctx, c.id);
-    log(`Fatima's case ${c.id}: lane ${s.decision.lane} (score ${s.decision.score})`);
+    log(`Fatima's case ${c.id}: lane ${s.decision.lane} (score ${s.decision.score}, calibrated p ${s.decision.calibratedP})`);
+    if (s.decision.lane === "auto" && s.decision.provisional) {
+      // DEMO ONLY: fast-forward the 24 h cooling-off so the seeded story includes a released payment.
+      await db.update(payouts).set({ coolingOffUntil: new Date(Date.now() - 60_000), status: "pending_approval" }).where(eq(payouts.id, s.decision.provisional.payoutId));
+      await audit(db, { actor: system, action: "demo.cooling_off_fast_forwarded", targetType: "payout", targetId: s.decision.provisional.payoutId, detail: { note: "Seed data only — simulates 24 hours passing" } });
+      log("Provisionally approved by the system (money reserved, not moved); seed fast-forwards the 24 h cooling-off");
+    }
     {
       const a = await approveCase(db, officer1, c.id, { note: "Verified by phone call with helper present." });
       if (!a.released) await addPayoutApproval(db, officer2, a.payoutId);
-      log("Fatima paid via mock Raast; signed payment notice sent ✓");
+      log("Fatima paid via mock Raast after two officers approved; signed payment notice sent ✓");
     }
   }
   // 2) Zainab: income proof photo blurry → ask for proof (retake).
@@ -162,7 +172,7 @@ export async function seedDemo(db: DB, opts: { log?: (s: string) => void } = {})
     await addDocument(db, ctx, c.id, { kind: "cnic", mime: "image/png", contentBase64: await cnicPng("ctz_khadija") });
     await addDocument(db, ctx, c.id, { kind: "income_proof", mime: "image/png", contentBase64: await incomeProofPng("Khadija Bibi", 9000) });
     const s = await submitCase(db, ctx, c.id);
-    log(`Clean case: lane ${s.decision.lane} (score ${s.decision.score})`);
+    log(`Clean case: lane ${s.decision.lane} (score ${s.decision.score}, calibrated p ${s.decision.calibratedP})${s.decision.provisional ? ` — Rs ${s.decision.provisional.amount} reserved until ${s.decision.provisional.coolingOffUntil.toISOString()}` : ""}`)
   }
   // 6) Imran the shopkeeper applies himself; income above the limit → rule fails → human (never auto-rejected).
   {

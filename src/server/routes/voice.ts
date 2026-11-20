@@ -2,6 +2,7 @@ import { router, route, z, body, actx } from "../http/route";
 import { transcribe, speechAvailable } from "../ai/speech";
 import { extractClaim } from "../ai/claude";
 import { askPolicy } from "../services/rag";
+import { recordAiDecision } from "../services/aidecisions";
 import { ivrStart, ivrInput } from "../services/ivr";
 import { createCase } from "../services/cases";
 import { getActor, ipKey } from "../http/middleware";
@@ -46,6 +47,16 @@ voiceRoutes.openapi(
     }
     if (!transcript) throw badRequest("NO_SPEECH", "Send audioBase64 or transcript");
     const { data, meta } = await extractClaim(transcript);
+    const extractionId = await recordAiDecision(c.get("db"), {
+      tenantId: actor.tenantId,
+      kind: "extraction",
+      subjectType: "voice_intake",
+      citizenId: actor.type === "user" ? (actor.citizenId ?? c.get("actFor")?.citizenId ?? null) : null,
+      input: { transcript },
+      output: { fields: data, meta },
+      citizenView: { heardFields: Object.fromEntries(Object.entries(data).filter(([, v]) => v !== null && !(Array.isArray(v) && !v.length))) },
+      model: { extractor: meta, stt },
+    });
     await audit(c.get("db"), { actor: { type: "ai", id: "asli-intake", tenantId: actor.tenantId, role: "ai" }, action: "voice.intake", detail: { stt, extractor: meta, unclear: data.unclearFields }, requestId: c.get("requestId") });
     let draftCaseId: string | null = null;
     if (b.createDraft && data.requestType === "relief_claim") {
@@ -63,6 +74,7 @@ voiceRoutes.openapi(
         transcript,
         fields: data,
         extractor: meta,
+        aiDecisionId: extractionId,
         draftCaseId,
         confirm: {
           en: heard ? `I heard: ${heard}. Is this right? Say yes or no.` : "I could not understand. Please say it again slowly.",
@@ -82,7 +94,18 @@ voiceRoutes.openapi(
   async (c) => {
     const rl = rateLimit(`ask:${c.get("actor")?.id ?? ipKey(c)}`, 30, 60_000);
     if (!rl.ok) throw new AppError(429, "RATE_LIMITED", "Too many questions; try again in a minute.");
-    return c.json(await askPolicy(body(c, Ask).question), 200);
+    const question = body(c, Ask).question;
+    const r = await askPolicy(question);
+    const aiDecisionId = await recordAiDecision(c.get("db"), {
+      tenantId: c.get("actor")?.tenantId ?? null,
+      kind: "policy_answer",
+      subjectType: "question",
+      input: { question },
+      output: r,
+      citizenView: r.answer,
+      model: { mode: r.mode, meta: (r as { meta?: unknown }).meta ?? null, retrieval: "bm25@1" },
+    });
+    return c.json({ ...r, aiDecisionId }, 200);
   },
 );
 

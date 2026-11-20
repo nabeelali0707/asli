@@ -232,7 +232,7 @@ export async function runDecision(db: DB, caseId: string, opts: { trigger: strin
       timeoutMs: 20_000,
       run: async (st) => {
         const docIncome = st.docQr?.monthlyIncome ?? null;
-        const r = await caseSignals({
+        const summary = {
           documentsPresent: !!st.docEvidence?.some((d) => d.kind === "cnic" && d.readable) && !!st.docEvidence?.some((d) => d.kind === "income_proof" && d.readable),
           incomeStated: (st.claim?.monthlyIncome as number | undefined) ?? null,
           incomeOnRecord: st.income?.monthlyIncome ?? null,
@@ -240,8 +240,9 @@ export async function runDecision(db: DB, caseId: string, opts: { trigger: strin
           nameVariants: [st.claim?.fullName ?? st.citizen!.fullName, st.registry?.fullName, st.docQr?.fullName].filter((x): x is string => !!x),
           dobValues: [st.claim?.dob ?? st.citizen!.dob ?? st.docQr?.dob, st.registry?.dob].filter((x): x is string => !!x),
           householdSizes: [st.claim?.householdSize as number | undefined, st.income?.householdSize].filter((x): x is number => typeof x === "number"),
-        });
-        return { signals: r.signals, signalsMeta: r.meta };
+        };
+        const r = await caseSignals(summary);
+        return { signals: r.signals, signalsMeta: { ...r.meta, summary } };
       },
     },
     {
@@ -349,6 +350,30 @@ async function persistDecision(
   const { c, ai, ruleSet, input, out, st } = a;
   const th = ruleSet.definition.thresholds;
   const urg = await urgencyAndKind([String(st.claim?.statement ?? ""), out.lane === "human" ? "needs human review" : ""].join(" "));
+  await recordAiDecision(db, {
+    tenantId: c.tenantId,
+    kind: "routing",
+    subjectType: "case",
+    subjectId: c.id,
+    citizenId: c.citizenId,
+    input: { text: [String(st.claim?.statement ?? ""), out.lane === "human" ? "needs human review" : ""].join(" ") },
+    output: { urgency: urg.urgency, kind: urg.kind, meta: urg.meta },
+    citizenView: { en: "Your case was placed in the review queue.", ur: "آپ کا کیس جائزے کی قطار میں رکھ دیا گیا ہے۔" },
+    model: urg.meta,
+  });
+  if (st.signals?.length) {
+    await recordAiDecision(db, {
+      tenantId: c.tenantId,
+      kind: "case_signals",
+      subjectType: "case",
+      subjectId: c.id,
+      citizenId: c.citizenId,
+      input: (st.signalsMeta as { summary?: unknown } | undefined)?.summary ?? { note: "summary not stored" },
+      output: { signals: st.signals, meta: st.signalsMeta },
+      citizenView: { en: "Your documents and records were compared.", ur: "آپ کے کاغذات اور ریکارڈ کا موازنہ کیا گیا۔" },
+      model: st.signalsMeta ?? null,
+    });
+  }
   const priority = Math.round(Math.min(100, (out.lane === "human" ? 40 : out.lane === "ask_proof" ? 20 : 10) + urg.urgency * 40 + (out.hardStops.length ? 15 : 0) + (1 - out.score) * 10));
   const { ruleSet: _rs, ...inputWithoutRules } = input;
   void _rs;

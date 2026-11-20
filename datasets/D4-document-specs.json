@@ -1,0 +1,182 @@
+[
+ {
+  "id": "d4_clean_1",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_clean_2",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_clean_3",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_clean_4",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_clean_5",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_clean_6",
+  "scenario": "clean",
+  "expect": {
+   "qrValid": true,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_blurry_1",
+  "scenario": "blurry",
+  "expect": {
+   "qrValid": null,
+   "blurry": true,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_blurry_2",
+  "scenario": "blurry",
+  "expect": {
+   "qrValid": null,
+   "blurry": true,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_blurry_3",
+  "scenario": "blurry",
+  "expect": {
+   "qrValid": null,
+   "blurry": true,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_blurry_4",
+  "scenario": "blurry",
+  "expect": {
+   "qrValid": null,
+   "blurry": true,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_edited_qr_1",
+  "scenario": "edited_qr",
+  "expect": {
+   "qrValid": false,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_edited_qr_2",
+  "scenario": "edited_qr",
+  "expect": {
+   "qrValid": false,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_edited_qr_3",
+  "scenario": "edited_qr",
+  "expect": {
+   "qrValid": false,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_edited_qr_4",
+  "scenario": "edited_qr",
+  "expect": {
+   "qrValid": false,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_third_party_qr_1",
+  "scenario": "third_party_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_third_party_qr_2",
+  "scenario": "third_party_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_third_party_qr_3",
+  "scenario": "third_party_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": false
+  }
+ },
+ {
+  "id": "d4_injection_qr_1",
+  "scenario": "injection_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": true
+  }
+ },
+ {
+  "id": "d4_injection_qr_2",
+  "scenario": "injection_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": true
+  }
+ },
+ {
+  "id": "d4_injection_qr_3",
+  "scenario": "injection_qr",
+  "expect": {
+   "qrValid": null,
+   "blurry": false,
+   "injection": true
+  }
+ }
+]

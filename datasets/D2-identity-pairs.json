@@ -1,0 +1,5102 @@
+[
+ {
+  "id": "d2_001",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520231877377",
+   "dob": "1961-05-15"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520231877377",
+   "dob": "1961-05-15"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_002",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520333886659",
+   "dob": "1966-09-10"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520333886659",
+   "dob": "1966-09-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_003",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520499450913",
+   "dob": "1985-07-14"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520499450913",
+   "dob": "1985-07-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_004",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520438035868",
+   "dob": "1973-06-12"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520438035868",
+   "dob": "1973-06-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_005",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520908895133",
+   "dob": "1985-01-17"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520908895133",
+   "dob": "1985-01-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_006",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520679632013",
+   "dob": "1960-07-17"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520679632013",
+   "dob": "1960-07-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_007",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520731237315",
+   "dob": "1971-04-16"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520731237315",
+   "dob": "1971-04-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_008",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520677710801",
+   "dob": "1961-05-17"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520677710801",
+   "dob": "1961-05-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_009",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520626133824",
+   "dob": "1957-04-14"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520626133824",
+   "dob": "1957-04-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_010",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520359925128",
+   "dob": "1970-09-17"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520359925128",
+   "dob": "1970-09-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_011",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520701670349",
+   "dob": "1976-02-10"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520701670349",
+   "dob": "1976-02-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_012",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520511205052",
+   "dob": "1957-07-11"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520511205052",
+   "dob": "1957-07-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_013",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520448988210",
+   "dob": "1990-01-10"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520448988210",
+   "dob": "1990-01-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_014",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520359028042",
+   "dob": "1971-05-17"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520359028042",
+   "dob": "1971-05-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_015",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520646937763",
+   "dob": "1994-07-16"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520646937763",
+   "dob": "1994-07-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_016",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520387502412",
+   "dob": "1959-01-18"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520387502412",
+   "dob": "1959-01-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_017",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520553964823",
+   "dob": "1982-04-13"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520553964823",
+   "dob": "1982-04-13"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_018",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520224679249",
+   "dob": "1974-02-12"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520224679249",
+   "dob": "1974-02-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_019",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520928603306",
+   "dob": "1983-04-15"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520928603306",
+   "dob": "1983-04-15"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_020",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520980756860",
+   "dob": "1985-04-17"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520980756860",
+   "dob": "1985-04-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_021",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520194898433",
+   "dob": "1958-01-14"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520194898433",
+   "dob": "1958-01-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_022",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520944140001",
+   "dob": "1970-03-15"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520944140001",
+   "dob": "1970-03-15"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_023",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520795284033",
+   "dob": "1960-01-14"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520795284033",
+   "dob": "1960-01-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_024",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520300543786",
+   "dob": "1985-08-16"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520300543786",
+   "dob": "1985-08-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_025",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520637062182",
+   "dob": "1992-05-11"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520637062182",
+   "dob": "1992-05-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_026",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520715631164",
+   "dob": "1990-08-10"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520715631164",
+   "dob": "1990-08-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_027",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520720528246",
+   "dob": "1971-05-10"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520720528246",
+   "dob": "1971-05-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_028",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520660341384",
+   "dob": "1968-02-11"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520660341384",
+   "dob": "1968-02-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_029",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520997530686",
+   "dob": "1988-08-17"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520997530686",
+   "dob": "1988-08-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_030",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520429683812",
+   "dob": "1985-04-10"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520429683812",
+   "dob": "1985-04-10"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_031",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520680939267",
+   "dob": "1992-08-13"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520680939267",
+   "dob": "1992-08-13"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_032",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520642074727",
+   "dob": "1980-09-16"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520642074727",
+   "dob": "1980-09-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_033",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520623074892",
+   "dob": "1973-05-12"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520623074892",
+   "dob": "1973-05-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_034",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520873949648",
+   "dob": "1979-08-13"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520873949648",
+   "dob": "1979-08-13"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_035",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520619506464",
+   "dob": "1983-06-11"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520619506464",
+   "dob": "1983-06-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_036",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520404084060",
+   "dob": "1955-05-11"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520404084060",
+   "dob": "1955-05-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_037",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520976051293",
+   "dob": "1976-04-16"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520976051293",
+   "dob": "1976-04-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_038",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520443217215",
+   "dob": "1973-01-18"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520443217215",
+   "dob": "1973-01-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_039",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520431249475",
+   "dob": "1974-02-16"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520431249475",
+   "dob": "1974-02-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_040",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520568634383",
+   "dob": "1967-02-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520568634383",
+   "dob": "1967-02-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_041",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520803878664",
+   "dob": "1978-03-18"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520803878664",
+   "dob": "1978-03-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_042",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520930986706",
+   "dob": "1968-01-18"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520930986706",
+   "dob": "1968-01-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_043",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520281494644",
+   "dob": "1956-04-18"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520281494644",
+   "dob": "1956-04-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_044",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520738130968",
+   "dob": "1981-07-11"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520738130968",
+   "dob": "1981-07-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_045",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520641036337",
+   "dob": "1985-04-13"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520641036337",
+   "dob": "1985-04-13"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_046",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520255376667",
+   "dob": "1965-05-12"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520255376667",
+   "dob": "1965-05-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_047",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520187924792",
+   "dob": "1991-01-12"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520187924792",
+   "dob": "1991-01-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_048",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520782168954",
+   "dob": "1984-07-16"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520782168954",
+   "dob": "1984-07-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_049",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520346538332",
+   "dob": "1960-04-14"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520346538332",
+   "dob": "1960-04-14"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_050",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520949996511",
+   "dob": "1992-05-18"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520949996511",
+   "dob": "1992-05-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_051",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520434229978",
+   "dob": "1956-03-15"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520434229978",
+   "dob": "1956-03-15"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_052",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520438599886",
+   "dob": "1992-07-17"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520438599886",
+   "dob": "1992-07-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_053",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520412678690",
+   "dob": "1994-05-15"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520412678690",
+   "dob": "1994-05-15"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_054",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520215699204",
+   "dob": "1978-06-12"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520215699204",
+   "dob": "1978-06-12"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_055",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520486901929",
+   "dob": "1988-05-16"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520486901929",
+   "dob": "1988-05-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_056",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520797561949",
+   "dob": "1979-07-13"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520797561949",
+   "dob": "1979-07-13"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_057",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520387309989",
+   "dob": "1971-06-11"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520387309989",
+   "dob": "1971-06-11"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_058",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520775753213",
+   "dob": "1985-06-16"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520775753213",
+   "dob": "1985-06-16"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_059",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520835573747",
+   "dob": "1968-02-17"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520835573747",
+   "dob": "1968-02-17"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_060",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520793582417",
+   "dob": "1966-01-18"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520793582417",
+   "dob": "1966-01-18"
+  },
+  "same": true,
+  "kind": "exact"
+ },
+ {
+  "id": "d2_061",
+  "a": {
+   "fullName": "Nasrin Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520415639532",
+   "dob": "1983-05-13"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520415639532",
+   "dob": "1983-05-13"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_062",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520141884915",
+   "dob": "1971-07-12"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520141884915",
+   "dob": "1971-07-12"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_063",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520956948475",
+   "dob": "1973-08-15"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520956948475",
+   "dob": "1973-08-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_064",
+  "a": {
+   "fullName": "Shahida Perveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520738649148",
+   "dob": "1964-07-17"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520738649148",
+   "dob": "1964-07-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_065",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520910654825",
+   "dob": "1957-05-12"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520910654825",
+   "dob": "1957-05-12"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_066",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520411836024",
+   "dob": "1974-07-15"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520411836024",
+   "dob": "1974-07-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_067",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520828242201",
+   "dob": "1955-01-11"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520828242201",
+   "dob": "1955-01-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_068",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520181941916",
+   "dob": "1981-03-15"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520181941916",
+   "dob": "1981-03-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_069",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520913708463",
+   "dob": "1982-03-17"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520913708463",
+   "dob": "1982-03-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_070",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520994576998",
+   "dob": "1959-06-17"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520994576998",
+   "dob": "1959-06-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_071",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520983604411",
+   "dob": "1973-09-15"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520983604411",
+   "dob": "1973-09-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_072",
+  "a": {
+   "fullName": "Mohammad Aslam",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520300174336",
+   "dob": "1994-02-15"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520300174336",
+   "dob": "1994-02-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_073",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520954395936",
+   "dob": "1979-02-11"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520954395936",
+   "dob": "1979-02-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_074",
+  "a": {
+   "fullName": "Shahida Perveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520441641673",
+   "dob": "1984-09-11"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520441641673",
+   "dob": "1984-09-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_075",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520250604097",
+   "dob": "1969-04-10"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520250604097",
+   "dob": "1969-04-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_076",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520650427755",
+   "dob": "1960-02-17"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520650427755",
+   "dob": "1960-02-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_077",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520618921699",
+   "dob": "1955-02-15"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520618921699",
+   "dob": "1955-02-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_078",
+  "a": {
+   "fullName": "Mohammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520268792424",
+   "dob": "1964-09-10"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520268792424",
+   "dob": "1964-09-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_079",
+  "a": {
+   "fullName": "Khadeeja Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520658723301",
+   "dob": "1970-03-18"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520658723301",
+   "dob": "1970-03-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_080",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520796460046",
+   "dob": "1960-01-14"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520796460046",
+   "dob": "1960-01-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_081",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520953139528",
+   "dob": "1993-07-13"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520953139528",
+   "dob": "1993-07-13"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_082",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520910465679",
+   "dob": "1959-09-18"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520910465679",
+   "dob": "1959-09-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_083",
+  "a": {
+   "fullName": "Fatimah Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520833200154",
+   "dob": "1960-03-10"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520833200154",
+   "dob": "1960-03-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_084",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520652504866",
+   "dob": "1987-03-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520652504866",
+   "dob": "1987-03-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_085",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520422409940",
+   "dob": "1964-04-15"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520422409940",
+   "dob": "1964-04-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_086",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520261766564",
+   "dob": "1963-03-18"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520261766564",
+   "dob": "1963-03-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_087",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520776634173",
+   "dob": "1975-05-14"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520776634173",
+   "dob": "1975-05-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_088",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520525733190",
+   "dob": "1960-09-17"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520525733190",
+   "dob": "1960-09-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_089",
+  "a": {
+   "fullName": "Khadeeja Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520901796006",
+   "dob": "1976-08-13"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520901796006",
+   "dob": "1976-08-13"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_090",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520267732354",
+   "dob": "1960-08-10"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520267732354",
+   "dob": "1960-08-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_091",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520441756349",
+   "dob": "1969-02-18"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520441756349",
+   "dob": "1969-02-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_092",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520345777708",
+   "dob": "1977-02-15"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520345777708",
+   "dob": "1977-02-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_093",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520862978171",
+   "dob": "1978-08-14"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520862978171",
+   "dob": "1978-08-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_094",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520836810528",
+   "dob": "1965-09-17"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520836810528",
+   "dob": "1965-09-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_095",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520384154818",
+   "dob": "1988-04-14"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520384154818",
+   "dob": "1988-04-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_096",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520483099568",
+   "dob": "1967-09-18"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520483099568",
+   "dob": "1967-09-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_097",
+  "a": {
+   "fullName": "Shahida Perveen",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520541969861",
+   "dob": "1989-02-12"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520541969861",
+   "dob": "1989-02-12"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_098",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520270828641",
+   "dob": "1980-03-17"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520270828641",
+   "dob": "1980-03-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_099",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520385871788",
+   "dob": "1994-02-11"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520385871788",
+   "dob": "1994-02-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_100",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520496264524",
+   "dob": "1994-07-10"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520496264524",
+   "dob": "1994-07-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_101",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520542776113",
+   "dob": "1962-04-16"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520542776113",
+   "dob": "1962-04-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_102",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520237540455",
+   "dob": "1973-01-16"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520237540455",
+   "dob": "1973-01-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_103",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520476891166",
+   "dob": "1971-01-16"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520476891166",
+   "dob": "1971-01-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_104",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520304755243",
+   "dob": "1961-01-15"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520304755243",
+   "dob": "1961-01-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_105",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520669979638",
+   "dob": "1975-09-18"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520669979638",
+   "dob": "1975-09-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_106",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520258546971",
+   "dob": "1988-06-14"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520258546971",
+   "dob": "1988-06-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_107",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520970427917",
+   "dob": "1966-03-16"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520970427917",
+   "dob": "1966-03-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_108",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520146620216",
+   "dob": "1958-04-10"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520146620216",
+   "dob": "1958-04-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_109",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520316883459",
+   "dob": "1978-03-12"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520316883459",
+   "dob": "1978-03-12"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_110",
+  "a": {
+   "fullName": "Mohammad Aslam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520823905286",
+   "dob": "1968-08-11"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520823905286",
+   "dob": "1968-08-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_111",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520888572483",
+   "dob": "1958-02-17"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520888572483",
+   "dob": "1958-02-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_112",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520896652323",
+   "dob": "1980-06-17"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520896652323",
+   "dob": "1980-06-17"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_113",
+  "a": {
+   "fullName": "Nasrin Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520485924610",
+   "dob": "1962-01-14"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520485924610",
+   "dob": "1962-01-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_114",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520615485981",
+   "dob": "1960-02-15"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520615485981",
+   "dob": "1960-02-15"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_115",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520931224489",
+   "dob": "1961-02-18"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520931224489",
+   "dob": "1961-02-18"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_116",
+  "a": {
+   "fullName": "Nasrin Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520832672452",
+   "dob": "1982-09-16"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520832672452",
+   "dob": "1982-09-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_117",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520100561123",
+   "dob": "1976-04-11"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520100561123",
+   "dob": "1976-04-11"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_118",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520778458016",
+   "dob": "1983-08-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520778458016",
+   "dob": "1983-08-14"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_119",
+  "a": {
+   "fullName": "Fatimah Bibi",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520408006693",
+   "dob": "1987-03-10"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520408006693",
+   "dob": "1987-03-10"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_120",
+  "a": {
+   "fullName": "Shahida Perveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520432113470",
+   "dob": "1971-08-16"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520432113470",
+   "dob": "1971-08-16"
+  },
+  "same": true,
+  "kind": "variant_spelling"
+ },
+ {
+  "id": "d2_121",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520453739041",
+   "dob": "1978-06-12"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520453739041",
+   "dob": "1978-06-12"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_122",
+  "a": {
+   "fullName": "Fatimah Bibi",
+   "fatherName": null,
+   "cnic": "3520468271205",
+   "dob": "1962-07-11"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520468271205",
+   "dob": "1962-07-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_123",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": null,
+   "cnic": "3520255316866",
+   "dob": "1964-09-12"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520255316866",
+   "dob": "1964-09-12"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_124",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": null,
+   "cnic": "3520378932704",
+   "dob": "1969-07-18"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520378932704",
+   "dob": "1969-07-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_125",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520763666853",
+   "dob": "1978-06-18"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520763666853",
+   "dob": "1978-06-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_126",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520799773514",
+   "dob": "1993-03-14"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520799773514",
+   "dob": "1993-03-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_127",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": null,
+   "cnic": "3520976198814",
+   "dob": "1972-03-15"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520976198814",
+   "dob": "1972-03-15"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_128",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": null,
+   "cnic": "3520254224716",
+   "dob": "1988-02-10"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520254224716",
+   "dob": "1988-02-10"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_129",
+  "a": {
+   "fullName": "Mohammad Aslam",
+   "fatherName": null,
+   "cnic": "3520822116762",
+   "dob": "1983-05-18"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520822116762",
+   "dob": "1983-05-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_130",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": null,
+   "cnic": "3520887091985",
+   "dob": "1972-08-14"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520887091985",
+   "dob": "1972-08-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_131",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": null,
+   "cnic": "3520899516348",
+   "dob": "1981-08-16"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520899516348",
+   "dob": "1981-08-16"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_132",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": null,
+   "cnic": "3520684806452",
+   "dob": "1987-05-11"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520684806452",
+   "dob": "1987-05-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_133",
+  "a": {
+   "fullName": "Fatimah Bibi",
+   "fatherName": null,
+   "cnic": "3520508410306",
+   "dob": "1989-08-14"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520508410306",
+   "dob": "1989-08-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_134",
+  "a": {
+   "fullName": "Mohammad Aslam",
+   "fatherName": null,
+   "cnic": "3520174531929",
+   "dob": "1980-07-17"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520174531929",
+   "dob": "1980-07-17"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_135",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": null,
+   "cnic": "3520136337691",
+   "dob": "1993-07-14"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520136337691",
+   "dob": "1993-07-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_136",
+  "a": {
+   "fullName": "Fatimah Bibi",
+   "fatherName": null,
+   "cnic": "3520779963164",
+   "dob": "1985-02-14"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520779963164",
+   "dob": "1985-02-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_137",
+  "a": {
+   "fullName": "Khadeeja Bibi",
+   "fatherName": null,
+   "cnic": "3520511536350",
+   "dob": "1957-08-14"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520511536350",
+   "dob": "1957-08-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_138",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": null,
+   "cnic": "3520335126557",
+   "dob": "1987-05-17"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520335126557",
+   "dob": "1987-05-17"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_139",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": null,
+   "cnic": "3520993400970",
+   "dob": "1988-09-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520993400970",
+   "dob": "1988-09-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_140",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": null,
+   "cnic": "3520850021719",
+   "dob": "1957-02-18"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520850021719",
+   "dob": "1957-02-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_141",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": null,
+   "cnic": "3520141291490",
+   "dob": "1959-03-11"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520141291490",
+   "dob": "1959-03-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_142",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": null,
+   "cnic": "3520283610147",
+   "dob": "1977-04-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520283610147",
+   "dob": "1977-04-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_143",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520140521302",
+   "dob": "1982-04-14"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520140521302",
+   "dob": "1982-04-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_144",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520886320502",
+   "dob": "1972-06-13"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520886320502",
+   "dob": "1972-06-13"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_145",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520123014058",
+   "dob": "1984-05-11"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520123014058",
+   "dob": "1984-05-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_146",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": null,
+   "cnic": "3520428845175",
+   "dob": "1988-06-12"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520428845175",
+   "dob": "1988-06-12"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_147",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": null,
+   "cnic": "3520327551086",
+   "dob": "1963-04-12"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520327551086",
+   "dob": "1963-04-12"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_148",
+  "a": {
+   "fullName": "Yousaf Ali",
+   "fatherName": null,
+   "cnic": "3520647020193",
+   "dob": "1955-05-11"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520647020193",
+   "dob": "1955-05-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_149",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": null,
+   "cnic": "3520121972879",
+   "dob": "1969-02-13"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520121972879",
+   "dob": "1969-02-13"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_150",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": null,
+   "cnic": "3520156198449",
+   "dob": "1986-05-18"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520156198449",
+   "dob": "1986-05-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_151",
+  "a": {
+   "fullName": "Abdul Rehman",
+   "fatherName": null,
+   "cnic": "3520592637202",
+   "dob": "1967-07-14"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520592637202",
+   "dob": "1967-07-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_152",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": null,
+   "cnic": "3520690568262",
+   "dob": "1968-08-16"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520690568262",
+   "dob": "1968-08-16"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_153",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": null,
+   "cnic": "3520244056727",
+   "dob": "1991-07-14"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520244056727",
+   "dob": "1991-07-14"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_154",
+  "a": {
+   "fullName": "Shahida Perveen",
+   "fatherName": null,
+   "cnic": "3520351500651",
+   "dob": "1958-09-17"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520351500651",
+   "dob": "1958-09-17"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_155",
+  "a": {
+   "fullName": "Gulam Rasool",
+   "fatherName": null,
+   "cnic": "3520152069961",
+   "dob": "1962-07-16"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520152069961",
+   "dob": "1962-07-16"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_156",
+  "a": {
+   "fullName": "Nasim Akhtar",
+   "fatherName": null,
+   "cnic": "3520712779454",
+   "dob": "1975-03-10"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520712779454",
+   "dob": "1975-03-10"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_157",
+  "a": {
+   "fullName": "Rubina Kauser",
+   "fatherName": null,
+   "cnic": "3520838825345",
+   "dob": "1991-08-11"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520838825345",
+   "dob": "1991-08-11"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_158",
+  "a": {
+   "fullName": "Muhammed Saleem",
+   "fatherName": null,
+   "cnic": "3520503444879",
+   "dob": "1966-03-18"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520503444879",
+   "dob": "1966-03-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_159",
+  "a": {
+   "fullName": "Zainab Begam",
+   "fatherName": null,
+   "cnic": "3520601791652",
+   "dob": "1989-03-18"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520601791652",
+   "dob": "1989-03-18"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_160",
+  "a": {
+   "fullName": "Aisha Khan",
+   "fatherName": null,
+   "cnic": "3520963956727",
+   "dob": "1993-02-13"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520963956727",
+   "dob": "1993-02-13"
+  },
+  "same": true,
+  "kind": "variant_missing_father"
+ },
+ {
+  "id": "d2_161",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520629261941",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520629261941",
+   "dob": "1968-02-17"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_162",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520750269917",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520750269917",
+   "dob": "1992-06-13"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_163",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520427750202",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520427750202",
+   "dob": "1964-08-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_164",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520627330195",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520627330195",
+   "dob": "1964-01-13"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_165",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520766745289",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520766745289",
+   "dob": "1994-09-14"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_166",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520800224088",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520800224088",
+   "dob": "1972-06-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_167",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520923364516",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520923364516",
+   "dob": "1993-04-14"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_168",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520835891266",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520835891266",
+   "dob": "1987-02-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_169",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520496015124",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520496015124",
+   "dob": "1989-01-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_170",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520394463204",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520394463204",
+   "dob": "1988-03-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_171",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520170484994",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520170484994",
+   "dob": "1973-09-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_172",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520814368114",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520814368114",
+   "dob": "1976-03-11"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_173",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520518134321",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520518134321",
+   "dob": "1969-03-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_174",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520624246363",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520624246363",
+   "dob": "1977-05-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_175",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520249454148",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520249454148",
+   "dob": "1990-07-13"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_176",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520531141917",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520531141917",
+   "dob": "1966-02-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_177",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520896250848",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520896250848",
+   "dob": "1992-07-14"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_178",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520605888640",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520605888640",
+   "dob": "1985-03-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_179",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520974358135",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520974358135",
+   "dob": "1965-05-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_180",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520512953066",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520512953066",
+   "dob": "1981-07-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_181",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520494847704",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520494847704",
+   "dob": "1967-09-17"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_182",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520625710863",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520625710863",
+   "dob": "1982-03-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_183",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520992582555",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520992582555",
+   "dob": "1984-05-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_184",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520283516188",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520283516188",
+   "dob": "1969-05-13"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_185",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520350826004",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520350826004",
+   "dob": "1959-04-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_186",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520732706398",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520732706398",
+   "dob": "1986-09-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_187",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520812329285",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520812329285",
+   "dob": "1986-04-16"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_188",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520903810942",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520903810942",
+   "dob": "1974-02-16"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_189",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520326441476",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520326441476",
+   "dob": "1990-09-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_190",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520270590951",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520270590951",
+   "dob": "1966-04-16"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_191",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520318213720",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520318213720",
+   "dob": "1973-05-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_192",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520488028001",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520488028001",
+   "dob": "1961-06-13"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_193",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520857918676",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520857918676",
+   "dob": "1975-05-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_194",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520617439304",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520617439304",
+   "dob": "1964-07-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_195",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520649341225",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520649341225",
+   "dob": "1973-08-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_196",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520574519020",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520574519020",
+   "dob": "1966-01-14"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_197",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520814142059",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520814142059",
+   "dob": "1977-02-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_198",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520650702386",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520650702386",
+   "dob": "1980-02-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_199",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520438071567",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520438071567",
+   "dob": "1994-03-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_200",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520406366792",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520406366792",
+   "dob": "1973-03-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_201",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520308848896",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520308848896",
+   "dob": "1964-09-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_202",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520542398824",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520542398824",
+   "dob": "1979-05-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_203",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520820622469",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520820622469",
+   "dob": "1988-08-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_204",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520212332880",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520212332880",
+   "dob": "1957-07-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_205",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520998919767",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520998919767",
+   "dob": "1965-05-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_206",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520437220147",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520437220147",
+   "dob": "1957-02-11"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_207",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520629469679",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520629469679",
+   "dob": "1984-01-11"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_208",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520680112538",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520680112538",
+   "dob": "1982-08-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_209",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520115997195",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520115997195",
+   "dob": "1978-06-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_210",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520885179100",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520885179100",
+   "dob": "1975-01-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_211",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520242707751",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520242707751",
+   "dob": "1973-02-11"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_212",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520870666291",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520870666291",
+   "dob": "1972-02-17"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_213",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520581364666",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520581364666",
+   "dob": "1987-06-10"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_214",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520576132471",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520576132471",
+   "dob": "1966-02-16"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_215",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520882560708",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520882560708",
+   "dob": "1974-09-16"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_216",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520311388720",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520311388720",
+   "dob": "1986-05-12"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_217",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520294333877",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520294333877",
+   "dob": "1979-05-11"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_218",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520148003577",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520148003577",
+   "dob": "1957-07-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_219",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520133377480",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520133377480",
+   "dob": "1956-01-15"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_220",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520357170365",
+   "dob": "1999-12-31"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520357170365",
+   "dob": "1962-02-18"
+  },
+  "same": false,
+  "kind": "same_name_different_person"
+ },
+ {
+  "id": "d2_221",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520972281565",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520972281565",
+   "dob": "1977-06-18"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_222",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520556035187",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520556035187",
+   "dob": "1982-02-18"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_223",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520583615510",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520583615510",
+   "dob": "1970-05-17"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_224",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520629602547",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520629602547",
+   "dob": "1975-09-15"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_225",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520155574060",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520155574060",
+   "dob": "1982-02-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_226",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520468126685",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520468126685",
+   "dob": "1989-09-16"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_227",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520349208007",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520349208007",
+   "dob": "1964-02-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_228",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520108372880",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520108372880",
+   "dob": "1958-09-15"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_229",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520222249692",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520222249692",
+   "dob": "1967-01-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_230",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520240295615",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520240295615",
+   "dob": "1986-09-17"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_231",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520184766732",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520184766732",
+   "dob": "1979-08-14"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_232",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520145145343",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520145145343",
+   "dob": "1982-08-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_233",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520490057118",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520490057118",
+   "dob": "1963-02-10"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_234",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520323962493",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520323962493",
+   "dob": "1962-09-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_235",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520167340352",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520167340352",
+   "dob": "1977-09-10"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_236",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520638427838",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520638427838",
+   "dob": "1993-05-12"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_237",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520368467804",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520368467804",
+   "dob": "1991-08-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_238",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520522222299",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520522222299",
+   "dob": "1988-09-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_239",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520179451640",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520179451640",
+   "dob": "1975-04-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_240",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520364186957",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520364186957",
+   "dob": "1968-09-11"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_241",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520600470987",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520600470987",
+   "dob": "1994-05-17"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_242",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520791446202",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520791446202",
+   "dob": "1959-07-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_243",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520490156554",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520490156554",
+   "dob": "1965-02-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_244",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520551974307",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520551974307",
+   "dob": "1983-02-12"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_245",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520952358818",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520952358818",
+   "dob": "1992-04-15"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_246",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520493024399",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520493024399",
+   "dob": "1980-06-12"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_247",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520622425157",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520622425157",
+   "dob": "1973-02-10"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_248",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520688648304",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520688648304",
+   "dob": "1970-04-17"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_249",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520698678102",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520698678102",
+   "dob": "1981-08-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_250",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520293979864",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520293979864",
+   "dob": "1988-05-18"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_251",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520703050902",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520703050902",
+   "dob": "1971-06-16"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_252",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520914467539",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520914467539",
+   "dob": "1967-04-14"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_253",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520706933117",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520706933117",
+   "dob": "1968-06-10"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_254",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520408749261",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520408749261",
+   "dob": "1992-03-16"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_255",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520266896573",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520266896573",
+   "dob": "1988-01-14"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_256",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520989039361",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520989039361",
+   "dob": "1957-06-10"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_257",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520796367890",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520796367890",
+   "dob": "1970-08-14"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_258",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520894151142",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520894151142",
+   "dob": "1971-01-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_259",
+  "a": {
+   "fullName": "Khadija Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520726995472",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520726995472",
+   "dob": "1988-09-17"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_260",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520780533049",
+   "dob": null
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520780533049",
+   "dob": "1983-07-13"
+  },
+  "same": false,
+  "kind": "cnic_reused_by_other"
+ },
+ {
+  "id": "d2_261",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520356533646",
+   "dob": "1962-09-16"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520356533645",
+   "dob": "1962-09-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_262",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520819719921",
+   "dob": "1968-03-10"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520819719920",
+   "dob": "1968-03-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_263",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520690963001",
+   "dob": "1990-06-10"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520690963000",
+   "dob": "1990-06-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_264",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520249948256",
+   "dob": "1962-02-13"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520249948255",
+   "dob": "1962-02-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_265",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520651769761",
+   "dob": "1962-09-10"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520651769760",
+   "dob": "1962-09-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_266",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520881758538",
+   "dob": "1972-04-14"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520881758537",
+   "dob": "1972-04-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_267",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520542650537",
+   "dob": "1968-06-13"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520542650536",
+   "dob": "1968-06-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_268",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520386762524",
+   "dob": "1962-09-12"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520386762523",
+   "dob": "1962-09-12"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_269",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520984012116",
+   "dob": "1984-06-13"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520984012115",
+   "dob": "1984-06-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_270",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520716722982",
+   "dob": "1978-08-17"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520716722981",
+   "dob": "1978-08-17"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_271",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520518294837",
+   "dob": "1991-09-13"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520518294836",
+   "dob": "1991-09-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_272",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520224253145",
+   "dob": "1979-09-16"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520224253144",
+   "dob": "1979-09-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_273",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520502922672",
+   "dob": "1991-05-18"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Rasheed Ahmad",
+   "cnic": "3520502922671",
+   "dob": "1991-05-18"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_274",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520801117837",
+   "dob": "1989-03-17"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520801117836",
+   "dob": "1989-03-17"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_275",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520246981938",
+   "dob": "1987-08-18"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520246981937",
+   "dob": "1987-08-18"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_276",
+  "a": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520620875189",
+   "dob": "1958-01-14"
+  },
+  "b": {
+   "fullName": "Fatima Bibi",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520620875188",
+   "dob": "1958-01-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_277",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520434836873",
+   "dob": "1963-01-15"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520434836872",
+   "dob": "1963-01-15"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_278",
+  "a": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520922711499",
+   "dob": "1959-09-14"
+  },
+  "b": {
+   "fullName": "Shahida Parveen",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520922711498",
+   "dob": "1959-09-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_279",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520855355356",
+   "dob": "1993-04-18"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520855355355",
+   "dob": "1993-04-18"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_280",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520511835548",
+   "dob": "1962-03-14"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520511835547",
+   "dob": "1962-03-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_281",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520384470709",
+   "dob": "1975-03-12"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520384470708",
+   "dob": "1975-03-12"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_282",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520610833040",
+   "dob": "1973-04-12"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520610833049",
+   "dob": "1973-04-12"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_283",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520330359429",
+   "dob": "1968-04-14"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520330359428",
+   "dob": "1968-04-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_284",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520689119022",
+   "dob": "1957-09-10"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520689119021",
+   "dob": "1957-09-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_285",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520182280355",
+   "dob": "1966-06-18"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520182280354",
+   "dob": "1966-06-18"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_286",
+  "a": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520721630292",
+   "dob": "1970-01-12"
+  },
+  "b": {
+   "fullName": "Ayesha Khan",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520721630291",
+   "dob": "1970-01-12"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_287",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520514188953",
+   "dob": "1960-08-14"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520514188952",
+   "dob": "1960-08-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_288",
+  "a": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520564149428",
+   "dob": "1976-02-17"
+  },
+  "b": {
+   "fullName": "Naseem Akhtar",
+   "fatherName": "Ghulam Nabi",
+   "cnic": "3520564149427",
+   "dob": "1976-02-17"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_289",
+  "a": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520234378051",
+   "dob": "1966-02-10"
+  },
+  "b": {
+   "fullName": "Muhammad Aslam",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520234378050",
+   "dob": "1966-02-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_290",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520569515224",
+   "dob": "1985-02-14"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520569515223",
+   "dob": "1985-02-14"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_291",
+  "a": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520612069048",
+   "dob": "1966-01-13"
+  },
+  "b": {
+   "fullName": "Ghulam Rasool",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520612069047",
+   "dob": "1966-01-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_292",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520781221314",
+   "dob": "1992-08-16"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520781221313",
+   "dob": "1992-08-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_293",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520907759085",
+   "dob": "1959-05-11"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Abdul Ghani",
+   "cnic": "3520907759084",
+   "dob": "1959-05-11"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_294",
+  "a": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520550630839",
+   "dob": "1993-03-10"
+  },
+  "b": {
+   "fullName": "Yusuf Ali",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520550630838",
+   "dob": "1993-03-10"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_295",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520893124168",
+   "dob": "1957-09-12"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Muhammad Rafiq",
+   "cnic": "3520893124167",
+   "dob": "1957-09-12"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_296",
+  "a": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520694034246",
+   "dob": "1994-03-15"
+  },
+  "b": {
+   "fullName": "Muhammad Saleem",
+   "fatherName": "Muhammad Iqbal",
+   "cnic": "3520694034245",
+   "dob": "1994-03-15"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_297",
+  "a": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520802272999",
+   "dob": "1989-08-16"
+  },
+  "b": {
+   "fullName": "Nasreen Akhtar",
+   "fatherName": "Noor Muhammad",
+   "cnic": "3520802272998",
+   "dob": "1989-08-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_298",
+  "a": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520944426308",
+   "dob": "1986-07-13"
+  },
+  "b": {
+   "fullName": "Abdul Rahman",
+   "fatherName": "Allah Ditta",
+   "cnic": "3520944426307",
+   "dob": "1986-07-13"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_299",
+  "a": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520219934111",
+   "dob": "1978-07-16"
+  },
+  "b": {
+   "fullName": "Zainab Begum",
+   "fatherName": "Abdul Karim",
+   "cnic": "3520219934110",
+   "dob": "1978-07-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ },
+ {
+  "id": "d2_300",
+  "a": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520706030234",
+   "dob": "1958-08-16"
+  },
+  "b": {
+   "fullName": "Rubina Kausar",
+   "fatherName": "Sher Muhammad",
+   "cnic": "3520706030233",
+   "dob": "1958-08-16"
+  },
+  "same": true,
+  "kind": "typo_in_cnic"
+ }
+]

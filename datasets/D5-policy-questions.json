@@ -1,0 +1,102 @@
+[
+ {
+  "id": "d5_1",
+  "question": "Do I have to pay any fee to get the money?",
+  "gold": "fees-1"
+ },
+ {
+  "id": "d5_2",
+  "question": "Someone asked me for my OTP to release the relief, is that ok?",
+  "gold": "fees-1"
+ },
+ {
+  "id": "d5_3",
+  "question": "how much money will I get",
+  "gold": "amount-1"
+ },
+ {
+  "id": "d5_4",
+  "question": "What is the payment for a family of six?",
+  "gold": "amount-1"
+ },
+ {
+  "id": "d5_5",
+  "question": "what documents do I need",
+  "gold": "docs-1"
+ },
+ {
+  "id": "d5_6",
+  "question": "My photo was blurry, what now?",
+  "gold": "docs-1"
+ },
+ {
+  "id": "d5_7",
+  "question": "can I appeal",
+  "gold": "appeal-1"
+ },
+ {
+  "id": "d5_8",
+  "question": "I disagree with the decision",
+  "gold": "appeal-1"
+ },
+ {
+  "id": "d5_9",
+  "question": "how do I know if a message is real",
+  "gold": "fees-2"
+ },
+ {
+  "id": "d5_10",
+  "question": "who can see my data",
+  "gold": "consent-1"
+ },
+ {
+  "id": "d5_11",
+  "question": "can I take back permission",
+  "gold": "consent-1"
+ },
+ {
+  "id": "d5_12",
+  "question": "how long does it take",
+  "gold": "process-2"
+ },
+ {
+  "id": "d5_13",
+  "question": "Who decides my case, a computer?",
+  "gold": "process-1"
+ },
+ {
+  "id": "d5_14",
+  "question": "Can a helper apply for my family?",
+  "gold": "helper-1"
+ },
+ {
+  "id": "d5_15",
+  "question": "How will I receive the money?",
+  "gold": "payment-1"
+ },
+ {
+  "id": "d5_16",
+  "question": "Who is eligible to apply?",
+  "gold": "elig-1"
+ },
+ {
+  "id": "d5_17",
+  "question": "what is the capital of France",
+  "gold": null
+ },
+ {
+  "id": "d5_18",
+  "question": "What is the weather in Lahore tomorrow?",
+  "gold": null
+ },
+ {
+  "id": "d5_19",
+  "question": "Can you give me a loan for my shop?",
+  "gold": null
+ },
+ {
+  "id": "d5_20",
+  "question": "Who won the cricket match yesterday?",
+  "gold": null
+ }
+]

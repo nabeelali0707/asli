@@ -14,6 +14,8 @@ export type AccessClaims = {
   af?: string;
   afc?: string;
   typ: "access" | "family";
+  /** Citizen app on a shared phone: epoch seconds when the family PIN was last entered (lock screen). */
+  pv?: number;
 };
 
 export async function issueToken(claims: AccessClaims, ttlSeconds = env().JWT_TTL_SECONDS): Promise<{ token: string; expiresAt: string }> {

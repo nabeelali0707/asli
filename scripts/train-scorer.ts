@@ -1,0 +1,11 @@
+import "./load-env";
+import { getDb, resetDb } from "../src/server/db/client";
+import { trainScorer, autoThresholdCurve } from "../src/server/eval/benchmarks";
+const db = await getDb();
+const r = await trainScorer(db);
+console.log(`Scorer v${r.version} trained on frozen D1 (${JSON.stringify(r.metrics.split)}) — AUC ${r.metrics.auc}, Brier ${JSON.stringify(r.metrics.brier)}, ECE ${JSON.stringify(r.metrics.ece)}`);
+const c = autoThresholdCurve(r.model);
+console.log(`Auto-approve threshold (formula): ${c.formula.threshold} — ${c.formula.formula}`);
+console.log(`Empirical cost minimum on test: ${JSON.stringify(c.empiricalMinimum)}`);
+console.log(c.ruleOfThree);
+await resetDb();

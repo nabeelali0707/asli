@@ -3,7 +3,7 @@
  */
 import { and, count, desc, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
 import type { DB } from "../db/client";
-import { cases, decisions, scamReports, payouts, citizens, documents, auditLog, users, attestations, notices } from "../db/schema";
+import { cases, decisions, scamReports, payouts, citizens, documents, auditLog, users, attestations, notices, breakGlassGrants, payoutAliasChanges } from "../db/schema";
 import type { Actor } from "../lib/actor";
 import { audit } from "../lib/audit";
 import { newId } from "../lib/ids";
@@ -233,6 +233,44 @@ export async function anomalies(db: DB, tenantId: string) {
     if (h.n > 15 || (loads.length >= 3 && h.n > mean + 3 * sd)) out.push({ type: "helper_volume_spike", severity: "medium", detail: `Helper filed ${h.n} cases in 24h (avg ${mean.toFixed(1)})`, refs: [h.by] });
   }
   for (const s of await scamSpikes(db, tenantId)) out.push({ type: "scam_spike", severity: "high", detail: `${s.last24h} scam reports in 24h in ${s.district} (prior daily avg ${s.dailyAvgPrior7d})`, refs: [s.district] });
+
+  // Helper rules ─────────────────────────────────────────────
+  // Night-time bulk edits: ≥ 10 case/document/consent actions by one helper between 22:00 and 05:00 PKT.
+  const nightRows = await db
+    .select({ actorId: auditLog.actorId, night: sql<string>`to_char((${auditLog.at} at time zone 'Asia/Karachi') - interval '5 hours', 'YYYY-MM-DD')`, n: count() })
+    .from(auditLog)
+    .where(
+      and(
+        eq(auditLog.tenantId, tenantId),
+        eq(auditLog.actorRole, "helper"),
+        gte(auditLog.at, new Date(Date.now() - 7 * DAY)),
+        sql`extract(hour from (${auditLog.at} at time zone 'Asia/Karachi')) not between 5 and 21`,
+        sql`(${auditLog.action} like 'case.%' or ${auditLog.action} like 'document.%' or ${auditLog.action} like 'payout_account.%' or ${auditLog.action} like 'consent.%')`,
+      ),
+    )
+    .groupBy(auditLog.actorId, sql`2`)
+    .having(sql`count(*) >= 10`);
+  for (const r of nightRows) out.push({ type: "helper_night_bulk_edits", severity: "medium", detail: `Helper made ${r.n} changes between 22:00 and 05:00 on ${r.night}`, refs: [r.actorId ?? "unknown"] });
+
+  // Payout account change requested within 30 days AFTER a payment was released → classic diversion pattern.
+  const after = await db
+    .select({ citizenId: payoutAliasChanges.citizenId, requestedBy: payoutAliasChanges.requestedBy })
+    .from(payoutAliasChanges)
+    .innerJoin(payouts, and(eq(payouts.citizenId, payoutAliasChanges.citizenId), eq(payouts.status, "released")))
+    .where(and(eq(payoutAliasChanges.tenantId, tenantId), sql`${payoutAliasChanges.createdAt} > ${payouts.releasedAt}`, sql`${payoutAliasChanges.createdAt} < ${payouts.releasedAt} + interval '30 days'`));
+  for (const r of after) out.push({ type: "payout_change_after_payment", severity: "high", detail: "Payment account change requested within 30 days after a payment", refs: [r.citizenId, r.requestedBy] });
+
+  // "Received less" / "nothing" receipts grouped by the helper who handled the case.
+  const shortfalls = await db
+    .select({ helperId: sql<string>`${cases.claim}->>'helperId'`, n: count() })
+    .from(cases)
+    .where(and(eq(cases.tenantId, tenantId), eq(cases.type, "complaint"), sql`${cases.claim}->>'kind' = 'receipt_shortfall'`))
+    .groupBy(sql`${cases.claim}->>'helperId'`);
+  for (const r of shortfalls) if (r.helperId) out.push({ type: "receipt_shortfall_by_helper", severity: r.n >= 2 ? "high" : "medium", detail: `${r.n} citizen(s) assisted by this helper say they received less than was sent`, refs: [r.helperId] });
+
+  // Near-identical images carrying the same identity across different applicants (S8 in decisions).
+  const s8 = await db.select({ caseId: decisions.caseId }).from(decisions).where(and(eq(decisions.tenantId, tenantId), sql`${decisions.hardStops} @> '["DOCUMENT_REUSED"]'::jsonb`));
+  if (s8.length) out.push({ type: "reused_images", severity: "high", detail: `${s8.length} decision(s) stopped because an image was reused across applicants`, refs: [...new Set(s8.map((r) => r.caseId))] });
   return out;
 }
 
@@ -302,13 +340,20 @@ export async function verifyAttestation(db: DB, token: string) {
 
 // ─────────────── break-glass ───────────────
 
+export const BREAK_GLASS_MINUTES = 15;
+
+/** Officer full-detail access: reason required, 15-minute window, written to the citizen's access log. */
 export async function breakGlass(db: DB, actor: Actor, citizenId: string, reason: string) {
   if (actor.type !== "user" || !["officer", "admin"].includes(actor.role)) throw forbidden("OFFICER_ONLY", "Break-glass is for officers");
   if (reason.trim().length < 10) throw badRequest("REASON_REQUIRED", "Give a specific reason (10+ characters); it is shown to the citizen.");
   const c = await getCitizenOr404(db, citizenId);
-  if (c.tenantId !== actor.tenantId) throw forbidden("CROSS_TENANT", "Another department's record");
-  await audit(db, { actor, action: "citizen.break_glass", targetType: "citizen", targetId: citizenId, detail: { reason } });
-  return { citizen: presentCitizen(c, "full"), notice: "This access is logged and visible to the citizen." };
+  if (c.tenantId !== actor.tenantId) throw notFound("Citizen");
+  const expiresAt = new Date(Date.now() + BREAK_GLASS_MINUTES * 60_000);
+  const id = newId("brk");
+  await db.insert(breakGlassGrants).values({ id, tenantId: c.tenantId, officerId: actor.id, citizenId, reason, expiresAt });
+  // targetType "citizen" → appears in the citizen's own "who used my data" log.
+  await audit(db, { actor, action: "citizen.break_glass", targetType: "citizen", targetId: citizenId, detail: { reason, grantId: id, expiresAt: expiresAt.toISOString() } });
+  return { grantId: id, citizen: presentCitizen(c, "full"), expiresAt, minutes: BREAK_GLASS_MINUTES, notice: "This access is logged and visible to the citizen. Full details stay visible for 15 minutes, then mask again." };
 }
 
 export async function auditTrail(db: DB, filter: { tenantId: string; targetId?: string; actorId?: string; action?: string; limit?: number }) {

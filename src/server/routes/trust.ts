@@ -21,6 +21,7 @@ const Verify = z
     sender: z.string().optional().openapi({ example: "03451234567" }),
     citizenId: z.string().optional().openapi({ description: "Whose case to check against. Citizens/helpers: defaults to themselves / the active family." }),
     district: z.string().optional(),
+    about: z.enum(["me", "someone_else"]).default("me").openapi({ description: "someone_else = e.g. a shopkeeper checking a customer's message; your own case is then not used as evidence" }),
   })
   .openapi("VerifyMessage");
 trustRoutes.openapi(

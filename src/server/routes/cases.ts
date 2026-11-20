@@ -158,7 +158,7 @@ caseRoutes.openapi(
 
 const Queue = z.object({
   status: z.string().optional().openapi({ description: "Comma-separated statuses", example: "in_review,submitted" }),
-  lane: z.enum(["fast", "ask_proof", "human"]).optional(),
+  lane: z.enum(["auto", "fast", "ask_proof", "human"]).optional(),
   mine: z.enum(["true", "false"]).optional(),
   limit: z.coerce.number().int().min(1).max(500).optional(),
 });
@@ -194,14 +194,16 @@ caseRoutes.openapi(
     method: "post",
     path: "/cases/{id}/approve",
     tags: ["Officer"],
-    summary: "Approve the claim → payout (second approver needed above the limit)",
+    summary: "Approve the claim → payout (second approver needed above the limit). Requires Idempotency-Key.",
     description: "Creates the payout with this officer's approval. At or below the rule set's secondApproverAbovePKR it is released at once via mock Raast and a signed payment notice is sent; above it, a different officer must approve.",
     params: IdParam,
     body: Approve,
   }),
   async (c) => {
     const actor = await need(c, ["officer", "admin"]);
-    return c.json(await approveCase(c.get("db"), actor, param(c), body(c, Approve)), 200);
+    const b = body(c, Approve);
+    const r = await idempotent(c, { id: param(c), ...b }, async () => ({ status: 200, body: await approveCase(c.get("db"), actor, param(c), b) }), null, { required: true });
+    return c.json(r.body, 200);
   },
 );
 
@@ -229,9 +231,11 @@ caseRoutes.openapi(route({ method: "post", path: "/cases/{id}/agent", tags: ["AI
 
 caseRoutes.openapi(route({ method: "post", path: "/payouts/{id}/approve", tags: ["Officer"], summary: "Second approval for a large payout (different officer with second-approver right)", params: IdParam }), async (c) => {
   const actor = await need(c, ["officer", "admin"]);
-  return c.json(await addPayoutApproval(c.get("db"), actor, param(c)), 200);
+  const r = await idempotent(c, { id: param(c) }, async () => ({ status: 200, body: await addPayoutApproval(c.get("db"), actor, param(c)) }), null, { required: true });
+  return c.json(r.body, 200);
 });
 
 caseRoutes.openapi(route({ method: "post", path: "/payouts/{id}/release", tags: ["Officer"], summary: "Release an approved payout via mock Raast (humans only; AI gets 403)", params: IdParam }), async (c) => {
-  return c.json(await releasePayout(c.get("db"), getActor(c), param(c)), 200);
+  const r = await idempotent(c, { id: param(c) }, async () => ({ status: 200, body: await releasePayout(c.get("db"), getActor(c), param(c)) }), null, { required: true });
+  return c.json(r.body, 200);
 });

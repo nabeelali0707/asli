@@ -1,0 +1,75 @@
+{
+  "note": "Synthetic, fictional data. Generated from fixed seeds; see datasets/SPEC.md.",
+  "datasets": [
+    {
+      "name": "D1-decision-cases",
+      "rows": 500,
+      "labels": {
+        "should_pay": 210,
+        "should_not_pay": 230,
+        "needs_info": 60
+      },
+      "splits": {
+        "train": 300,
+        "calibration": 100,
+        "test": 100
+      },
+      "sha256": "a9b67cd5fd0c49ff4c0141f424a2063c9709c185455f3ce2836d20cbab31fe3e",
+      "committedFile": "match"
+    },
+    {
+      "name": "D2-identity-pairs",
+      "rows": 300,
+      "labels": {
+        "true": 200,
+        "false": 100
+      },
+      "sha256": "7251f635bd546d9ee2071dd64c3523b888f2cbd9c5c3ceec0b7803a4cdecf4fc",
+      "committedFile": "match"
+    },
+    {
+      "name": "D3-scam-messages",
+      "rows": 30,
+      "labels": {
+        "scam": 15,
+        "benign": 9,
+        "genuine_like": 6
+      },
+      "sha256": "b9f4cc51d3c322c56a3a796c6991a36fcdf57ac0f4801d6e1239140182c32e22",
+      "committedFile": "match"
+    },
+    {
+      "name": "D4-document-specs",
+      "rows": 20,
+      "labels": {
+        "clean": 6,
+        "blurry": 4,
+        "edited_qr": 4,
+        "third_party_qr": 3,
+        "injection_qr": 3
+      },
+      "sha256": "6c9b69de6943ef90f8702969f239f72843d0dae9603a3d2af57299608f7e1215",
+      "committedFile": "match"
+    },
+    {
+      "name": "D5-policy-questions",
+      "rows": 20,
+      "labels": {
+        "answerable": 16,
+        "unanswerable": 4
+      },
+      "sha256": "2201f73c0ad3db67e8251565d3dfcee91c4df80e9e3f101c969b1e7e808fee38",
+      "committedFile": "match"
+    },
+    {
+      "name": "D6-attacks",
+      "rows": 26,
+      "labels": {
+        "attack": 18,
+        "control": 8
+      },
+      "sha256": "7593c48dac8095a8ce1c79c935b57b828f9de7ea912eb979f466037a54b5451c",
+      "committedFile": "match"
+    }
+  ]
+}

@@ -72,7 +72,11 @@ export const authenticate: MiddlewareHandler<AppEnv> = async (c, next) => {
     perMinute = PLAN_LIMITS[tn?.plan ?? "standard"]?.requestsPerMinute ?? 120;
   }
   const rl = rateLimit(actor ? `a:${actor.id}` : `ip:${clientIp(c)}`, perMinute, 60_000);
-  c.header("x-ratelimit-remaining", String(rl.remaining));
+  // IETF RateLimit header fields (draft-ietf-httpapi-ratelimit-headers).
+  c.header("ratelimit-limit", String(perMinute));
+  c.header("ratelimit-remaining", String(rl.remaining));
+  c.header("ratelimit-reset", String(Math.ceil(rl.resetMs / 1000)));
+  c.header("ratelimit-policy", `${perMinute};w=60`);
   if (!rl.ok) {
     c.header("retry-after", String(Math.ceil(rl.resetMs / 1000)));
     throw new AppError(429, "RATE_LIMITED", "Too many requests. Please slow down.");
