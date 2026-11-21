@@ -59,14 +59,16 @@ export default function Home() {
         <Hero />
 
         <section aria-label="Public systems Asli works with" className="container-page">
-          <ul className="flex flex-wrap items-center justify-between gap-x-10 gap-y-4 border-y border-ink/15 py-7 grayscale">
-            {RAILS.map((r) => (
-              <li key={r} className="flex items-center gap-2 font-mono text-[15px] uppercase tracking-wider text-ink/70">
-                {r}
-                <span className="rounded-[5px] border border-ink/40 px-1.5 text-[11px]">mock</span>
-              </li>
-            ))}
-          </ul>
+          <div className="marquee overflow-hidden border-y border-ink/15 py-7 grayscale [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
+            <ul className="marquee-track">
+              {[...RAILS, ...RAILS].map((r, i) => (
+                <li key={i} aria-hidden={i >= RAILS.length ? true : undefined} className="flex shrink-0 items-center gap-2 pe-14 font-mono text-[15px] uppercase tracking-wider text-ink/70">
+                  {r}
+                  <span className="rounded-[5px] border border-ink/40 px-1.5 text-[11px]">mock</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <section id="check" className="container-page scroll-mt-8 pt-20 sm:pt-28">
@@ -97,7 +99,7 @@ export default function Home() {
                       {f.cta}
                     </ArrowLink>
                   </div>
-                  <f.Art className="hidden h-36 w-auto sm:block" />
+                  <f.Art className="art-float hidden h-36 w-auto sm:block" />
                 </div>
               </Card>
             ))}
@@ -112,7 +114,7 @@ export default function Home() {
               <BtnLink href="/login">Open the demo</BtnLink>
             </div>
             <div className="relative h-56 lg:h-60">
-              <ArtCta className="absolute -top-10 left-1/2 h-[19rem] w-auto -translate-x-1/2 lg:-top-16" />
+              <ArtCta className="art-float absolute -top-10 left-1/2 h-[19rem] w-auto -translate-x-1/2 lg:-top-16" />
             </div>
           </div>
         </section>

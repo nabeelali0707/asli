@@ -6,7 +6,7 @@ const INK = "#191A23";
 const LIME = "#B9FF66";
 const MIST = "#F3F3F3";
 
-export function Sparkle({ x, y, s = 1, fill = INK, className = "pop" }: { x: number; y: number; s?: number; fill?: string; className?: string }) {
+export function Sparkle({ x, y, s = 1, fill = INK, className = "pop twinkle" }: { x: number; y: number; s?: number; fill?: string; className?: string }) {
   return (
     <path
       className={className}
@@ -24,12 +24,12 @@ export function Sparkle({ x, y, s = 1, fill = INK, className = "pop" }: { x: num
 export function HeroArt({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 520 460" className={className} role="img" aria-label="A phone receives a relief message and a seal checks whether it is real">
-      <g fill="none" stroke={INK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <g className="orbit" fill="none" stroke={INK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <ellipse className="draw" cx="262" cy="232" rx="230" ry="88" transform="rotate(-14 262 232)" />
         <ellipse className="draw" cx="262" cy="232" rx="196" ry="66" transform="rotate(-14 262 232)" strokeDasharray="2 9" />
       </g>
       {/* phone */}
-      <g className="pop">
+      <g className="pop float">
         <rect x="150" y="70" width="168" height="318" rx="28" fill="#fff" stroke={INK} strokeWidth="2" />
         <rect x="164" y="98" width="140" height="262" rx="14" fill={MIST} stroke={INK} strokeWidth="2" />
         <rect x="208" y="80" width="52" height="8" rx="4" fill={INK} />
@@ -52,14 +52,14 @@ export function HeroArt({ className }: { className?: string }) {
         <path d="M412 284l10 36-20-10-12 18-8-38" fill="#fff" stroke={INK} strokeWidth="2" strokeLinejoin="round" />
       </g>
       {/* scam bubble being rejected */}
-      <g className="pop">
+      <g className="pop float">
         <rect x="24" y="268" width="124" height="54" rx="14" fill={INK} stroke={INK} strokeWidth="2" />
         <path d="M44 286h58M44 302h40" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
         <circle cx="132" cy="268" r="16" fill="#fff" stroke={INK} strokeWidth="2" />
         <path d="M125 261l14 14M139 261l-14 14" stroke={INK} strokeWidth="2.5" strokeLinecap="round" />
       </g>
       {/* cursor */}
-      <path className="pop" d="M452 360l10 40 8-14 16 16 8-8-16-16 14-8z" fill="#fff" stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+      <path className="pop float" d="M452 360l10 40 8-14 16 16 8-8-16-16 14-8z" fill="#fff" stroke={INK} strokeWidth="2" strokeLinejoin="round" />
       <Sparkle x={86} y={118} s={1.2} fill={INK} />
       <Sparkle x={468} y={92} s={0.9} fill={LIME} />
       <Sparkle x={104} y={404} s={0.75} fill="#fff" />

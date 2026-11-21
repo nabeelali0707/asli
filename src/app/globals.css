@@ -165,6 +165,47 @@
   box-decoration-break: clone;
 }
 
+/* Section title: the lime highlight wipes in left→right when the header scrolls into view. */
+.marker-sweep {
+  display: inline;
+  color: #000;
+  border-radius: var(--radius-badge);
+  padding: 2px 8px;
+  background: linear-gradient(var(--color-accent-primary), var(--color-accent-primary)) no-repeat left center / 0% 100%;
+  transition: background-size 650ms cubic-bezier(0.2, 0, 0, 1) 80ms;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+[data-in="true"] .marker-sweep {
+  background-size: 100% 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marker-sweep {
+    background-size: 100% 100%;
+  }
+}
+
+/* Idle motion for illustrations and the partner strip. */
+@keyframes art-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+.art-float {
+  animation: art-float 5.5s ease-in-out infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
 /* Card shell: hard border + hard bottom shadow. */
 @utility brut-card {
   border: 1px solid var(--color-border-ink);
@@ -221,6 +262,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .art-float,
+  .marquee-track {
+    animation: none !important;
+  }
+  .marquee-track {
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .marquee-track [aria-hidden="true"] {
+    display: none;
+  }
   html {
     scroll-behavior: auto;
   }

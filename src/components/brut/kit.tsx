@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, type HTMLMotionProps } from "motion/react";
+import { motion, AnimatePresence, useInView, type HTMLMotionProps } from "motion/react";
 import { ArrowUpRight, Volume2, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { speak } from "@/lib/api";
@@ -79,12 +79,23 @@ export function ArrowLink({ href, onClick, children, tone = "light", className }
 
 export function SectionHeader({ title, children, id, as = "h2" }: { title: string; children?: React.ReactNode; id?: string; as?: "h1" | "h2" }) {
   const H = as;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
   return (
-    <div className="flex flex-col items-start gap-5 md:flex-row md:items-center md:gap-8">
+    <div ref={ref} data-in={inView} className="flex flex-col items-start gap-5 md:flex-row md:items-center md:gap-8">
       <H id={id} className="text-h2 shrink-0">
-        <span className="marker">{title}</span>
+        <span className="marker-sweep">{title}</span>
       </H>
-      {children && <p className="max-w-[520px] text-[1.05rem] leading-[1.5] text-muted-ink">{children}</p>}
+      {children && (
+        <motion.p
+          initial={{ opacity: 0, x: -16 }}
+          animate={inView ? { opacity: 1, x: 0 } : undefined}
+          transition={{ type: "spring", bounce: 0, visualDuration: 0.5, delay: 0.25 }}
+          className="max-w-[520px] text-[1.05rem] leading-[1.5] text-muted-ink"
+        >
+          {children}
+        </motion.p>
+      )}
     </div>
   );
 }
