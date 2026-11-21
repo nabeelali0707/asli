@@ -8,3 +8,7 @@ out/
 next-env.d.ts
 coverage/
 .vercel
+
+# Local agent tooling (not part of the app)
+.agents/
+.claude/skills/
