@@ -6,13 +6,14 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { useApi, useAction, useSession, fmtPKR, fmtWhen } from "@/lib/hooks";
 import { Btn, Card, CardTitle, Bilingual, LaneChip, Spinner, Tag, Panel } from "@/components/brut/kit";
+import { OfficerTools } from "@/components/app/officer-tools";
 
 type Bi = { en: string; ur: string };
 type Detail = {
-  case: { id: string; ref: string; status: string; statusWords: Bi; lane: string; confidence: number | null; claim: Record<string, unknown>; createdVia: string };
+  case: { id: string; ref: string; status: string; statusWords: Bi; lane: string; confidence: number | null; claim: Record<string, unknown>; createdVia: string; assignedTo: string | null };
   citizen: { id: string; fullName: string; district: string; cnic: string };
   documents: { id: string; kind: string; checks: { tamperScore: number; tamperReasons: string[]; blurry: boolean; reusedByAnotherApplicant: boolean; notChecked: string[]; qr: { found: boolean; valid: boolean; reason?: string } } }[];
-  decisions: { id: string; createdAt: string; lane: string; score: number; ruleVersion: number; reasonCodes: string[]; hardStops: string[]; userReason: Bi; trace: { autoApprove: { blockers: string[]; threshold: number; derivedFrom: string }; thresholds: Record<string, unknown> } }[];
+  decisions: { id: string; createdAt: string; lane: string; score: number; ruleVersion: number; reasonCodes: string[]; hardStops: string[]; userReason: Bi; trace?: { autoApprove?: { blockers: string[]; threshold: number; derivedFrom: string }; thresholds?: Record<string, unknown> } }[];
   notes: { id: string; authorType: string; kind: string; body: string; createdAt: string }[];
   payout: { id: string; amount: number; status: string; requiredApprovals: number; approvals: { userId: string }[]; coolingOffUntil: string | null; provisional: boolean } | null;
 };
@@ -58,8 +59,8 @@ export default function CaseDetail() {
               )}
               <div>
                 <p className="mb-2 text-sm uppercase tracking-wide text-white/70">Auto-approve blockers</p>
-                <ul className="list-disc space-y-1 ps-5 text-[15px]">{dec.trace.autoApprove.blockers.map((b) => <li key={b}>{b}</li>)}</ul>
-                <p className="mt-2 break-words font-mono text-[12px] text-white/60">{dec.trace.autoApprove.derivedFrom}</p>
+                <ul className="list-disc space-y-1 ps-5 text-[15px]">{(dec.trace?.autoApprove?.blockers ?? []).map((b) => <li key={b}>{b}</li>)}</ul>
+                <p className="mt-2 break-words font-mono text-[12px] text-white/60">{dec.trace?.autoApprove?.derivedFrom ?? ""}</p>
               </div>
             </div>
           </div>
@@ -118,6 +119,8 @@ export default function CaseDetail() {
           </div>
         </section>
       )}
+
+      <OfficerTools caseId={d.case.id} citizenId={d.citizen.id} assignedTo={d.case.assignedTo} status={d.case.status} onDone={q.reload} />
 
       <section className="space-y-4">
         <h2 className="text-h3"><span className="marker">Notes</span></h2>

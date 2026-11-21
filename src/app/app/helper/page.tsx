@@ -5,11 +5,15 @@ import { toast } from "sonner";
 import { api, session, newKey } from "@/lib/api";
 import { useApi, useAction, fmtWhen } from "@/lib/hooks";
 import { Btn, Card, CardTitle, Bilingual, LaneChip, Spinner, Empty, Tag, SectionHeader } from "@/components/brut/kit";
+import { DocUpload } from "@/components/app/doc-upload";
+import { CaseActions } from "@/components/app/case-actions";
+import { OfflineApply } from "@/components/app/offline-apply";
+import { unlockFamily, lockAll, outbox } from "@/lib/outbox";
 
 type Bi = { en: string; ur: string };
 type Citizen = { id: string; fullName: string; district: string; cnic: string; view: string };
 type Family = { citizen: Citizen; consentId: string; expiresAt: string };
-type Case = { id: string; ref: string; statusWords: Bi; lane: string | null; latestReason: Bi | null; createdAt: string };
+type Case = { id: string; ref: string; status: string; statusWords: Bi; lane: string | null; latestReason: Bi | null; createdAt: string };
 type Intake = { confirm: Bi; draftCaseId: string | null; askAgainFor: string[] };
 
 function FamilyWork({ family, onExit }: { family: { citizenId: string; name: string }; onExit: () => void }) {
@@ -18,6 +22,27 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
   const [heard, setHeard] = React.useState<Intake | null>(null);
   const { busy, run } = useAction();
 
+  // Shared-phone safety: lock after 2 minutes with no touch, so the next person can't see this family's data.
+  React.useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
+    const arm = () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        lockAll();
+        toast("Locked after 2 minutes. Enter the family PIN to continue.");
+        onExit();
+      }, 120_000);
+    };
+    const evs = ["pointerdown", "keydown", "scroll"] as const;
+    evs.forEach((e) => window.addEventListener(e, arm, { passive: true }));
+    arm();
+    return () => {
+      clearTimeout(t);
+      evs.forEach((e) => window.removeEventListener(e, arm));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-ink bg-lime p-5">
@@ -25,7 +50,10 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
           <p className="text-[13px] uppercase tracking-wide">Acting for</p>
           <p className="text-xl font-medium">{family.name}</p>
         </div>
-        <Btn variant="secondary" onClick={onExit}>Switch family</Btn>
+        <div className="flex flex-wrap gap-2">
+          <Btn variant="secondary" size="sm" onClick={onExit}>Switch family</Btn>
+          <Btn variant="secondary" size="sm" onClick={() => { outbox.wipe(`fam:${family.citizenId}`); lockAll(); toast.success("Saved data for this family wiped from this phone."); onExit(); }}>Wipe this family from the phone</Btn>
+        </div>
       </div>
       <div className="stagger space-y-4">
         {cases.data?.cases.length === 0 && <Empty title="No case for this family yet" />}
@@ -36,6 +64,7 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
               <div className="flex gap-2"><LaneChip lane={c.lane} /><Tag>{c.statusWords.en}</Tag></div>
             </div>
             {c.latestReason && <Bilingual className="mt-5" text={c.latestReason} />}
+            <CaseActions c={{ id: c.id, status: c.status, lane: c.lane }} asFamily onDone={cases.reload} />
           </Card>
         ))}
       </div>
@@ -53,6 +82,7 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
         {heard && (
           <div className="mt-5 rounded-[18px] border border-ink bg-white p-5">
             <Bilingual text={heard.confirm} />
+            {heard.draftCaseId && <div className="mt-4"><DocUpload caseId={heard.draftCaseId} asFamily /></div>}
             {heard.draftCaseId && (
               <Btn className="mt-4" loading={busy === "submit"} onClick={() => run("submit", () => api(`/cases/${heard.draftCaseId}/submit`, { asFamily: true, method: "POST", body: {} }), () => { toast.success("Sent for this family."); setHeard(null); setText(""); cases.reload(); })}>
                 The family confirms — send
@@ -61,6 +91,10 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
           </div>
         )}
       </div>
+      <details className="rounded-[28px] border border-ink bg-white p-6 shadow-hard">
+        <summary className="cursor-pointer font-medium">No signal? Fill a form for this family</summary>
+        <div className="mt-5"><OfflineApply onSent={cases.reload} /></div>
+      </details>
     </div>
   );
 }
@@ -100,6 +134,7 @@ export default function HelperHome() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   run("switch", () => api<{ familyToken: string; expiresAt: string; citizen: Citizen }>("/helper/switch", { body: { citizenId: f.citizen.id, pin } }), (r) => {
+                    void unlockFamily(r.citizen.id, pin);
                     session.setFamily({ token: r.familyToken, expiresAt: r.expiresAt, citizenId: r.citizen.id, name: r.citizen.fullName });
                     setActive({ citizenId: r.citizen.id, name: r.citizen.fullName });
                   });

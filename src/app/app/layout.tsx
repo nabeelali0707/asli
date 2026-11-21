@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { LogOut } from "lucide-react";
 import { Logo } from "@/components/site/header";
 import { Tag, Spinner } from "@/components/brut/kit";
+import { SyncBar } from "@/components/app/sync-bar";
 import { session, homeFor, type Role } from "@/lib/api";
 import { useSession } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,8 @@ const NAV: Record<Role, { href: string; label: string }[]> = {
   citizen: [
     { href: "/app/citizen", label: "My help" },
     { href: "/app/citizen/check", label: "Check a message" },
+    { href: "/app/citizen/ask", label: "Ask a question" },
+    { href: "/app/citizen/data", label: "My details" },
     { href: "/app/citizen/consent", label: "Who can see my data" },
   ],
   helper: [{ href: "/app/helper", label: "Families" }],
@@ -27,6 +30,9 @@ const NAV: Record<Role, { href: string; label: string }[]> = {
     { href: "/app/admin", label: "Break it" },
     { href: "/app/admin/chaos", label: "Chaos panel" },
     { href: "/app/admin/rules", label: "Rules & threshold" },
+    { href: "/app/admin/twin", label: "Digital Twin" },
+    { href: "/app/admin/eval", label: "Eval & drift" },
+    { href: "/app/admin/workspace", label: "Workspace" },
     { href: "/app/officer", label: "Queue" },
   ],
   auditor: [
@@ -93,6 +99,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
       )}
+      <div className="pt-4"><SyncBar /></div>
       <main className="container-page pb-24 pt-8">{children}</main>
     </div>
   );

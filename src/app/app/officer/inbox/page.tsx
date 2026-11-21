@@ -63,6 +63,25 @@ export default function Inbox() {
           </ul>
         </section>
       )}
+      {d.corrections.length > 0 && (
+        <section>
+          <SectionHeader title="Correction requests">People asking to fix their own record. Apply only after you are satisfied.</SectionHeader>
+          <ul className="stagger mt-6 space-y-3">
+            {d.corrections.map((c) => (
+              <li key={c.id} className="flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-ink bg-white p-4">
+                <span>
+                  <Tag>{c.field}</Tag> change to <b className="font-mono">{c.requestedValue}</b>
+                  {c.reason && <span className="text-muted-ink"> — {c.reason}</span>}
+                </span>
+                <span className="flex gap-2">
+                  <Btn size="sm" onClick={() => run("ca" + c.id, () => api(`/consent/corrections/${c.id}/review`, { body: { approve: true } }), done("Correction applied"))}>Apply</Btn>
+                  <Btn size="sm" variant="secondary" onClick={() => run("cr" + c.id, () => api(`/consent/corrections/${c.id}/review`, { body: { approve: false } }), done("Correction declined"))}>Decline</Btn>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {d.scamReportsToReview.length > 0 && (
         <section>
           <SectionHeader title="Scam reports to review" />
@@ -73,10 +92,10 @@ export default function Inbox() {
                   <Tag tone="dark">{r.verdict}</Tag> {r.textPreview}
                 </span>
                 <span className="flex gap-2">
-                  <Btn size="sm" onClick={() => run("c" + r.id, () => api(`/scam-reports/${r.id}/review`, { body: { outcome: "confirmed_scam" } }), done("Confirmed as scam"))}>
+                  <Btn size="sm" onClick={() => run("c" + r.id, () => api(`/scam-reports/${r.id}/review`, { body: { status: "confirmed_scam" } }), done("Confirmed as scam"))}>
                     Scam
                   </Btn>
-                  <Btn size="sm" variant="secondary" onClick={() => run("n" + r.id, () => api(`/scam-reports/${r.id}/review`, { body: { outcome: "false_alarm" } }), done("Marked false alarm"))}>
+                  <Btn size="sm" variant="secondary" onClick={() => run("n" + r.id, () => api(`/scam-reports/${r.id}/review`, { body: { status: "false_alarm" } }), done("Marked false alarm"))}>
                     False alarm
                   </Btn>
                 </span>

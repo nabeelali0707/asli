@@ -6,6 +6,9 @@ import { Mic, Square } from "lucide-react";
 import { api, newKey } from "@/lib/api";
 import { useApi, useAction, fmtWhen } from "@/lib/hooks";
 import { Btn, Card, CardTitle, Bilingual, LaneChip, Spinner, Empty, Tag, SectionHeader } from "@/components/brut/kit";
+import { DocUpload } from "@/components/app/doc-upload";
+import { CaseActions } from "@/components/app/case-actions";
+import { OfflineApply } from "@/components/app/offline-apply";
 
 type Bi = { en: string; ur: string };
 type MyCase = { id: string; ref: string; status: string; statusWords: Bi; lane: string | null; proofRequested: unknown; proofDeadline: string | null; createdAt: string; latestReason: Bi | null; counterfactuals: { en: string; ur: string }[] };
@@ -60,6 +63,7 @@ function VoiceApply({ onDone }: { onDone: () => void }) {
         <div className="rounded-[18px] border border-ink bg-white p-5">
           <Bilingual text={heard.confirm} />
           {heard.askAgainFor.length > 0 && <p className="mt-3 text-[15px]">Still unclear: {heard.askAgainFor.join(", ")}. Say these again or tell your helper.</p>}
+          {heard.draftCaseId && <div className="mt-4"><DocUpload caseId={heard.draftCaseId} /></div>}
           {heard.draftCaseId && (
             <Btn
               className="mt-4"
@@ -134,6 +138,7 @@ export default function CitizenHome() {
                   {c.counterfactuals.map((x, i) => <li key={i}>{x.en}</li>)}
                 </ul>
               )}
+              <CaseActions c={c} onDone={cases.reload} />
               <p className="mt-5 text-[13px] opacity-70">Started {fmtWhen(c.createdAt)}{c.proofDeadline ? ` · send proof by ${fmtWhen(c.proofDeadline)}` : ""}</p>
               {c.status === "paid" && (
                 <>
@@ -154,6 +159,10 @@ export default function CitizenHome() {
         <div className="mt-8 rounded-[28px] border border-ink bg-mist p-6 shadow-hard sm:p-8">
           <VoiceApply onDone={cases.reload} />
         </div>
+        <details className="mt-6 rounded-[28px] border border-ink bg-white p-6 shadow-hard">
+          <summary className="cursor-pointer font-medium">No signal, or prefer a form?</summary>
+          <div className="mt-5"><OfflineApply onSent={cases.reload} /></div>
+        </details>
       </section>
 
       <section>
