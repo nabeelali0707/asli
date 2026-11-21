@@ -5,6 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ───────── Design tokens (from the Asli design system) ───────── */
+/* Fonts are self-hosted from npm (see layout.tsx), so builds never depend on Google being reachable. */
+:root {
+  --font-grotesk: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
+  --font-mono-face: "Space Mono", ui-monospace, monospace;
+  --font-nastaliq: "Noto Nastaliq Urdu Variable", "Noto Nastaliq Urdu", serif;
+}
+
 :root {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f3f3f3;
