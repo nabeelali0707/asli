@@ -74,7 +74,10 @@ export async function assertCitizenAccess(
   if (actor.type === "user") {
     switch (actor.role) {
       case "citizen":
-        if (actor.citizenId !== citizenId) throw await deny("NOT_YOUR_RECORD", "You can only see your own record.");
+        if (actor.citizenId !== citizenId) {
+          await deny("NOT_YOUR_RECORD", "You can only see your own record.");
+          throw notFound("Citizen"); // do not confirm that someone else's record exists
+        }
         return { view: "full", consentId: null };
       case "helper": {
         if (!ctx.actFor || ctx.actFor.citizenId !== citizenId)

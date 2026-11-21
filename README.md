@@ -26,6 +26,24 @@ The application is the workflow; **trust is the product**:
 | Claude (extraction, CNIC reading, policy answers), Jev (classification/routing), Whisper (Urdu speech) — **when API keys are set** | Without keys: deterministic fallbacks, and every trace records which one ran |
 | Webhooks (HMAC), background jobs, rate limits, plans, API keys, OpenAPI | Cost figures in the evaluation (prototype assumptions, labelled) |
 
+## What changed in v3 (after comparing notes with ChatGPT, DeepSeek and Perplexity)
+
+| Area | v3 |
+| --- | --- |
+| Acting alone | **Provisional auto-approve lane**: the system may approve a claim alone when the calibrated score ≥ `max(0.90, (W·m − R)/(W·m + D))` and the amount ≤ cap — but money is only **reserved**, there is a 24 h cooling-off, the citizen or an officer can cancel, and release still needs a human. AI still never moves money. |
+| Hard stops | 12 named stops **S1–S12** (`GET /api/v1/hard-stops`), each with a golden test |
+| Models | **Escalate-only**: Jev / LLM / classifier signals can add caution, never remove it (invariant + 1,000-trial property test) |
+| Calibration | Logistic regression + isotonic on a frozen 300/100/100 split by scenario; ECE 0.146 → ~0.076; never claims certainty; empirical cost minimum shown beside the formula threshold |
+| Identity | Fellegi–Sunter registry search with review zone and **ambiguity stop** (top two within 2 bits); a CNIC typo never verifies |
+| Consent | Re-checked **before every pipeline step** — withdrawal mid-run halts it; auditor traces lose personal fields after withdrawal |
+| Audit | Hash chain **inside Postgres** (trigger); updates/deletes blocked; `audit_verify()` names the first broken row and detects deleted rows |
+| Explain | **Every** AI judgement (case decisions, scam verdicts, routing, signals, policy answers, extractions) has a citizen view, an auditor view and **replay** |
+| Platform | 404 across departments, RFC 9457 errors, IETF RateLimit headers, Idempotency-Key required on money endpoints, chaos panel + circuit breaker, durable resumable pipeline, break-glass with a 15-minute window |
+| Last metre | Payout-account change: PIN → officer (not the requester) → 48 h cooling-off → **press 9** from the old number freezes it; exact-amount receipts ("received less" opens a complaint linked to the helper); complaint & correction queue; helper anomaly rules |
+| Honesty | Six frozen datasets with sha256 manifest; **Break It**: 18 attacks + 8 legitimate controls (18/18 caught, 8/8 pass); generated permission matrix (102 endpoints × 11 actors) and curl examples |
+
+Docs: [compliance matrix](docs/COMPLIANCE.md) · [stated limits & trust critique](docs/LIMITS.md) · [cut order & gates](docs/CUT-ORDER.md) · [permission matrix](docs/permission-matrix.md) · [curl examples](docs/curl-examples.md) · [error codes](docs/ERRORS.md) · [dataset spec](datasets/SPEC.md)
+
 ## How the decision works (Challenges 01, 02, 05)
 
 Evidence score (transparent, **not** a probability):
@@ -75,7 +93,10 @@ npm install
 cp .env.example .env        # all AI keys optional
 npm run db:seed             # embedded Postgres (PGlite) in .data/, seeded via the REAL flows
 npm run dev                 # http://localhost:3000  → API docs at /api/docs
-npm test                    # 37 domain + end-to-end API tests (in-memory database)
+npm test                    # 73 tests: golden hard stops, property tests, end-to-end API (in-memory DB)
+npm run matrix              # regenerate docs/permission-matrix.md + docs/curl-examples.md
+npm run scorer:train        # retrain the calibrated scorer on frozen D1
+npm run datasets:freeze     # rewrite datasets/*.json + manifest (only if the generators change)
 npm run eval:run            # fit thresholds on synthetic cases, print the honest numbers
 ```
 
@@ -115,6 +136,7 @@ Demo accounts are created by `npm run db:seed`; the emails, shared demo password
 | `GROQ_API_KEY` or `OPENAI_API_KEY` | Whisper speech-to-text for Urdu |
 | `SIGNING_PRIVATE_KEY`, `SIGNING_PUBLIC_KEY` | Ed25519 keys (`npm run keys:generate`); dev auto-generates one |
 | `CRON_SECRET` | protects `/api/cron/jobs` |
+| `ASLI_DEMO_MODE` | `true` enables `GET /api/v1/demo/tokens` (fictional accounts only; never in a real deployment) |
 
 ## Deploy (Vercel + Supabase)
 

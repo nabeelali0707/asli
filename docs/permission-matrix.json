@@ -1,0 +1,1956 @@
+{
+ "generatedAt": "2026-11-21T04:13:14.774Z",
+ "actors": [
+  "anonymous",
+  "citizen (own data)",
+  "helper (no family session)",
+  "helper + family, consent ACTIVE",
+  "helper + family, consent WITHDRAWN",
+  "officer",
+  "admin",
+  "auditor",
+  "officer, OTHER department",
+  "API key (cases:read)",
+  "API key (*)"
+ ],
+ "rows": [
+  {
+   "method": "GET",
+   "path": "/auth/me",
+   "tag": "Auth",
+   "summary": "Current user, role and (for helpers) the active family session",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/helper/families",
+   "tag": "Helper mode",
+   "summary": "Families this helper may assist (masked until PIN switch)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/cases/mine",
+   "tag": "Cases",
+   "summary": "My cases (citizen) or the active family's cases (helper), with spoken reasons",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 400,
+    "admin": 400,
+    "auditor": 400,
+    "officer, OTHER department": 400,
+    "API key (cases:read)": 400,
+    "API key (*)": 400
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/cases/{id}",
+   "tag": "Cases",
+   "summary": "Case detail: decisions (user reason + full trace for staff), documents, notes, payout, notices",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/officer/queue",
+   "tag": "Officer",
+   "summary": "Review queue sorted by priority, then lowest confidence, then oldest",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/verify/{id}",
+   "tag": "Signed Truth",
+   "summary": "Verify a token from a verify link (/v/{token})",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/signing-key",
+   "tag": "Signed Truth",
+   "summary": "Public key used to sign notices and attestations (verify offline)",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/consent",
+   "tag": "Consent",
+   "summary": "Who has my data, what they can see, and who actually used it",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/consent/corrections/open",
+   "tag": "Consent",
+   "summary": "Open correction requests (officer)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/citizens/{id}",
+   "tag": "Citizens",
+   "summary": "Citizen profile (masked for staff; full for the person and consented helpers)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/citizens/{id}/registry",
+   "tag": "Mock DPI",
+   "summary": "Mock NADRA + income registry lookup (consent-gated; 403 when withdrawn)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/voice/clips",
+   "tag": "Voice",
+   "summary": "Fixed spoken prompts (en/ur) by audio key — pre-record or cache these for 2G",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/rules/active",
+   "tag": "Rules",
+   "summary": "The rule version that applies to the next decision",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/rules",
+   "tag": "Rules",
+   "summary": "All rule versions (drafts, published, archived)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/admin/users",
+   "tag": "Admin",
+   "summary": "Staff users in this department",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/admin/api-keys",
+   "tag": "Admin",
+   "summary": "API keys (secrets never shown again)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/admin/webhooks",
+   "tag": "Admin",
+   "summary": "Webhooks and recent deliveries",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/admin/tenant",
+   "tag": "Admin",
+   "summary": "Department workspace, plan and monthly usage",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/redteam/attacks",
+   "tag": "Try to fool Asli",
+   "summary": "Break It: 18 attacks + 8 legitimate controls",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/analytics",
+   "tag": "Analytics",
+   "summary": "Department dashboard: cases, lanes, channels, payouts, officer overrides, false alarms",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/transparency",
+   "tag": "Analytics",
+   "summary": "Public numbers, including false alarms and share sent to humans",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/scam-map",
+   "tag": "Scam Map",
+   "summary": "Scam reports by district, category and day, with spike alerts",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/scam-map/public",
+   "tag": "Scam Map",
+   "summary": "Public, anonymous scam map (all departments)",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/scam-reports",
+   "tag": "Scam Map",
+   "summary": "Scam reports for review",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/anomalies",
+   "tag": "AI",
+   "summary": "Anomaly detection: shared payout accounts, repeated claims, reused documents, helper spikes, scam spikes",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/eval/runs",
+   "tag": "Evaluation",
+   "summary": "Past evaluation runs",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/audit",
+   "tag": "Audit",
+   "summary": "Audit log (every user, AI, agent and API action, including denials)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/audit/verify",
+   "tag": "Audit",
+   "summary": "Recompute the hash chain — proves no row was edited or deleted",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/notifications",
+   "tag": "Notifications",
+   "summary": "My in-app notifications (with audio keys for voice playback)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/hard-stops",
+   "tag": "Decisions",
+   "summary": "The 12 named hard stops (S1–S12). Any one sends a case to a human, whatever the score.",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/ai-decisions",
+   "tag": "Decisions",
+   "summary": "Every AI judgement (case decisions, scam verdicts, routing, signals, policy answers, extractions)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/ai-decisions/{id}",
+   "tag": "Decisions",
+   "summary": "One AI decision — citizen view (plain words) or auditor view (input, versions, confidence, trace; personal fields removed after consent withdrawal)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 404,
+    "helper + family, consent ACTIVE": 404,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 404,
+    "API key (*)": 404
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/pipelines",
+   "tag": "Decisions",
+   "summary": "Decision pipeline runs (steps, attempts, timings, halts on consent withdrawal)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/chaos",
+   "tag": "Chaos panel",
+   "summary": "Fault injection settings + circuit breaker state for the mock services",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/eval/scorer",
+   "tag": "Evaluation",
+   "summary": "Scoring model versions, calibration metrics (Brier, ECE, reliability bins)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/eval/auto-threshold",
+   "tag": "Evaluation",
+   "summary": "Cost curve over the auto-approve threshold: empirical minimum beside the formula threshold, rule-of-three bound",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/eval/datasets",
+   "tag": "Evaluation",
+   "summary": "Frozen dataset manifest: sizes, label counts, sha256",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/payouts/{id}/receipt-prompt",
+   "tag": "Money received",
+   "summary": "The spoken question: 'Did you receive exactly Rs X?'",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/payout-account/changes",
+   "tag": "Payment account protection",
+   "summary": "Account change requests (citizen: own; staff: department)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/officer/complaints",
+   "tag": "Officer",
+   "summary": "Complaints, appeals, data corrections, frozen account changes and scam reports awaiting review",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/demo/tokens",
+   "tag": "Demo",
+   "summary": "Ready-made tokens for every demo role (ONLY when ASLI_DEMO_MODE=true; all data is fictional)",
+   "results": {
+    "anonymous": 404,
+    "citizen (own data)": 404,
+    "helper (no family session)": 404,
+    "helper + family, consent ACTIVE": 404,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 404,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 404,
+    "API key (*)": 404
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/auth/login",
+   "tag": "Auth",
+   "summary": "Sign in (returns a JWT)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 401,
+    "helper (no family session)": 401,
+    "helper + family, consent ACTIVE": 401,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 401,
+    "admin": 401,
+    "auditor": 401,
+    "officer, OTHER department": 401,
+    "API key (cases:read)": 401,
+    "API key (*)": 401
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/auth/register",
+   "tag": "Auth",
+   "summary": "Citizen self sign-up",
+   "results": {
+    "anonymous": 201,
+    "citizen (own data)": 409,
+    "helper (no family session)": 409,
+    "helper + family, consent ACTIVE": 409,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 409,
+    "admin": 409,
+    "auditor": 409,
+    "officer, OTHER department": 409,
+    "API key (cases:read)": 409,
+    "API key (*)": 409
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/helper/families",
+   "tag": "Helper mode",
+   "summary": "Enrol a family on the shared phone (family sets PIN, consents aloud)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 201,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/helper/switch",
+   "tag": "Helper mode",
+   "summary": "Switch to a family with their PIN → 20-minute family token",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases",
+   "tag": "Cases",
+   "summary": "Create a case (idempotent via clientRef or Idempotency-Key)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 201,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 400,
+    "admin": 400,
+    "auditor": 400,
+    "officer, OTHER department": 400,
+    "API key (cases:read)": 400,
+    "API key (*)": 400
+   }
+  },
+  {
+   "method": "PATCH",
+   "path": "/cases/{id}/claim",
+   "tag": "Cases",
+   "summary": "Update claim fields (draft / needs_proof only)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/documents",
+   "tag": "Cases",
+   "summary": "Upload a document → blur check, signed-QR check, vision read, tamper score",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 201
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/submit",
+   "tag": "Cases",
+   "summary": "Submit → department consent receipt + signed 'received' notice + AI decision (fast / ask_proof / human)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/appeal",
+   "tag": "Cases",
+   "summary": "Appeal a decision (opens a linked case for a DIFFERENT officer)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 201
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/escalate",
+   "tag": "Cases",
+   "summary": "Escalate to a human (citizen 'talk to a person', or officer)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/sync",
+   "tag": "Offline sync",
+   "summary": "Replay an offline outbox in order (each opId applied at most once)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/assign",
+   "tag": "Officer",
+   "summary": "Assign / unassign an officer",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/notes",
+   "tag": "Officer",
+   "summary": "Add a case note",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/request-proof",
+   "tag": "Officer",
+   "summary": "Ask the citizen for specific proof (signed notice + deadline)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/approve",
+   "tag": "Officer",
+   "summary": "Approve the claim → payout (second approver needed above the limit). Requires Idempotency-Key.",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 409,
+    "admin": 409,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/redecide",
+   "tag": "Officer",
+   "summary": "Re-run the decision under the CURRENT rule version (old decisions keep theirs)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payouts/{id}/approve",
+   "tag": "Officer",
+   "summary": "Second approval for a large payout (different officer with second-approver right)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 409,
+    "admin": 409,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payouts/{id}/release",
+   "tag": "Officer",
+   "summary": "Release an approved payout via mock Raast (humans only; AI gets 403)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/verify",
+   "tag": "Signed Truth",
+   "summary": "Is this message real? Signature + case ledger + mock Raast first, classifier second",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/consent",
+   "tag": "Consent",
+   "summary": "Give permission (returns a receipt to read aloud)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 201,
+    "helper (no family session)": 400,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 400,
+    "admin": 400,
+    "auditor": 400,
+    "officer, OTHER department": 400,
+    "API key (cases:read)": 400,
+    "API key (*)": 400
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/consent/corrections",
+   "tag": "Consent",
+   "summary": "Ask to correct my data",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 201,
+    "helper (no family session)": 400,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 400,
+    "admin": 400,
+    "auditor": 400,
+    "officer, OTHER department": 400,
+    "API key (cases:read)": 400,
+    "API key (*)": 400
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/consent/corrections/{id}/review",
+   "tag": "Consent",
+   "summary": "Apply or reject a correction (officer)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/citizens/{id}/break-glass",
+   "tag": "Citizens",
+   "summary": "Officer full-detail view with a reason — logged and shown to the citizen",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/citizens/{id}/attestations",
+   "tag": "Prove, don't share",
+   "summary": "Issue a signed yes/no attestation instead of sharing data",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/attestations/verify",
+   "tag": "Prove, don't share",
+   "summary": "Verify an attestation token",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/voice/intake",
+   "tag": "Voice",
+   "summary": "Speak instead of filling a form: speech → text (Whisper) → validated claim fields (Claude) → confirmation prompt",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/policy/ask",
+   "tag": "Policy (RAG)",
+   "summary": "Ask about the rules — answered only from official (mock) policy, with sources; says 'not sure' otherwise",
+   "results": {
+    "anonymous": 200,
+    "citizen (own data)": 200,
+    "helper (no family session)": 200,
+    "helper + family, consent ACTIVE": 200,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 200,
+    "API key (*)": 200
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/ivr/calls",
+   "tag": "Feature-phone line",
+   "summary": "Missed call → callback starts; returns the first spoken menu",
+   "results": {
+    "anonymous": 201,
+    "citizen (own data)": 201,
+    "helper (no family session)": 201,
+    "helper + family, consent ACTIVE": 201,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 201,
+    "officer, OTHER department": 201,
+    "API key (cases:read)": 201,
+    "API key (*)": 201
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/ivr/calls/{id}/input",
+   "tag": "Feature-phone line",
+   "summary": "Keypad input (1 status, 2 check a message code, 3 talk to a person)",
+   "results": {
+    "anonymous": 404,
+    "citizen (own data)": 404,
+    "helper (no family session)": 404,
+    "helper + family, consent ACTIVE": 404,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 404,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 404,
+    "API key (*)": 404
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/rules/drafts",
+   "tag": "Rules",
+   "summary": "Create a draft rule version (validated; no code change, no redeploy)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 400,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/rules/{id}/simulate",
+   "tag": "Rules",
+   "summary": "Digital Twin: replay a draft on every past case before it goes live",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/rules/simulate",
+   "tag": "Rules",
+   "summary": "Digital Twin for an unsaved definition",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 400,
+    "admin": 400,
+    "auditor": 403,
+    "officer, OTHER department": 400,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/rules/{id}/publish",
+   "tag": "Rules",
+   "summary": "Publish a draft → applies to the next decision at once",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 409,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/rules/fast-lane",
+   "tag": "Rules",
+   "summary": "Kill switch: turn the AI fast lane off/on (publishes a new rule version)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/users",
+   "tag": "Admin",
+   "summary": "Create a helper, officer, admin or auditor",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/users/{id}/active",
+   "tag": "Admin",
+   "summary": "Activate / deactivate a user (revokes their sessions)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/api-keys",
+   "tag": "Admin",
+   "summary": "Create an API key for the public REST API (shown once)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "DELETE",
+   "path": "/admin/api-keys/{id}",
+   "tag": "Admin",
+   "summary": "Revoke an API key",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/webhooks",
+   "tag": "Admin",
+   "summary": "Subscribe an outside system to events (HMAC-signed, retried)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 201,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "DELETE",
+   "path": "/admin/webhooks/{id}",
+   "tag": "Admin",
+   "summary": "Disable a webhook",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/webhooks/{id}/test",
+   "tag": "Admin",
+   "summary": "Send a test delivery",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/tenant/plan",
+   "tag": "Admin",
+   "summary": "Change subscription plan (rate + monthly API limits)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 403,
+    "helper + family, consent ACTIVE": 403,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/admin/mock-latency",
+   "tag": "Admin",
+   "summary": "Demo: make the mock government services slow (weak-network demo)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/redteam/attacks/{id}",
+   "tag": "Try to fool Asli",
+   "summary": "Run one attack or control (A01–A18, C01–C08)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/scam-reports/{id}/review",
+   "tag": "Scam Map",
+   "summary": "Confirm a scam or record a FALSE ALARM (counted publicly; reporter told)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/drift/check",
+   "tag": "AI",
+   "summary": "Drift guard: if officers overturn too many fast-lane cases, switch the fast lane off",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 200,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/eval/runs",
+   "tag": "Evaluation",
+   "summary": "Fit lane cutoffs on ~200 labelled synthetic cases by minimising expected cost; report on a held-out split",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 201,
+    "admin": 201,
+    "auditor": 201,
+    "officer, OTHER department": 201,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/eval/runs/{id}/draft-rules",
+   "tag": "Evaluation",
+   "summary": "Turn an evaluation's recommended cutoffs into a rule DRAFT (admin publishes)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/ai-decisions/{id}/replay",
+   "tag": "Decisions",
+   "summary": "Replay: same stored input, same rule version (must reproduce) and current version (shows drift)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 200,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/pipelines/{id}/resume",
+   "tag": "Decisions",
+   "summary": "Resume a run that stopped mid-way (continues from the first unfinished step)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 409,
+    "admin": 409,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/chaos/{id}",
+   "tag": "Chaos panel",
+   "summary": "Set latency / failure rate / timeouts / outage for nadra | income | raast",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payouts/{id}/receipt",
+   "tag": "Money received",
+   "summary": "Confirm the exact amount that arrived; 'less' or 'nothing' opens a complaint linked to the helper",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 201,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payout-account/change",
+   "tag": "Payment account protection",
+   "summary": "Ask to change where money is sent: family PIN → officer → 48 h cooling-off; old number told to press 9",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payout-account/changes/{id}/approve",
+   "tag": "Payment account protection",
+   "summary": "Officer approval (not the requester) → 48 h cooling-off",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/auth/pin-unlock",
+   "tag": "Auth",
+   "summary": "Citizen app lock screen: family PIN → 10-minute session (the app auto-locks after inactivity)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 403,
+    "admin": 403,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/reject",
+   "tag": "Officer",
+   "summary": "Reject (human only; citizen can appeal)",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 409,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/cases/{id}/close",
+   "tag": "Officer",
+   "summary": "Close a case",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/consent/{id}/withdraw",
+   "tag": "Consent",
+   "summary": "Take permission back — access stops on the very next request",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 200,
+    "admin": 200,
+    "auditor": 403,
+    "officer, OTHER department": 403,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payouts/{id}/cancel",
+   "tag": "Officer",
+   "summary": "Cancel a reserved / pending payout before money moves (citizen or officer). Requires Idempotency-Key.",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 409,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 409,
+    "admin": 409,
+    "auditor": 404,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 404,
+    "API key (*)": 404
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payout-account/changes/{id}/reject",
+   "tag": "Payment account protection",
+   "summary": "Officer rejects an account change",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 403,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 403,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 403,
+    "API key (*)": 403
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/payout-account/changes/{id}/freeze",
+   "tag": "Payment account protection",
+   "summary": "Freeze a pending change (citizen in the app, or officer). By phone: IVR option 9.",
+   "results": {
+    "anonymous": 401,
+    "citizen (own data)": 404,
+    "helper (no family session)": 429,
+    "helper + family, consent ACTIVE": 429,
+    "helper + family, consent WITHDRAWN": 403,
+    "officer": 404,
+    "admin": 404,
+    "auditor": 404,
+    "officer, OTHER department": 404,
+    "API key (cases:read)": 404,
+    "API key (*)": 404
+   }
+  }
+ ]
+}
