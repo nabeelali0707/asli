@@ -17,6 +17,8 @@ const schema = z.object({
   ASLI_AI_MODE: z.enum(["live", "offline"]).default("live"),
   ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL: z.string().default("claude-opus-5-5"),
+  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_MODEL: z.string().default("gemini-2.5-flash"),
   AI_GATEWAY_API_KEY: z.string().optional(),
   OPENROUTER_API_KEY: z.string().optional(),
   JEV_MODEL: z.string().default("typesafe-ai/jev"),

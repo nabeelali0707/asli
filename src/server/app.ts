@@ -22,6 +22,7 @@ import { safetyRoutes } from "./routes/safety";
 import { runDueJobs } from "./services/events";
 import { env } from "./env";
 import { claudeAvailable } from "./ai/claude";
+import { geminiAvailable } from "./ai/gemini";
 import { jevAvailable } from "./ai/jev";
 import { speechAvailable } from "./ai/speech";
 import { safeEqual } from "./lib/crypto";
@@ -74,7 +75,7 @@ export function createApp() {
       status: "ok",
       prototype: "PROTOTYPE ONLY — not an official government service. All identity, payment and personal data is simulated.",
       db: { driver: e.DATABASE_URL ? "postgres" : `pglite (${e.ASLI_DB})`, latencyMs: Date.now() - started },
-      ai: { mode: e.ASLI_AI_MODE, claude: claudeAvailable(), jev: jevAvailable(), speech: speechAvailable(), model: e.ANTHROPIC_MODEL },
+      ai: { mode: e.ASLI_AI_MODE, claude: claudeAvailable(), gemini: geminiAvailable(), jev: jevAvailable(), speech: speechAvailable(), model: e.ANTHROPIC_MODEL },
       time: new Date().toISOString(),
     });
   });

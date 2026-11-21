@@ -8,6 +8,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 import { env, aiLive } from "../env";
+import { geminiAvailable, geminiStructured } from "./gemini";
 
 let client: Anthropic | undefined;
 export function claudeAvailable(): boolean {
@@ -18,7 +19,7 @@ function getClient(): Anthropic {
   return client;
 }
 
-export type AiMeta = { provider: "anthropic" | "heuristic"; model: string; promptVersion: string; latencyMs: number; note?: string };
+export type AiMeta = { provider: "anthropic" | "gemini" | "heuristic"; model: string; promptVersion: string; latencyMs: number; note?: string };
 
 // ───────────── structured claim extraction from a transcript ─────────────
 
@@ -44,6 +45,14 @@ Numbers may be spoken as words in Urdu (e.g. "pachees hazaar" = 25000). CNIC is 
 
 export async function extractClaim(transcript: string): Promise<{ data: ClaimExtraction; meta: AiMeta }> {
   const started = Date.now();
+  if (!claudeAvailable() && geminiAvailable()) {
+    try {
+      const data = await geminiStructured(ClaimExtraction, { system: EXTRACT_SYSTEM, parts: [{ text: `Transcript:\n"""${transcript}"""` }] });
+      return { data, meta: { provider: "gemini", model: env().GEMINI_MODEL, promptVersion: EXTRACT_PROMPT_VERSION, latencyMs: Date.now() - started } };
+    } catch (err) {
+      return { data: heuristicExtract(transcript), meta: { provider: "heuristic", model: "regex-extractor", promptVersion: "heuristic@1", latencyMs: Date.now() - started, note: (err as Error).message } };
+    }
+  }
   if (!claudeAvailable()) {
     return { data: heuristicExtract(transcript), meta: { provider: "heuristic", model: "regex-extractor", promptVersion: "heuristic@1", latencyMs: Date.now() - started } };
   }
@@ -110,9 +119,22 @@ export const DocumentReading = z.object({
 export type DocumentReading = z.infer<typeof DocumentReading>;
 
 const READ_PROMPT_VERSION = "read-document@1";
+const READ_SYSTEM =
+  "You read photos of Pakistani identity cards (CNIC) and income documents for a PROTOTYPE that only uses mock documents. Extract only what is clearly legible; use null otherwise. Report visible signs of editing honestly but do not speculate.";
 
 export async function readDocumentImage(base64: string, mime: string): Promise<{ data: DocumentReading | null; meta: AiMeta }> {
   const started = Date.now();
+  if (!claudeAvailable() && geminiAvailable() && /^image\/(png|jpeg|gif|webp)$/.test(mime)) {
+    try {
+      const data = await geminiStructured(DocumentReading, {
+        system: READ_SYSTEM,
+        parts: [{ inline_data: { mime_type: mime, data: base64 } }, { text: "Read this document." }],
+      });
+      return { data, meta: { provider: "gemini", model: env().GEMINI_MODEL, promptVersion: READ_PROMPT_VERSION, latencyMs: Date.now() - started } };
+    } catch (err) {
+      return { data: null, meta: { provider: "heuristic", model: "none", promptVersion: "none", latencyMs: Date.now() - started, note: `vision error: ${(err as Error).message}` } };
+    }
+  }
   if (!claudeAvailable() || !/^image\/(png|jpeg|gif|webp)$/.test(mime)) {
     return { data: null, meta: { provider: "heuristic", model: "none", promptVersion: "none", latencyMs: 0, note: "vision unavailable; QR + image checks only" } };
   }
@@ -122,8 +144,7 @@ export async function readDocumentImage(base64: string, mime: string): Promise<{
     model: env().ANTHROPIC_MODEL,
     max_tokens: 4000,
     output_config: { effort: "low", format: betaZodOutputFormat(DocumentReading) },
-    system:
-      "You read photos of Pakistani identity cards (CNIC) and income documents for a PROTOTYPE that only uses mock documents. Extract only what is clearly legible; use null otherwise. Report visible signs of editing honestly but do not speculate.",
+    system: READ_SYSTEM,
     messages: [
       {
         role: "user",
@@ -150,22 +171,32 @@ export const PolicyAnswer = z.object({
 });
 export type PolicyAnswer = z.infer<typeof PolicyAnswer>;
 
+const POLICY_SYSTEM = `You answer questions about a relief programme for people who may not read well. Use ONLY the passages provided.
+If the passages do not clearly answer, set answerable=false and say in both languages that you are not sure and a person will help.
+Answer in 1-3 short, plain sentences in English and in simple Urdu. Cite the passage ids you used.`;
+
 export async function answerFromPassages(
   question: string,
   passages: { id: string; title: string; text: string }[],
 ): Promise<{ data: PolicyAnswer; meta: AiMeta } | null> {
-  if (!claudeAvailable()) return null;
+  if (!claudeAvailable() && !geminiAvailable()) return null;
   const started = Date.now();
   const context = passages.map((p) => `<passage id="${p.id}" title="${p.title}">\n${p.text}\n</passage>`).join("\n");
+  if (!claudeAvailable()) {
+    try {
+      const data = await geminiStructured(PolicyAnswer, { system: POLICY_SYSTEM, parts: [{ text: `${context}\n\nQuestion: ${question}` }] });
+      return { data, meta: { provider: "gemini", model: env().GEMINI_MODEL, promptVersion: "policy-rag@1", latencyMs: Date.now() - started } };
+    } catch {
+      return null; // caller already has a retrieval-only answer
+    }
+  }
   const response = await getClient().beta.messages.parse({
     betas: ["server-side-fallback-2026-07-01"],
     fallbacks: "default", // server-side refusal fallback (routes by refusal category)
     model: env().ANTHROPIC_MODEL,
     max_tokens: 4000,
     output_config: { effort: "low", format: betaZodOutputFormat(PolicyAnswer) },
-    system: `You answer questions about a relief programme for people who may not read well. Use ONLY the passages provided.
-If the passages do not clearly answer, set answerable=false and say in both languages that you are not sure and a person will help.
-Answer in 1-3 short, plain sentences in English and in simple Urdu. Cite the passage ids you used.`,
+    system: POLICY_SYSTEM,
     messages: [{ role: "user", content: `${context}\n\nQuestion: ${question}` }],
   });
   if (!response.parsed_output) return null;
