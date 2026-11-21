@@ -5,7 +5,7 @@ import { createStaffUser, setUserActive } from "../services/auth";
 import { createApiKey, listApiKeys, revokeApiKey, createWebhook, listWebhooks, deleteWebhook, testWebhook, listUsers, tenantInfo, setPlan, setMockLatency, API_SCOPES } from "../services/admin";
 import { BREAK_IT, runBreakIt } from "../services/breakit";
 import { EVENT_TYPES } from "../services/events";
-import { ruleSets } from "../db/schema";
+import { ruleSets, settings } from "../db/schema";
 import { notFound } from "../lib/errors";
 import { FACTS } from "../domain/rules";
 
@@ -156,7 +156,14 @@ adminRoutes.openapi(route({ method: "post", path: "/redteam/attacks/{id}", tags:
 
 adminRoutes.openapi(route({ method: "post", path: "/redteam/run-all", tags: ["Try to fool Asli"], summary: "Run all 18 attacks and 8 controls; misses are listed" }), async (c) => {
   const a = await need(c, ["admin", "officer", "auditor"]);
-  return c.json(await runBreakIt(c.get("db"), a), 200);
+  const db = c.get("db");
+  const result = await runBreakIt(db, a);
+  const sm = (result as { summary?: { attacksCaught: { count: number; of: number }; legitimateControlsPassed: { count: number; of: number } } }).summary;
+  if (sm) {
+    const value = { attacksCaught: sm.attacksCaught, controlsPassed: sm.legitimateControlsPassed, ranAt: new Date().toISOString() };
+    await db.insert(settings).values({ key: "redteam_last", value }).onConflictDoUpdate({ target: settings.key, set: { value, updatedAt: new Date() } });
+  }
+  return c.json(result, 200);
 });
 
 export { desc };

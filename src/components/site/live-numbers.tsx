@@ -13,6 +13,7 @@ type Transparency = {
   amountReleasedPKR: number;
   scam: { flagged: number; confirmedScam: number; falseAlarms: number; falseAlarmRate: number };
   aiNeverMovesMoney: boolean;
+  redTeam: { attacksCaught: { count: number; of: number }; controlsPassed: { count: number; of: number }; ranAt: string } | null;
 };
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;
@@ -26,8 +27,10 @@ export function LiveNumbers() {
 
   const cols = [
     {
-      big: <CountUp to={18} format={(n) => `${Math.round(n)}/18`} />,
-      body: "attacks caught by the Break It suite: edited amounts, copied codes, forged ID cards, a helper reusing one family's PIN, a prompt hidden in a document.",
+      big: t?.redTeam ? <CountUp to={t.redTeam.attacksCaught.count} format={(n) => `${Math.round(n)}/${t.redTeam!.attacksCaught.of}`} /> : "—",
+      body: t?.redTeam
+        ? `attacks caught the last time the Break It suite ran (${new Date(t.redTeam.ranAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}), and ${t.redTeam.controlsPassed.count} of ${t.redTeam.controlsPassed.of} legitimate cases still passed. Edited amounts, copied codes, forged ID cards, a prompt hidden in a document.`
+        : "The Break It suite has not been run yet. Sign in as the admin and run all the attacks; the real result appears here.",
       href: "/login?as=admin",
       cta: "Run the attacks yourself",
     },

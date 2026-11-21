@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { BtnLink } from "@/components/brut/kit";
 import { cn } from "@/lib/utils";
+import { session, homeFor } from "@/lib/api";
 
 const NAV = [
   { href: "/#how", label: "How it works" },
@@ -31,6 +32,12 @@ export function Logo({ className, tone = "dark" }: { className?: string; tone?: 
 }
 
 export function SiteHeader() {
+  const [who, setWho] = React.useState<{ name: string; href: string } | null>(null);
+  React.useEffect(() => {
+    const s = session.get();
+    setWho(s ? { name: s.user.displayName.split(" ")[0] ?? "you", href: homeFor(s.user.role) } : null);
+  }, []);
+  const cta = who ? { href: who.href, label: `Back to my dashboard, ${who.name}` } : { href: "/login", label: "Sign in to the demo" };
   return (
     <header className="container-page flex items-center justify-between gap-6 py-6 sm:py-8">
       <Logo />
@@ -40,8 +47,8 @@ export function SiteHeader() {
             {n.label}
           </Link>
         ))}
-        <BtnLink href="/login" variant="secondary">
-          Sign in to the demo
+        <BtnLink href={cta.href} variant="secondary">
+          {cta.label}
         </BtnLink>
       </nav>
       <Sheet>
@@ -64,8 +71,8 @@ export function SiteHeader() {
               </SheetClose>
             ))}
           </nav>
-          <BtnLink href="/login" className="mt-auto w-full">
-            Sign in to the demo
+          <BtnLink href={cta.href} className="mt-auto w-full">
+            {cta.label}
           </BtnLink>
         </SheetContent>
       </Sheet>

@@ -3,7 +3,7 @@
  */
 import { and, count, desc, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
 import type { DB } from "../db/client";
-import { cases, decisions, scamReports, payouts, citizens, documents, auditLog, users, attestations, notices, breakGlassGrants, payoutAliasChanges } from "../db/schema";
+import { cases, decisions, scamReports, payouts, citizens, documents, auditLog, users, attestations, notices, settings, breakGlassGrants, payoutAliasChanges } from "../db/schema";
 import type { Actor } from "../lib/actor";
 import { audit } from "../lib/audit";
 import { newId } from "../lib/ids";
@@ -100,7 +100,13 @@ export async function transparency(db: DB) {
     .innerJoin(cases, eq(cases.id, payouts.caseId))
     .where(eq(payouts.status, "released"));
   const verified = await db.select({ n: sql<number>`coalesce(sum(${notices.verifyCount}),0)` }).from(notices);
+  const [people] = await db.select({ n: count() }).from(citizens);
+  const [reports] = await db.select({ n: count() }).from(scamReports);
+  const [rt] = await db.select().from(settings).where(eq(settings.key, "redteam_last"));
   return {
+    redTeam: (rt?.value as { attacksCaught: { count: number; of: number }; controlsPassed: { count: number; of: number }; ranAt: string } | undefined) ?? null,
+    peopleServed: people?.n ?? 0,
+    messagesChecked: (reports?.n ?? 0) + Number(verified[0]?.n ?? 0),
     generatedAt: new Date().toISOString(),
     prototype: true,
     decisions: totalDecisions,

@@ -4,6 +4,7 @@ import { Checker } from "@/components/site/checker";
 import { Card, CardTitle, ArrowLink, SectionHeader, BtnLink, LANE_INFO, Tag } from "@/components/brut/kit";
 import { ArtSeal, ArtHelper, ArtHandoff, ArtVoice, ArtCta } from "@/components/brut/illustrations";
 import { LiveNumbers } from "@/components/site/live-numbers";
+import { LivePulse } from "@/components/site/live-pulse";
 import * as motion from "motion/react-client";
 
 const RAILS = ["Identity registry", "Instant payments", "Income registry", "SMS short code", "Phone line (IVR)"];
@@ -57,6 +58,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
+        <LivePulse />
 
         <section aria-label="Public systems Asli works with" className="container-page">
           <div className="marquee overflow-hidden border-y border-ink/15 py-7 grayscale [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
