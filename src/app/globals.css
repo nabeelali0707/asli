@@ -188,6 +188,7 @@
 }
 
 .urdu {
+  overflow-wrap: anywhere;
   font-family: var(--font-nastaliq), "Noto Nastaliq Urdu", serif;
   direction: rtl;
   line-height: 2.1;

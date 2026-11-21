@@ -185,12 +185,15 @@ export function SpeakButton({ text, label = "Listen", tone = "light", className 
   );
 }
 
+/** Signed verify links are hundreds of characters long — show a short label instead (the spoken text keeps the full message). */
+const shortenLinks = (s: string) => s.replace(/https?:\/\/\S+/g, "[verify link]");
+
 export function Bilingual({ text, className, tone = "light", speakable = true }: { text: { en: string; ur: string }; className?: string; tone?: "light" | "dark"; speakable?: boolean }) {
   return (
-    <div className={cn("space-y-3", className)}>
-      <UrduText className="text-[1.15rem]">{text.ur}</UrduText>
-      <p className={cn("text-base", tone === "dark" ? "text-white/85" : "text-muted-ink")}>{text.en}</p>
-      {speakable && <SpeakButton text={text} tone={tone} />}
+    <div className={cn("min-w-0 space-y-3 [overflow-wrap:anywhere]", className)}>
+      <UrduText className="text-[1.15rem]">{shortenLinks(text.ur)}</UrduText>
+      <p className={cn("text-base", tone === "dark" ? "text-white/85" : "text-muted-ink")}>{shortenLinks(text.en)}</p>
+      {speakable && <SpeakButton text={{ en: shortenLinks(text.en), ur: shortenLinks(text.ur) }} tone={tone} />}
     </div>
   );
 }
