@@ -41,7 +41,7 @@ export default function TransparencyPage() {
         <section>
           <SectionHeader title="Right now">{t ? `Updated ${new Date(t.generatedAt).toLocaleString("en-GB")}` : "Loading the live counts"}</SectionHeader>
           {t ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="stagger mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <Panel><Stat value={t.decisions} label="decisions made" /></Panel>
               <Panel><Stat value={t.paymentsReleased} label={`payments released (Rs ${t.amountReleasedPKR.toLocaleString("en-PK")})`} /></Panel>
               <Panel><Stat value={t.scam.confirmedScam} label="scam messages confirmed" /></Panel>
@@ -55,7 +55,7 @@ export default function TransparencyPage() {
 
         <section>
           <SectionHeader title="The 12 hard stops">{hs?.rule ?? "Any one of these sends a case to a person, whatever the score."}</SectionHeader>
-          <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="stagger mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {hs?.hardStops.map((h) => (
               <li key={h.id} className="rounded-[28px] border border-ink bg-white p-6 shadow-hard">
                 <div className="flex items-center gap-3">

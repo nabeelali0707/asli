@@ -32,7 +32,7 @@ export default function Inbox() {
       {d.complaints.length > 0 && (
         <section>
           <SectionHeader title="Complaints" />
-          <ul className="mt-6 space-y-3">
+          <ul className="stagger mt-6 space-y-3">
             {d.complaints.map((c) => (
               <li key={c.id} className="rounded-[18px] border border-ink bg-white p-4">
                 Case <b className="font-mono">{c.ref}</b> <Tag>{c.status}</Tag> <span className="text-muted-ink">{fmtWhen(c.createdAt)}</span>
@@ -44,7 +44,7 @@ export default function Inbox() {
       {d.payoutAccountChanges.length > 0 && (
         <section>
           <SectionHeader title="Payout account changes">Money cannot go to a changed account for 48 hours.</SectionHeader>
-          <ul className="mt-6 space-y-3">
+          <ul className="stagger mt-6 space-y-3">
             {d.payoutAccountChanges.map((c) => (
               <li key={c.id} className="flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-ink bg-white p-4">
                 <span>
@@ -66,7 +66,7 @@ export default function Inbox() {
       {d.scamReportsToReview.length > 0 && (
         <section>
           <SectionHeader title="Scam reports to review" />
-          <ul className="mt-6 space-y-3">
+          <ul className="stagger mt-6 space-y-3">
             {d.scamReportsToReview.map((r) => (
               <li key={r.id} className="flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-ink bg-white p-4">
                 <span>

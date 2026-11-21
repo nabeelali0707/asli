@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useInView, type HTMLMotionProps } from "motion/react";
+import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate, type HTMLMotionProps } from "motion/react";
 import { ArrowUpRight, Volume2, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { speak } from "@/lib/api";
@@ -212,7 +212,7 @@ export function Bilingual({ text, className, tone = "light", speakable = true }:
 export function Stat({ value, label, tone = "light" }: { value: React.ReactNode; label: string; tone?: "light" | "dark" }) {
   return (
     <div>
-      <div className={cn("font-mono text-[2rem] leading-none tracking-tight", tone === "dark" ? "text-lime" : "text-black")}>{value}</div>
+      <div className={cn("font-mono text-[2rem] leading-none tracking-tight", tone === "dark" ? "text-lime" : "text-black")}>{typeof value === "number" ? <CountUp to={value} /> : value}</div>
       <div className={cn("mt-2 text-[15px]", tone === "dark" ? "text-white/80" : "text-muted-ink")}>{label}</div>
     </div>
   );
@@ -275,4 +275,18 @@ export function Stamp({ verdict, size = "lg" }: { verdict: string; size?: "lg" |
       </motion.div>
     </AnimatePresence>
   );
+}
+
+/** Number that counts up from 0 when it scrolls into view. */
+export function CountUp({ to, format = (n: number) => Math.round(n).toLocaleString("en-PK") }: { to: number; format?: (n: number) => string }) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const mv = useMotionValue(0);
+  const text = useTransform(mv, (v) => format(v));
+  React.useEffect(() => {
+    if (!inView) return;
+    const c = animate(mv, to, { duration: 1.1, ease: [0.2, 0, 0, 1] });
+    return () => c.stop();
+  }, [inView, to, mv]);
+  return <motion.span ref={ref}>{text}</motion.span>;
 }

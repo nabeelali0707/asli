@@ -27,7 +27,7 @@ function FamilyWork({ family, onExit }: { family: { citizenId: string; name: str
         </div>
         <Btn variant="secondary" onClick={onExit}>Switch family</Btn>
       </div>
-      <div className="space-y-4">
+      <div className="stagger space-y-4">
         {cases.data?.cases.length === 0 && <Empty title="No case for this family yet" />}
         {cases.data?.cases.map((c) => (
           <Card key={c.id} reveal={false} className="p-6 sm:p-8">
@@ -84,7 +84,7 @@ export default function HelperHome() {
       <h1 className="text-h1">Your <span className="marker">families</span></h1>
       <p className="max-w-[40rem] text-lead text-muted-ink">Names are hidden until the family enters its own PIN. Demo PIN for every family: <span className="font-mono">4321</span>.</p>
       {fams.loading && <Spinner />}
-      <ul className="grid gap-5 md:grid-cols-2">
+      <ul className="stagger grid gap-5 md:grid-cols-2">
         {fams.data?.families.map((f) => (
           <li key={f.consentId} className="rounded-[28px] border border-ink bg-white p-6 shadow-hard">
             <div className="flex items-start justify-between gap-3">

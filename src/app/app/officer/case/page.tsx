@@ -34,7 +34,7 @@ export default function CaseDetail() {
   const canSecond = !!s?.user.canSecondApprove;
 
   return (
-    <div className="space-y-10">
+    <div className="stagger space-y-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="font-mono text-muted-ink">Case {d.case.ref}</p>

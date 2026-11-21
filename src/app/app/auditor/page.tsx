@@ -35,7 +35,7 @@ export default function AuditPage() {
               <th className="p-3">Hash</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="stagger">
             {q.data?.entries.map((e) => (
               <tr key={e.seq} className="border-t border-ink/15">
                 <td className="p-3 font-mono">{e.seq}</td>

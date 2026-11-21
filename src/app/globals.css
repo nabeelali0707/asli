@@ -206,6 +206,35 @@
   animation-play-state: paused;
 }
 
+/* Lists and grids: children rise in one after another. Add class "stagger" to the parent. */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.stagger > * {
+  animation: rise-in 480ms cubic-bezier(0.2, 0, 0, 1) backwards;
+  animation-delay: 660ms;
+}
+.stagger > :nth-child(1) { animation-delay: 0ms; }
+.stagger > :nth-child(2) { animation-delay: 55ms; }
+.stagger > :nth-child(3) { animation-delay: 110ms; }
+.stagger > :nth-child(4) { animation-delay: 165ms; }
+.stagger > :nth-child(5) { animation-delay: 220ms; }
+.stagger > :nth-child(6) { animation-delay: 275ms; }
+.stagger > :nth-child(7) { animation-delay: 330ms; }
+.stagger > :nth-child(8) { animation-delay: 385ms; }
+.stagger > :nth-child(9) { animation-delay: 440ms; }
+.stagger > :nth-child(10) { animation-delay: 495ms; }
+.stagger > :nth-child(11) { animation-delay: 550ms; }
+.stagger > :nth-child(12) { animation-delay: 605ms; }
+/* Route change: new page fades up. */
+.route-in {
+  animation: rise-in 360ms cubic-bezier(0.2, 0, 0, 1) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stagger > *, .route-in { animation: none !important; }
+}
+
 /* Card shell: hard border + hard bottom shadow. */
 @utility brut-card {
   border: 1px solid var(--color-border-ink);

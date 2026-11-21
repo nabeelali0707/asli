@@ -20,7 +20,7 @@ export default function ConsentPage() {
           Who can <span className="marker">see your data</span>
         </h1>
         <p className="mt-3 max-w-[40rem] text-lead text-muted-ink">You gave permission for each of these. Take it back at any time. It stops on the very next request.</p>
-        <div className="mt-8 space-y-5">
+        <div className="stagger mt-8 space-y-5">
           {q.data?.grants.length === 0 && <Empty title="No permissions given" />}
           {q.data?.grants.map((g) => (
             <div key={g.id} className="rounded-[28px] border border-ink bg-white p-6 shadow-hard sm:p-8">
@@ -46,7 +46,7 @@ export default function ConsentPage() {
       </section>
       <section>
         <SectionHeader title="Who looked">Every time someone or something used your data.</SectionHeader>
-        <ul className="mt-8 divide-y divide-ink/15 rounded-[22px] border border-ink bg-white">
+        <ul className="stagger mt-8 divide-y divide-ink/15 rounded-[22px] border border-ink bg-white">
           {q.data?.accessLog.map((l, i) => (
             <li key={i} className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 text-[15px]">
               <span><span className="font-mono">{l.action}</span> <span className="text-muted-ink">by {l.actorType === "ai" ? "the AI engine" : l.actorRole}</span></span>

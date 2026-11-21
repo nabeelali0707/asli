@@ -20,7 +20,7 @@ export default function ChaosPanel() {
         Chaos <span className="marker">panel</span>
       </h1>
       <p className="max-w-[42rem] text-lead text-muted-ink">Break the mock registries on purpose. A circuit breaker should open and cases should go to a person, never get approved on missing data.</p>
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="stagger grid gap-6 lg:grid-cols-3">
         {Object.entries(q.data.services).map(([id, s]) => {
           const b = q.data!.breakers[id];
           return (

@@ -16,7 +16,7 @@ export default function Signals() {
       </h1>
       <section>
         <SectionHeader title="Needs a look">Spikes and patterns the system noticed on its own.</SectionHeader>
-        <ul className="mt-6 space-y-3">
+        <ul className="stagger mt-6 space-y-3">
           {a.data?.anomalies.length === 0 && <Empty title="Nothing unusual" />}
           {a.data?.anomalies.map((x, i) => (
             <li key={i} className="flex flex-wrap items-center gap-3 rounded-[18px] border border-ink bg-white p-4">

@@ -18,7 +18,7 @@ export default function AiDecisions() {
       </h1>
       <p className="max-w-[42rem] text-lead text-muted-ink">Every AI output is stored with its input. Replay one: the same rule version must give the same answer.</p>
       {!q.data && <Spinner />}
-      <ul className="space-y-4">
+      <ul className="stagger space-y-4">
         {q.data?.decisions.map((d) => (
           <li key={d.id} className="rounded-[22px] border border-ink bg-white p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">

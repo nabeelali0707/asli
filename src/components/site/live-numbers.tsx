@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { motion, useInView, useMotionValue, useTransform, animate } from "motion/react";
+import { motion } from "motion/react";
 import { api } from "@/lib/api";
-import { ArrowLink } from "@/components/brut/kit";
+import { ArrowLink, CountUp } from "@/components/brut/kit";
 
 type Transparency = {
   decisions: number;
@@ -14,19 +14,6 @@ type Transparency = {
   scam: { flagged: number; confirmedScam: number; falseAlarms: number; falseAlarmRate: number };
   aiNeverMovesMoney: boolean;
 };
-
-function CountUp({ to, format = (n: number) => Math.round(n).toLocaleString("en-PK") }: { to: number; format?: (n: number) => string }) {
-  const ref = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const mv = useMotionValue(0);
-  const text = useTransform(mv, (v) => format(v));
-  React.useEffect(() => {
-    if (!inView) return;
-    const c = animate(mv, to, { duration: 1.1, ease: [0.2, 0, 0, 1] });
-    return () => c.stop();
-  }, [inView, to, mv]);
-  return <motion.span ref={ref}>{text}</motion.span>;
-}
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;
 

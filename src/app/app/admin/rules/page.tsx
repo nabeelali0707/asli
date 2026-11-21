@@ -25,7 +25,7 @@ export default function RulesPage() {
         <CardTitle>
           {r.data.definition.program.name.en} · v{r.data.version}
         </CardTitle>
-        <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+        <ul className="stagger mt-5 grid gap-2 sm:grid-cols-2">
           {r.data.definition.eligibility.map((e) => (
             <li key={e.id} className="rounded-[14px] bg-mist px-4 py-3 text-[15px]">
               {e.label.en}
@@ -67,7 +67,7 @@ export default function RulesPage() {
         </Panel>
       </section>
       {m && (
-        <section className="grid gap-5 sm:grid-cols-3">
+        <section className="stagger grid gap-5 sm:grid-cols-3">
           <Panel>
             <Stat value={m.auc.toFixed(2)} label="AUC (test split)" />
           </Panel>

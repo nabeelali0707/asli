@@ -116,7 +116,7 @@ export default function CitizenHome() {
           Your <span className="marker">help</span>
         </h1>
         <p className="mt-3 text-lead text-muted-ink">Every answer here can be read aloud. Tap Listen.</p>
-        <div className="mt-8 space-y-6">
+        <div className="stagger mt-8 space-y-6">
           {cases.loading && <Spinner />}
           {cases.data?.cases.length === 0 && <Empty title="No claim yet">Tell us below and we will start one.</Empty>}
           {cases.data?.cases.map((c) => (
@@ -158,7 +158,7 @@ export default function CitizenHome() {
 
       <section>
         <SectionHeader title="Messages we sent you">Real Asli messages carry a code. Use “Check a message” to test any other.</SectionHeader>
-        <ul className="mt-8 space-y-4">
+        <ul className="stagger mt-8 space-y-4">
           {notes.data?.notifications.map((n) => (
             <li key={n.id} className="rounded-[22px] border border-ink bg-white p-5">
               <Bilingual text={n.body} />

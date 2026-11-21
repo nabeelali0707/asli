@@ -25,7 +25,7 @@ export default function OfficerQueue() {
       </div>
       {q.loading && <Spinner />}
       {!q.loading && rows.length === 0 && <Empty title="Nothing in this lane" />}
-      <ul className="space-y-3">
+      <ul key={f} className="stagger space-y-3">
         {rows.map((r) => (
           <li key={r.id}>
             <Link href={`/app/officer/case?id=${r.id}`} className="group grid items-center gap-3 rounded-[22px] border border-ink bg-white p-5 shadow-hard transition-transform hover:-translate-y-0.5 sm:grid-cols-[6rem_1fr_auto_auto]">
